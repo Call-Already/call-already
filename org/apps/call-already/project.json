@@ -1,0 +1,9 @@
+{
+  "name": "call-already",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/call-already/src",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project call-already --web",
+  "targets": {}
+}
