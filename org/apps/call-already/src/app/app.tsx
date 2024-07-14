@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { StrictMode } from 'react';
-import { CallAlreadyRouter } from './CallAlreadyRouter';
+import styled from "styled-components";
+import { StrictMode } from "react";
+import { CallAlreadyRouter } from "./CallAlreadyRouter";
 
 const StyledApp = styled.div`
   // Your style here
