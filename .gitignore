@@ -396,3 +396,14 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Prettier
+.prettierignore
+.prettierrc
+
+# Yarn lock
+yarn.lock
+../yarn.lock
+../../yarn.lock
+../../../yarn.lock
+../../../../yarn.lock
