@@ -5,9 +5,11 @@ const { join } = require('path');
 module.exports = {
   output: {
     path: join(__dirname, '../../dist/apps/call-already'),
+    publicPath: '/', // Base path for all assets, enables routing
   },
   devServer: {
     port: 4200,
+    historyApiFallback: true, // Redirects 404s to index.html
   },
   plugins: [
     new NxAppWebpackPlugin({

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-
-import NxWelcome from './nx-welcome';
+import { StrictMode } from 'react';
+import { CallAlreadyRouter } from './CallAlreadyRouter';
 
 const StyledApp = styled.div`
   // Your style here
@@ -8,9 +8,9 @@ const StyledApp = styled.div`
 
 export function App() {
   return (
-    <StyledApp>
-      <NxWelcome title="call-already" />
-    </StyledApp>
+    <StrictMode>
+      <CallAlreadyRouter />
+    </StrictMode>
   );
 }
 
