@@ -1,6 +1,22 @@
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import { ConfirmationPage, GroupPage, MyInfoPage, OverviewPage, ReviewPage, TimePage, WelcomePage } from '../pages';
-import { CONFIRMATION_ROUTE, GROUP_ROUTE, MY_INFO_ROUTE, OVERVIEW_ROUTE, REVIEW_ROUTE, TIME_ROUTE, WELCOME_ROUTE } from '../utils';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  ConfirmationPage,
+  GroupPage,
+  MyInfoPage,
+  OverviewPage,
+  ReviewPage,
+  TimePage,
+  WelcomePage,
+} from "../pages";
+import {
+  CONFIRMATION_ROUTE,
+  GROUP_ROUTE,
+  MY_INFO_ROUTE,
+  OVERVIEW_ROUTE,
+  REVIEW_ROUTE,
+  TIME_ROUTE,
+  WELCOME_ROUTE,
+} from "../utils";
 
 const browserRouter = createBrowserRouter([
   {
@@ -29,12 +45,10 @@ const browserRouter = createBrowserRouter([
   },
   {
     path: CONFIRMATION_ROUTE,
-    element: <ConfirmationPage />
+    element: <ConfirmationPage />,
   },
 ]);
 
 export function CallAlreadyRouter() {
-  return (
-    <RouterProvider router={browserRouter} />
-  )
+  return <RouterProvider router={browserRouter} />;
 }
