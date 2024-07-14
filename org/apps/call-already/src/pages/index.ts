@@ -1,1 +1,1 @@
-export {WelcomePage} from './WelcomePage';
+export {OverviewPage as WelcomePage} from './OverviewPage';
