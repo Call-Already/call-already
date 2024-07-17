@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { StrictMode } from "react";
 import { CallAlreadyRouter } from "./CallAlreadyRouter";
+import { RecoilRoot } from "recoil";
 
 const StyledApp = styled.div`
   // Your style here
@@ -9,7 +10,9 @@ const StyledApp = styled.div`
 export function App() {
   return (
     <StrictMode>
-      <CallAlreadyRouter />
+      <RecoilRoot>
+        <CallAlreadyRouter />
+      </RecoilRoot>
     </StrictMode>
   );
 }
