@@ -1,5 +1,5 @@
 import React from "react";
-import TimezoneSelect, { type ITimezone } from "react-timezone-select"
+import TimezoneSelect, { type ITimezone } from "react-timezone-select";
 import { useRecoilState } from "recoil";
 import { timezoneState } from "../state";
 
