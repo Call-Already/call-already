@@ -1,0 +1,1 @@
+export { postResponses } from "./apiGateway";
