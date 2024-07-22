@@ -12,3 +12,12 @@ body {
 * {
   font-family: 'Mukta';
 }
+
+li:not(:last-child) { 
+  margin-bottom: 2em;  
+}
+
+li i {
+  position: relative;
+  left: -0.5em;
+}

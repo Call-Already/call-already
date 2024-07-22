@@ -17,11 +17,15 @@ export const theme = {
     text: palette.primary[400],
     background: palette.primary[700],
     boxShadow: palette.primary[800],
+    hover: palette.primary[800],
+    active: palette.primary[700]
   },
   secondary: {
     text: palette.primary[400],
     background: palette.primary[500],
     boxShadow: palette.primary[600],
+    hover: palette.primary[600],
+    active: palette.primary[500]
   }
 };
 
@@ -46,11 +50,19 @@ export const Button = styled.button<{ $primary?: boolean; }>`
   box-shadow: 3px 3px ${props => props.$primary ? theme.primary.boxShadow : theme.secondary.boxShadow};
 
   width: 10em;
-  height: 3m;
+  height: 2.5em;
   
   font-size: 1em;
   margin: 1em;
   padding: 0.25em 1em;
   border-radius: 3px;
   border: none;
+
+  &:hover,
+  &:focus {
+    background: ${props => props.$primary ? theme.primary.hover : theme.secondary.hover};
+  }
+  &:active {
+    background: ${props => props.$primary ? theme.primary.active : theme.secondary.active};
+  }
 `;

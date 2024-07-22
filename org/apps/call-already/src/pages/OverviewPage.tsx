@@ -13,7 +13,7 @@ export function OverviewPage() {
   const header = "How it Works";
   const step1 = "Create a new call group or join an existing one using a room code";
   const step2 = "Choose the times you're available to call your friends, then share the room code with them";
-  const step3 = "After everyone has finished, everyone receives a email with the best time to call each other!"
+  const step3 = "After the group has finished, everyone receives a email with the best time to call each other!"
   const submitText = "Get Started";
 
   const onSubmit = () => {
@@ -23,11 +23,11 @@ export function OverviewPage() {
   return (
     <PageContainer>
       <Header>{header}</Header>
-      <ul className="fa-ul">
-        <li><span className="fa-li"><i className="fa-solid fa-user-group"></i></span>{step1}</li>
-        <li><span className="fa-li"><i className="fa-solid fa-calendar-days"></i></span>{step2}</li>
-        <li><span className="fa-li"><i className="fa-solid fa-phone"></i></span>{step3}</li>
-      </ul>
+      <ol className="fa-ul">
+        <li><span className="fa-li"><i className="fa-solid fa-user-group fa-2x"></i></span>{step1}</li>
+        <li><span className="fa-li"><i className="fa-solid fa-calendar-days fa-2x"></i></span>{step2}</li>
+        <li><span className="fa-li"><i className="fa-solid fa-phone fa-2x"></i></span>{step3}</li>
+      </ol>
       <Button $primary onClick={onSubmit}>{submitText}</Button>
     </PageContainer>
   );
