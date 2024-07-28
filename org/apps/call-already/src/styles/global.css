@@ -9,15 +9,42 @@ body {
   margin: 0;
 }
 
+#root {
+  display: flex;
+  align-items: center;
+}
+
 * {
   font-family: 'Mukta';
 }
+
+/* Stuff for Font Awesome https://fontawesome.com/ */
 
 li:not(:last-child) { 
   margin-bottom: 2em;  
 }
 
-li i {
-  position: relative;
-  left: -0.5em;
+ol {
+  left: -4em;
+}
+
+li {
+  display: flex;
+  align-items: center;
+}
+
+li div {
+  margin: 0 0 0 1em;
+}
+
+li p {
+  margin: 0px;
+}
+
+li h3 {
+  margin: 0px;
+}
+
+p {
+  word-wrap: break-word;
 }

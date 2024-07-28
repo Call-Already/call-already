@@ -29,16 +29,21 @@ export const theme = {
   }
 };
 
-export const PageContainer = styled.div`
+export const PageContainer = styled.div<{ $isMobile?: boolean }>`
   margin: auto;
   display: flex;
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
-  width: 800px;
+  width: ${props => props.$isMobile ? "360px" : "800px"};
   background: ${palette.primary[400]};
   border-radius: 1em;
   padding: 2em;
+`;
+
+export const IconList = styled.div<{ $isMobile?: boolean }>`
+  display: flex;
+  width: ${props => props.$isMobile ? "300px" : "600px"};
 `;
 
 export const Header = styled.h1`
