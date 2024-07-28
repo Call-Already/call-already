@@ -30,23 +30,42 @@ export const theme = {
 };
 
 export const PageContainer = styled.div<{ $isMobile?: boolean }>`
-  margin: auto;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  margin: 0 auto;
-  width: ${props => props.$isMobile ? "360px" : "800px"};
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: ${props => props.$isMobile ? "280px" : "880px"};
   background: ${palette.primary[400]};
   border-radius: 1em;
-  padding: 2em;
+  padding: 1em 3em 1em 3em;
 `;
 
 export const IconList = styled.div<{ $isMobile?: boolean }>`
   display: flex;
-  width: ${props => props.$isMobile ? "300px" : "600px"};
+  width: ${props => props.$isMobile ? "300px" : "880px"};
 `;
 
 export const Header = styled.h1`
+  align-text: center;
+  margin-bottom: 1em;
+`;
+
+export const SubHeader = styled.h2`
+  align-text: center;
+  margin-top: 0;
+  margin-bottom: 0;
+`;
+
+export const InfoText = styled.p`
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1em;
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 export const Button = styled.button<{ $primary?: boolean; }>`
