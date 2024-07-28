@@ -3,31 +3,30 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { nicknameState } from "../state";
 import { GROUP_ROUTE } from "../utils";
-import { Button, Header, IconList, PageContainer } from "../styles";
-import { useIsMobile } from "../utils/utils";
+import { Button, Header, IconList, PageContainer, SubHeader } from "../styles";
+import { useIsMobile } from "../utils";
 
 export function OverviewPage() {
   const nickname = useRecoilValue(nicknameState);
   const navigate = useNavigate();
   const isMobile = useIsMobile();
 
-  const listHeader = "How it Works:";
+  const header = "How it Works";
   const step1 = "Setup a call with your friends";
   const details1 = "Create a new group and share the code with your friends. Or join an existing group using a code."
   const step2 = "Share your timezone and your availability";
   const details2 = "Pick one or a few days your group agrees upon. Provide as much availability as you can to find the best times.";
   const step3 =   "CallAlready.com picks a time for you!";
   const details3 = "After the group has finished responding to the survey, everyone receives a email with their best local time to join the call.";
-  const submitText = "Get Started";
+  const submitText = "Start a Call";
   const onSubmit = () => {
     navigate(GROUP_ROUTE);
   }
   return (
     <PageContainer $isMobile={isMobile}>
-      <Header>{"Overview"}</Header>
+      <Header>{header}</Header>
       <IconList $isMobile={isMobile}>
         <ol className="fa-ul">
-          <h2>{listHeader}</h2>
           <li>
             <span className="fa-li">
               <i className="fa-solid fa-user-group fa-2x"></i>

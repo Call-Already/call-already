@@ -12,6 +12,7 @@ body {
 #root {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 * {
@@ -21,7 +22,7 @@ body {
 /* Stuff for Font Awesome https://fontawesome.com/ */
 
 li:not(:last-child) { 
-  margin-bottom: 2em;  
+  margin-bottom: 1em;  
 }
 
 ol {
