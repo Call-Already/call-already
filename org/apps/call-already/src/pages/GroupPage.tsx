@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, InfoText, PageContainer } from "../styles";
+import { Header, InfoText, Mascot, PageContainer } from "../styles";
 import { useIsMobile } from "../utils";
 
 export function GroupPage() {
@@ -8,6 +8,7 @@ export function GroupPage() {
   return (
     <PageContainer $isMobile={isMobile}>
       <Header>This is the Group page</Header>
+      <Mascot src={"/mascot_think.png"} alt="logo" />
       <InfoText>Under construction!</InfoText>
     </PageContainer>
   );

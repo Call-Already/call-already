@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { nicknameState } from "../state";
-import { Button, ButtonGroup, Header, InfoText, PageContainer } from "../styles";
+import { Button, ButtonGroup, Header, InfoText, Mascot, PageContainer } from "../styles";
 import { emitAnalytic, GROUP_ROUTE, OVERVIEW_ROUTE, useIsMobile } from "../utils";
 
 export function WelcomePage() {
@@ -31,6 +31,7 @@ export function WelcomePage() {
   return (
     <PageContainer $isMobile={isMobile}>
       <Header>{"Welcome!"}</Header>
+      <Mascot src={"/mascot_call.png"} alt="logo" />
       <InfoText>{introText}</InfoText>
       <InfoText>{introText2}</InfoText>
       <InfoText>{introText3}</InfoText>
