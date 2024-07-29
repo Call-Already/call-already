@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { nicknameState } from "../state";
 import { GROUP_ROUTE } from "../utils";
-import { Button, Header, IconList, PageContainer, SubHeader } from "../styles";
+import { Button, Header, IconList, Mascot, PageContainer, SubHeader } from "../styles";
 import { useIsMobile } from "../utils";
 
 export function OverviewPage() {
@@ -25,6 +25,7 @@ export function OverviewPage() {
   return (
     <PageContainer $isMobile={isMobile}>
       <Header>{header}</Header>
+      <Mascot src={"/mascot_work.png"} alt="logo" />
       <IconList $isMobile={isMobile}>
         <ol className="fa-ul">
           <li>

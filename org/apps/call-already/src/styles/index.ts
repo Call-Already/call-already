@@ -41,6 +41,11 @@ export const PageContainer = styled.div<{ $isMobile?: boolean }>`
   padding: 1em 3em 1em 3em;
 `;
 
+export const Mascot = styled.img`
+  width: 150px;
+  height: 150px;
+`;
+
 export const IconList = styled.div<{ $isMobile?: boolean }>`
   display: flex;
   width: ${props => props.$isMobile ? "300px" : "880px"};
