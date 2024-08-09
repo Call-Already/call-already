@@ -1,9 +1,13 @@
 import React from "react";
+import { Header, PageContainer } from "../styles";
+import { useIsMobile } from "../utils";
 
 export function ConfirmationPage() {
+  const isMobile = useIsMobile();
+
   return (
-    <>
-      <h1>This is the Confirmation page</h1>
-    </>
+    <PageContainer $isMobile={isMobile}>
+      <Header>This is the Confirmation page</Header>
+    </PageContainer>
   );
 }

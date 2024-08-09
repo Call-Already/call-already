@@ -8,7 +8,7 @@ export function GroupPage() {
   return (
     <PageContainer $isMobile={isMobile}>
       <Header>This is the Group page</Header>
-      <Mascot src={"/mascot_think.png"} alt="logo" />
+      <Mascot src={"./mascot_think.png"} alt="logo" />
       <InfoText>Under construction!</InfoText>
     </PageContainer>
   );
