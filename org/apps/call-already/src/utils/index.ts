@@ -8,6 +8,6 @@ export {
   CONFIRMATION_ROUTE,
 } from "./routes";
 
-export { env, useIsMobile } from "./utils";
+export { env, useIsMobile, generateGroupCode } from "./utils";
 
 export { emitAnalytic } from "./metrics";
