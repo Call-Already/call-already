@@ -18,7 +18,7 @@ export function ConfirmationPage() {
   return (
     <PageContainer $isMobile={isMobile}>
       <Header>{"Your times have been confirmed!"}</Header>
-      <Mascot src={"/mascot_call.png"} alt="logo" />
+      <Mascot src={"/happy.png"} alt="logo" />
       <InfoText>{introText}</InfoText>
       <Button onClick={onReturn}>{submitText}</Button>
     </PageContainer>

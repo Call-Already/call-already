@@ -31,7 +31,7 @@ export function WelcomePage() {
   return (
     <PageContainer $isMobile={isMobile}>
       <Header>{"Welcome!"}</Header>
-      <Mascot src={"/mascot_call.png"} alt="logo" />
+      <Mascot src={"/happy.png"} alt="logo" />
       <InfoText>{introText}</InfoText>
       <InfoText>{introText2}</InfoText>
       <InfoText>{introText3}</InfoText>

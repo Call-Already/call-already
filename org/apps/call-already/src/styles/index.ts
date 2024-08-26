@@ -42,8 +42,8 @@ export const PageContainer = styled.div<{ $isMobile?: boolean }>`
 `;
 
 export const Mascot = styled.img`
-  width: 150px;
-  height: 150px;
+  width: 15%;
+  height: 15%;
 `;
 
 export const IconList = styled.div<{ $isMobile?: boolean }>`
@@ -53,7 +53,6 @@ export const IconList = styled.div<{ $isMobile?: boolean }>`
 
 export const Header = styled.h1`
   align-text: center;
-  margin-bottom: 1em;
 `;
 
 export const SubHeader = styled.h2`
@@ -82,7 +81,6 @@ export const Button = styled.button<{ $primary?: boolean; }>`
   height: 2.5em;
   
   font-size: 1em;
-  margin: 1em;
   padding: 0.25em 1em;
   border-radius: 3px;
   border: none;
@@ -98,10 +96,29 @@ export const Button = styled.button<{ $primary?: boolean; }>`
 
 export const RoomCodeInput = styled.input`
   padding: .25em;
-  align-text: center;
   border-radius: .5em;
   font-size: 1.5em;
   size: 6;
   text-transform: uppercase;
   text-align: center; 
+`;
+
+export const Clipboard = styled.div`
+  align-text: left;
+  font-size: 2em;
+  border-radius: .5em;
+`;
+
+export const FormLabel = styled.label`
+  align-text: left;
+  font-size: 1em;
+`;
+
+export const TextInput = styled.input`
+  padding: .25em;
+  align-text: left;
+  border-radius: .5em;
+  font-size: 1em;
+  size: 16;
+  text-align: left; 
 `;
