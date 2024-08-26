@@ -95,3 +95,13 @@ export const Button = styled.button<{ $primary?: boolean; }>`
     background: ${props => props.$primary ? theme.primary.active : theme.secondary.active};
   }
 `;
+
+export const RoomCodeInput = styled.input`
+  padding: .25em;
+  align-text: center;
+  border-radius: .5em;
+  font-size: 1.5em;
+  size: 6;
+  text-transform: uppercase;
+  text-align: center; 
+`;
