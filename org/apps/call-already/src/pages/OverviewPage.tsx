@@ -25,7 +25,7 @@ export function OverviewPage() {
   return (
     <PageContainer $isMobile={isMobile}>
       <Header>{header}</Header>
-      <Mascot src={"/mascot_work.png"} alt="logo" />
+      <Mascot src={"/happy.png"} alt="logo" />
       <IconList $isMobile={isMobile}>
         <ol className="fa-ul">
           <li>
