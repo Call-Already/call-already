@@ -16,7 +16,7 @@ export function MyInfoPage() {
 
   const header = "My Information";
   const codeText = "Your group code:";
-  const copyText = "Copy code"
+  const copyText = "Copy code";
   const submit = "Submit";
 
   const onSubmitInfo = () => {
