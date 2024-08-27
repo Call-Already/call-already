@@ -9,6 +9,8 @@ export const TIMEZONE_STATE_KEY = "myTimezone";
 
 export const GROUP_CODE_STATE_KEY = "myGroupCode";
 
+export const IS_CREATING_GROUP_KEY = "isCreatingGroup";
+
 export const nicknameState = atom({
   key: NICKNAME_STATE_KEY,
   default: "",
@@ -24,5 +26,11 @@ export const timezoneState = atom({
 export const groupCodeState = atom({
   key: GROUP_CODE_STATE_KEY,
   default: "",
+  effects: [persistAtom],
+});
+
+export const isCreatingGroup = atom({
+  key: IS_CREATING_GROUP_KEY,
+  default: false,
   effects: [persistAtom],
 });
