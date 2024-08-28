@@ -7,7 +7,8 @@ export function ConfirmationPage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
-  const introText = "Thank you! Your responses have will be matched with your friends and we’ll let you the best time to call each other to your email.";
+  const introText =
+    "Thank you! Your responses have will be matched with your friends and we’ll let you the best time to call each other to your email.";
   const submitText = "Make another call";
 
   const onReturn = () => {

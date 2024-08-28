@@ -7,7 +7,7 @@ export const initAnalytics = () => {
     track_pageview: true,
     persistence: "localStorage",
   });
-}
+};
 
 export const emitAnalytic = (eventName: string) => {
   mixpanel.track(eventName, {

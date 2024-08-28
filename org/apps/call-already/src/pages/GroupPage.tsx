@@ -3,8 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { groupCodeState } from "../state";
 import { isCreatingGroupState } from "../state/userState";
-import { Button, Header, InfoText, PageContainer, RoomCodeInput } from "../styles";
-import { emitAnalytic, generateGroupCode, MY_INFO_ROUTE, useIsMobile } from "../utils";
+import {
+  Button,
+  Header,
+  InfoText,
+  PageContainer,
+  RoomCodeInput,
+} from "../styles";
+import {
+  emitAnalytic,
+  generateGroupCode,
+  MY_INFO_ROUTE,
+  useIsMobile,
+} from "../utils";
 
 export function GroupPage() {
   const isMobile = useIsMobile();
@@ -15,13 +26,13 @@ export function GroupPage() {
   const header = "Your Group";
   const info = "Enter a room code below to join an existing group:";
   const submitText = "Join group";
-  const info2 = "Create new group"
+  const info2 = "Create new group";
 
   const onJoinGroup = () => {
     setIsCreatingGroup(false);
     emitAnalytic("Group joined");
     navigate(MY_INFO_ROUTE);
-  }
+  };
 
   const onCreateGroup = () => {
     setIsCreatingGroup(true);
@@ -33,7 +44,7 @@ export function GroupPage() {
     // so friends can fill out the survey at the same time.
     emitAnalytic("Group created");
     navigate(MY_INFO_ROUTE);
-  }
+  };
 
   return (
     <PageContainer $isMobile={isMobile}>
@@ -41,9 +52,11 @@ export function GroupPage() {
       <InfoText>{info}</InfoText>
       <RoomCodeInput type="text" size={6} maxLength={4}></RoomCodeInput>
       <Button onClick={onJoinGroup}>{submitText}</Button>
-      <br/>
+      <br />
       <InfoText>or</InfoText>
-      <Button $primary onClick={onCreateGroup}>{info2}</Button>
+      <Button $primary onClick={onCreateGroup}>
+        {info2}
+      </Button>
     </PageContainer>
   );
 }
