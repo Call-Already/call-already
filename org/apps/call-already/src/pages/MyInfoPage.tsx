@@ -28,7 +28,8 @@ export function MyInfoPage() {
 
   const onSubmitInfo = () => {
     setNickname("");
-    setTimezone("");
+    console.log(date1);
+    console.log(date2);
     emitAnalytic("My info submitted");
     navigate(TIME_ROUTE);
   }

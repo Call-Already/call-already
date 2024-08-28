@@ -26,7 +26,7 @@ export const theme = {
     boxShadow: palette.primary[600],
     hover: palette.primary[600],
     active: palette.primary[500]
-  }
+  },
 };
 
 export const PageContainer = styled.div<{ $isMobile?: boolean }>`
@@ -92,6 +92,10 @@ export const Button = styled.button<{ $primary?: boolean; }>`
   &:active {
     background: ${props => props.$primary ? theme.primary.active : theme.secondary.active};
   }
+`;
+
+export const TimeButton = styled.button<{ $daytime?: boolean; }>`
+
 `;
 
 export const RoomCodeInput = styled.input`
