@@ -26,6 +26,13 @@ export const theme = {
     boxShadow: palette.primary[600],
     hover: palette.primary[600],
     active: palette.primary[500]
+  },
+  time: {
+    text: palette.primary[300],
+    background: palette.primary[200],
+    boxShadow: palette.primary[300],
+    hover: palette.primary[800],
+    active: palette.primary[700],
   }
 };
 
