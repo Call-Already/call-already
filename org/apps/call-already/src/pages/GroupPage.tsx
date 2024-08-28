@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { groupCodeState } from "../state";
-import { isCreatingGroup } from "../state/userState";
+import { isCreatingGroupState } from "../state/userState";
 import { Button, Header, InfoText, PageContainer, RoomCodeInput } from "../styles";
 import { emitAnalytic, generateGroupCode, MY_INFO_ROUTE, useIsMobile } from "../utils";
 
@@ -10,7 +10,7 @@ export function GroupPage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
   const setUserGroupCode = useSetRecoilState(groupCodeState);
-  const setIsCreatingGroup = useSetRecoilState(isCreatingGroup);
+  const setIsCreatingGroup = useSetRecoilState(isCreatingGroupState);
 
   const header = "Your Group";
   const info = "Enter a room code below to join an existing group:";

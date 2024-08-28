@@ -61,7 +61,8 @@ export function TimePage() {
   }
 
   const onSubmit = () => {
-    setSelectedTimesState(selectedTimes);
+    const selectedTimesList = Array.from(selectedTimes);
+    setSelectedTimesState(selectedTimesList);
     emitAnalytic("Times submitted");
     navigate(REVIEW_ROUTE);
   };

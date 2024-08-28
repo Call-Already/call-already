@@ -41,7 +41,7 @@ export const groupCodeState = atom({
   effects: [persistAtom],
 });
 
-export const isCreatingGroup = atom({
+export const isCreatingGroupState = atom({
   key: IS_CREATING_GROUP_KEY,
   default: false,
   effects: [persistAtom],
