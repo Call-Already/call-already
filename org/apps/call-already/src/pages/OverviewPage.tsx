@@ -3,7 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { nicknameState } from "../state";
 import { GROUP_ROUTE } from "../utils";
-import { Button, Header, IconList, Mascot, PageContainer, SubHeader } from "../styles";
+import {
+  Button,
+  Header,
+  IconList,
+  Mascot,
+  PageContainer,
+  SubHeader,
+} from "../styles";
 import { useIsMobile } from "../utils";
 
 export function OverviewPage() {
@@ -13,15 +20,18 @@ export function OverviewPage() {
 
   const header = "How it Works";
   const step1 = "Setup a call with your friends";
-  const details1 = "Create a new group and share the code with your friends. Or join an existing group using a code."
+  const details1 =
+    "Create a new group and share the code with your friends. Or join an existing group using a code.";
   const step2 = "Share your timezone and your availability";
-  const details2 = "Pick one or a few days your group agrees upon. Provide as much availability as you can to find the best times.";
-  const step3 =   "CallAlready.com picks a time for you!";
-  const details3 = "After the group has finished responding to the survey, everyone receives a email with their best local time to join the call.";
+  const details2 =
+    "Pick one or a few days your group agrees upon. Provide as much availability as you can to find the best times.";
+  const step3 = "CallAlready.com picks a time for you!";
+  const details3 =
+    "After the group has finished responding to the survey, everyone receives a email with their best local time to join the call.";
   const submitText = "Start a Call";
   const onSubmit = () => {
     navigate(GROUP_ROUTE);
-  }
+  };
   return (
     <PageContainer $isMobile={isMobile}>
       <Header>{header}</Header>
@@ -57,7 +67,9 @@ export function OverviewPage() {
           </li>
         </ol>
       </IconList>
-      <Button $primary onClick={onSubmit}>{submitText}</Button>
+      <Button $primary onClick={onSubmit}>
+        {submitText}
+      </Button>
     </PageContainer>
   );
 }

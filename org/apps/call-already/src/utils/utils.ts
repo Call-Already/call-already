@@ -1,23 +1,23 @@
-import moment from 'moment-timezone';
-import { useMediaQuery } from 'react-responsive';
+import moment from "moment-timezone";
+import { useMediaQuery } from "react-responsive";
 
 export const env = process.env.NODE_ENV;
 
 // Custom react hook, always starts with "use"
 export function useIsMobile() {
-  const isMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+  const isMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   return isMobile;
 }
 
 export function generateGroupCode(length: number = 4): string {
   // Define the characters to choose from (uppercase letters and digits)
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let code = '';
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let code = "";
 
   for (let i = 0; i < length; i++) {
-      // Randomly select a character from the characters string
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      code += characters[randomIndex];
+    // Randomly select a character from the characters string
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    code += characters[randomIndex];
   }
 
   return code;
@@ -25,20 +25,19 @@ export function generateGroupCode(length: number = 4): string {
 
 // Takes a date and timezone and returns a 24-hour chunk of localized times
 export function getUniversalTimeInputs(date: string) {
-  var currTimeOfDay = moment(date).tz('Etc/GMT').startOf('day');
+  var currTimeOfDay = moment(date).tz("Etc/GMT").startOf("day");
 
   const times = [];
 
   for (var i = 0; i < 24; i++) {
     times.push(currTimeOfDay.format());
-    currTimeOfDay.add(1, 'hour');
+    currTimeOfDay.add(1, "hour");
   }
 
   return times;
 }
 
 export function getLocalizedTimeInputs(times: string[], timezone: string) {
-
   const localizedTimes = [];
 
   for (var i = 0; i < times.length; i++) {
@@ -51,8 +50,7 @@ export function getLocalizedTimeInputs(times: string[], timezone: string) {
   return localizedTimes;
 }
 
-export function isDaytimeHours(time: string) : boolean {
-
+export function isDaytimeHours(time: string): boolean {
   const isPM = time.includes("pm");
 
   const num = Number(time.substring(0, time.length - 2));

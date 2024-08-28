@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Mukta');
+@import url("https://fonts.googleapis.com/css?family=Mukta");
 
 body {
-  background: #DDDDDD;
+  background: #dddddd;
   display: flex;
   justify-content: center;
   width: 100vw;
@@ -16,13 +16,13 @@ body {
 }
 
 * {
-  font-family: 'Mukta';
+  font-family: "Mukta";
 }
 
 /* Stuff for Font Awesome https://fontawesome.com/ */
 
-li:not(:last-child) { 
-  margin-bottom: 1em;  
+li:not(:last-child) {
+  margin-bottom: 1em;
 }
 
 ol {
