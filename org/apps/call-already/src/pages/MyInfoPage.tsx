@@ -48,7 +48,8 @@ export function MyInfoPage() {
       <FormLabel htmlFor="timezone">Timezone</FormLabel>
       <TimezoneSelect id="timezone" value={timezone} onChange={setTimezone} />
 
-      <DatePicker selected={date1} onChange={(date) => setDate1(date)} />
+      <FormLabel htmlFor="date">Call Date</FormLabel>
+      <DatePicker id="date" selected={date1} onChange={(date) => setDate1(date)} />
       <DatePicker selected={date2} onChange={(date) => setDate2(date)} />
 
       <Button $primary onClick={onSubmitInfo}>{submit}</Button>

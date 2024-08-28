@@ -57,7 +57,7 @@ export function isDaytimeHours(time: string) : boolean {
 
   const num = Number(time.substring(0, time.length - 2));
 
-  if (isPM && num !== 12 && num > 9) {
+  if (isPM && num !== 12 && num > 8) {
     return false;
   } else if (!isPM && (num < 8 || num === 12)) {
     return false;

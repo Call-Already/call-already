@@ -7,6 +7,8 @@ export const NICKNAME_STATE_KEY = "nickname";
 
 export const TIMEZONE_STATE_KEY = "myTimezone";
 
+export const SELECTED_TIMES_KEY = "mySelectedTimes";
+
 export const GROUP_CODE_STATE_KEY = "myGroupCode";
 
 export const IS_CREATING_GROUP_KEY = "isCreatingGroup";
@@ -24,6 +26,12 @@ export const nicknameState = atom({
 export const timezoneState = atom({
   key: TIMEZONE_STATE_KEY,
   default: "",
+  effects: [persistAtom],
+});
+
+export const selectedTimesState = atom({
+  key: SELECTED_TIMES_KEY,
+  default: [],
   effects: [persistAtom],
 });
 
