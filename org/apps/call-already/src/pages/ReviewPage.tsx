@@ -2,7 +2,7 @@ import moment from "moment";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { postResponses } from "../gateways";
+import { postResponses, PostResponsesProps } from "../gateways";
 import {
   date1State,
   groupCodeState,
@@ -43,9 +43,22 @@ export function ReviewPage() {
   const submitText = "Submit";
 
   async function onSubmit() {
-    const serverResponse = await postResponses();
-    console.log(serverResponse);
-    navigate(CONFIRMATION_ROUTE);
+    const emailValue = (document.getElementById("email") as HTMLInputElement).value;
+    const props : PostResponsesProps = {
+      ID: groupCode,
+      Nickname: nickname,
+      Email: emailValue,
+      Timezone: timezone.value,
+      SelectedTimes: selectedTimes,
+      IsGroupCreator: isCreatingGroup,
+    };
+    const serverResponse = await postResponses(props);
+    if (serverResponse.status === 200) {
+      navigate(CONFIRMATION_ROUTE);
+    } else {
+      // Handle post responses failure.
+      console.log(serverResponse);
+    }
   }
 
   return (

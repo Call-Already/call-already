@@ -1,1 +1,1 @@
-export { postResponses } from "./apiGateway";
+export { PostResponsesProps, postResponses } from "./apiGateway";

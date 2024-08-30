@@ -40,9 +40,8 @@ export function MyInfoPage() {
   const submit = "Submit";
 
   const onSubmitInfo = () => {
-    setNickname("");
-    console.log(date1);
-    console.log(date2);
+    const nicknameValue = (document.getElementById("nickname") as HTMLInputElement).value;
+    setNickname(nicknameValue);
     emitAnalytic("My info submitted");
     navigate(TIME_ROUTE);
   };

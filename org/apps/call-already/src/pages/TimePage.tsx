@@ -9,7 +9,7 @@ import {
   selectedTimesState,
   timezoneState,
 } from "../state";
-import { Button, Header, InfoText, PageContainer } from "../styles";
+import { Button, Header, InfoText, PageContainer, palette, theme } from "../styles";
 import {
   getLocalizedTimeInputs,
   getUniversalTimeInputs,
@@ -50,10 +50,10 @@ export function TimePage() {
   const toggleColor = (utcTime: string) => {
     const button: HTMLElement | null = document.getElementById(`${utcTime}`);
     if (button !== null) {
-      if (button.style.background !== "green") {
-        button.style.background = "green";
+      if (button.style.background !== palette.primary[200]) {
+        button.style.background = palette.primary[300];
       } else {
-        button.style.background = "white";
+        button.style.background = palette.primary[200];
       }
     }
   };

@@ -5,7 +5,16 @@ const instance = axios.create({
   timeout: 5000,
 });
 
-export async function postResponses() {
-  const serverResponse = await instance.post("/post-responses", {});
+export type PostResponsesProps = {
+  ID: string;
+  Nickname: string;
+  Email: string,
+  Timezone: string;
+  SelectedTimes: string[];
+  IsGroupCreator: boolean;
+};
+
+export async function postResponses(props: PostResponsesProps) {
+  const serverResponse = await instance.post("/post-responses", props);
   return serverResponse;
 }
