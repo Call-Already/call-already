@@ -134,3 +134,11 @@ export const TextInput = styled.input`
   size: 16;
   text-align: left;
 `;
+
+export const NumberInput = styled.input`
+
+`;
+
+export const CheckboxInput = styled.input`
+
+`;
