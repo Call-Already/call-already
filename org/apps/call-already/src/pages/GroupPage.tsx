@@ -1,5 +1,6 @@
-import React from "react";
-import DatePicker from "react-datepicker";
+import React, { useState } from "react";
+// import 'dayjs/locale/ru';
+import { DatePicker } from '@mantine/dates';
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { createGroup, CreateGroupProps } from "../gateways";
@@ -22,7 +23,10 @@ import {
   useIsMobile,
 } from "../utils";
 
-import "react-datepicker/dist/react-datepicker.css";
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+import { closeOnEscape } from "@mantine/core";
+import moment from "moment";
 
 export function GroupPage() {
   const isMobile = useIsMobile();
@@ -71,6 +75,16 @@ export function GroupPage() {
     }
   };
 
+  const defaultDate = moment(new Date()).add(2, 'day').toDate();
+  const minDate = moment(new Date()).toDate();
+  const maxDate = moment(new Date()).add(14, 'day').toDate();
+  const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
+
+  const onDatesChange = (dates: [Date | null, Date | null]) => {
+    console.log(dates);
+    setValue(dates);
+  };
+
   return (
     <PageContainer $isMobile={isMobile}>
       <Header>{header}</Header>
@@ -84,12 +98,25 @@ export function GroupPage() {
       <FormLabel htmlFor="showUsers">Show other callers when picking times</FormLabel>
       <CheckboxInput id="showUsers" type="checkbox"></CheckboxInput>
       <FormLabel htmlFor="date">Call Date</FormLabel>
-      <DatePicker
+      <InfoText>Please select one to three days in the next two weeks.</InfoText>
+      <DatePicker type="range"
+        allowSingleDateInRange
+        defaultDate={defaultDate}
+        firstDayOfWeek={0}
+        value={value}
+        minDate={minDate}
+        maxDate={maxDate}
+        maxLevel={"month"}
+        size="md"
+        locale={"ru"}
+        onChange={onDatesChange} />;
+
+      {/* <DatePicker
         id="date"
         selected={date1}
         onChange={(date) => setDate1(date)}
       />
-      <DatePicker selected={date2} onChange={(date) => setDate2(date)} />
+      <DatePicker selected={date2} onChange={(date) => setDate2(date)} /> */}
       <Button $primary onClick={onCreateGroup}>
         {info2}
       </Button>
