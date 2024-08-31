@@ -1,14 +1,8 @@
 import React from "react";
-import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
 import TimezoneSelect from "react-timezone-select";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { groupCodeState, nicknameState, timezoneState } from "../state";
-import {
-  date1State,
-  date2State,
-  isCreatingGroupState,
-} from "../state/userState";
 import {
   Clipboard,
   Button,
@@ -20,19 +14,13 @@ import {
 } from "../styles";
 import { emitAnalytic, TIME_ROUTE, useIsMobile } from "../utils";
 
-import "react-datepicker/dist/react-datepicker.css";
-
 export function MyInfoPage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
   const groupCode = useRecoilValue(groupCodeState);
-  const isCreatingGroup = useRecoilValue(isCreatingGroupState);
   const setNickname = useSetRecoilState(nicknameState);
   const [timezone, setTimezone] = useRecoilState(timezoneState);
-
-  const [date1, setDate1] = useRecoilState(date1State);
-  const [date2, setDate2] = useRecoilState(date2State);
 
   const header = "My Information";
   const codeText = "Your group code:";
@@ -61,19 +49,6 @@ export function MyInfoPage() {
       <TextInput id="nickname" type="text"></TextInput>
       <FormLabel htmlFor="timezone">Timezone</FormLabel>
       <TimezoneSelect id="timezone" value={timezone} onChange={setTimezone} />
-
-      {isCreatingGroup && (
-        <>
-          <FormLabel htmlFor="date">Call Date</FormLabel>
-          <DatePicker
-            id="date"
-            selected={date1}
-            onChange={(date) => setDate1(date)}
-          />
-          <DatePicker selected={date2} onChange={(date) => setDate2(date)} />
-        </>
-      )}
-
       <Button $primary onClick={onSubmitInfo}>
         {submit}
       </Button>

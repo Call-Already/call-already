@@ -21,6 +21,7 @@ import {
 } from "../styles";
 import {
   CONFIRMATION_ROUTE,
+  emitAnalytic,
   getLocalizedTimeInputs,
   useIsMobile,
 } from "../utils";
@@ -54,6 +55,7 @@ export function ReviewPage() {
     };
     const serverResponse = await postResponses(props);
     if (serverResponse.status === 200) {
+      emitAnalytic("Responses submitted");
       navigate(CONFIRMATION_ROUTE);
     } else {
       // Handle post responses failure.
