@@ -44,8 +44,9 @@ export function ReviewPage() {
   const submitText = "Submit";
 
   async function onSubmit() {
-    const emailValue = (document.getElementById("email") as HTMLInputElement).value;
-    const props : PostResponsesProps = {
+    const emailValue = (document.getElementById("email") as HTMLInputElement)
+      .value;
+    const props: PostResponsesProps = {
       ID: groupCode,
       Nickname: nickname,
       Email: emailValue,

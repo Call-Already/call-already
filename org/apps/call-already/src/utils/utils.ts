@@ -55,44 +55,46 @@ export function getLocalizedTimeInputs(times: string[], timezone: string) {
   return localizedTimes;
 }
 
-  // Takes a beginning and end date, returning an array
-  // of dates that fall within the range of the two.
-  export function getDatesInRange(pickedDays: any) {
-
-    if (pickedDays.length === 0) {
-      throw new Error('Date range must include at least one date');
-    }
-
-    // Only one day from datepicker, return it in UTC format
-    if (pickedDays.length === 1) {
-      return [moment(pickedDays[0]).tz('UTC').startOf("day").format()];
-    }
-
-    // Tranform first day into moment
-    // Format it as a short date
-    const firstDate = pickedDays[0];
-    const simpleFirstDay = moment(firstDate).format('l');
-
-    // Transform second day into moment
-    // Format it as a short date
-    const lateDate = pickedDays[1];
-    const simpleLastDay = moment(lateDate).format('l');
-    
-    // Loop through the days until the first day
-    // becomes the second day, adding them to a 
-    // date array in full UTC format.
-    let simpleCurrentDay = simpleFirstDay;
-    let utcCurrentDay = moment(simpleCurrentDay).tz('UTC').startOf("day").format();
-    const utcDatesToReturn = [utcCurrentDay];
-    while (simpleCurrentDay !== simpleLastDay) {
-      simpleCurrentDay = moment(simpleCurrentDay).add(1, 'day').format('l');
-      utcCurrentDay = moment(simpleCurrentDay).tz('UTC').startOf("day").format();
-      utcDatesToReturn.push(utcCurrentDay);
-    }
-
-    // Return the UTC days array.
-    return utcDatesToReturn;
+// Takes a beginning and end date, returning an array
+// of dates that fall within the range of the two.
+export function getDatesInRange(pickedDays: any) {
+  if (pickedDays.length === 0) {
+    throw new Error("Date range must include at least one date");
   }
+
+  // Only one day from datepicker, return it in UTC format
+  if (pickedDays.length === 1) {
+    return [moment(pickedDays[0]).tz("UTC").startOf("day").format()];
+  }
+
+  // Tranform first day into moment
+  // Format it as a short date
+  const firstDate = pickedDays[0];
+  const simpleFirstDay = moment(firstDate).format("l");
+
+  // Transform second day into moment
+  // Format it as a short date
+  const lateDate = pickedDays[1];
+  const simpleLastDay = moment(lateDate).format("l");
+
+  // Loop through the days until the first day
+  // becomes the second day, adding them to a
+  // date array in full UTC format.
+  let simpleCurrentDay = simpleFirstDay;
+  let utcCurrentDay = moment(simpleCurrentDay)
+    .tz("UTC")
+    .startOf("day")
+    .format();
+  const utcDatesToReturn = [utcCurrentDay];
+  while (simpleCurrentDay !== simpleLastDay) {
+    simpleCurrentDay = moment(simpleCurrentDay).add(1, "day").format("l");
+    utcCurrentDay = moment(simpleCurrentDay).tz("UTC").startOf("day").format();
+    utcDatesToReturn.push(utcCurrentDay);
+  }
+
+  // Return the UTC days array.
+  return utcDatesToReturn;
+}
 
 export function isDaytimeHours(time: string): boolean {
   const isPM = time.includes("pm");

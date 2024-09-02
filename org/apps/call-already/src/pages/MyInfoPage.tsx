@@ -28,7 +28,9 @@ export function MyInfoPage() {
   const submit = "Submit";
 
   const onSubmitInfo = () => {
-    const nicknameValue = (document.getElementById("nickname") as HTMLInputElement).value;
+    const nicknameValue = (
+      document.getElementById("nickname") as HTMLInputElement
+    ).value;
     setNickname(nicknameValue);
     emitAnalytic("My info submitted");
     navigate(TIME_ROUTE);

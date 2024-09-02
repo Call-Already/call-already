@@ -8,7 +8,7 @@ const instance = axios.create({
 export type PostResponsesProps = {
   ID: string;
   Nickname: string;
-  Email: string,
+  Email: string;
   Timezone: string;
   SelectedTimes: string[];
   IsGroupCreator: boolean;

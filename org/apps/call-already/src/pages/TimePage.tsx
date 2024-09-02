@@ -3,12 +3,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { TimeButton } from "../components";
+import { selectedDaysState, selectedTimesState, timezoneState } from "../state";
 import {
-  selectedDaysState,
-  selectedTimesState,
-  timezoneState,
-} from "../state";
-import { Button, Header, InfoText, PageContainer, palette, theme } from "../styles";
+  Button,
+  Header,
+  InfoText,
+  PageContainer,
+  palette,
+  theme,
+} from "../styles";
 import {
   getLocalizedTimeInputs,
   getUniversalTimeInputs,

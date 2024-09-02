@@ -135,10 +135,6 @@ export const TextInput = styled.input`
   text-align: left;
 `;
 
-export const NumberInput = styled.input`
+export const NumberInput = styled.input``;
 
-`;
-
-export const CheckboxInput = styled.input`
-
-`;
+export const CheckboxInput = styled.input``;
