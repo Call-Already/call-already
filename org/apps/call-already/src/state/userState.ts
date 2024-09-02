@@ -15,10 +15,6 @@ export const GROUP_CODE_STATE_KEY = "myGroupCode";
 
 export const IS_CREATING_GROUP_KEY = "isCreatingGroup";
 
-export const DATE_1_KEY = "date1Key";
-
-export const DATE_2_KEY = "date2Key";
-
 export const nicknameState = atom({
   key: NICKNAME_STATE_KEY,
   default: "",
@@ -52,17 +48,5 @@ export const groupCodeState = atom({
 export const isCreatingGroupState = atom({
   key: IS_CREATING_GROUP_KEY,
   default: false,
-  effects: [persistAtom],
-});
-
-export const date1State = atom({
-  key: DATE_1_KEY,
-  default: new Date(),
-  effects: [persistAtom],
-});
-
-export const date2State = atom({
-  key: DATE_2_KEY,
-  default: new Date(),
   effects: [persistAtom],
 });

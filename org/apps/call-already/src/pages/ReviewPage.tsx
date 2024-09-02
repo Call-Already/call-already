@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { postResponses, PostResponsesProps } from "../gateways";
 import {
-  date1State,
   groupCodeState,
   isCreatingGroupState,
   nicknameState,
+  selectedDaysState,
   selectedTimesState,
   timezoneState,
 } from "../state";
@@ -34,7 +34,7 @@ export function ReviewPage() {
   const nickname = useRecoilValue(nicknameState);
   const timezone = useRecoilValue(timezoneState);
   const isCreatingGroup = useRecoilValue(isCreatingGroupState);
-  const date1 = useRecoilValue(date1State);
+  const selectedDays = useRecoilValue(selectedDaysState);
   const selectedTimes = useRecoilValue(selectedTimesState);
 
   const header = "Review";
@@ -74,8 +74,7 @@ export function ReviewPage() {
       )}
       <InfoText>{nickname}</InfoText>
       <InfoText>{timezone.value}</InfoText>
-      <InfoText>{moment(date1).format("ll")}</InfoText>
-      <InfoText>{selectedTimes}</InfoText>
+      <InfoText>{selectedDays}</InfoText>
       <InfoText>
         {getLocalizedTimeInputs(selectedTimes, timezone.value)}
       </InfoText>

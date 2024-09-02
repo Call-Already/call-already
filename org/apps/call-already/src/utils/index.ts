@@ -14,6 +14,7 @@ export {
   generateGroupCode,
   getUniversalTimeInputs,
   getLocalizedTimeInputs,
+  getDatesInRange,
   isDaytimeHours,
 } from "./utils";
 

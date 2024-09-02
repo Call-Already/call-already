@@ -1,11 +1,9 @@
-import moment from "moment";
+import moment, { utc } from "moment";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { TimeButton } from "../components";
 import {
-  date1State,
-  date2State,
   selectedDaysState,
   selectedTimesState,
   timezoneState,
@@ -24,8 +22,6 @@ export function TimePage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
-  // const date1 = useRecoilValue(date1State);
-  // const date2 = useRecoilValue(date2State);
   const selectedDays = useRecoilValue(selectedDaysState);
   const timezone = useRecoilValue(timezoneState);
   const setSelectedTimesState = useSetRecoilState(selectedTimesState);
@@ -49,6 +45,7 @@ export function TimePage() {
     }
   };
 
+  // Function for toggling the background of a TimeButton.
   const toggleColor = (utcTime: string) => {
     const button: HTMLElement | null = document.getElementById(`${utcTime}`);
     if (button !== null) {
@@ -62,8 +59,12 @@ export function TimePage() {
 
   // Create a list of time selector buttons.
   for (var i = 0; i < localTimes.length; i++) {
+    // Key of the button is set to UTC time.
     const utcTime = utcTimes[i];
-    const localTime = localTimes[i];
+    // Title of the button is set to the local time.
+    const localTime = moment(utcTime).tz(timezone.value).format("ha");
+    // Determines the icon for the time button.
+    const isDaytime = isDaytimeHours(localTime);
     const button = (
       <TimeButton
         key={utcTime}
@@ -72,7 +73,8 @@ export function TimePage() {
           onTimeSelected(utcTime);
           toggleColor(utcTime);
         }}
-        title={moment(localTime).tz(timezone.value).format("ha")}
+        isDaytime={isDaytime}
+        title={localTime}
       />
     );
     timeSelectors.push(button);
