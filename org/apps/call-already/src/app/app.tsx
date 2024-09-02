@@ -4,6 +4,11 @@ import { CallAlreadyRouter } from "./CallAlreadyRouter";
 import { RecoilRoot } from "recoil";
 import { initAnalytics } from "../utils/metrics";
 import "../styles/global.css";
+import { createTheme, MantineProvider } from "@mantine/core";
+
+const theme = createTheme({
+  /** Your theme override here */
+});
 
 export function App() {
   initAnalytics();
@@ -11,7 +16,9 @@ export function App() {
   return (
     <StrictMode>
       <RecoilRoot>
-        <CallAlreadyRouter />
+        <MantineProvider theme={theme} cssVariablesSelector="html">
+          <CallAlreadyRouter />
+        </MantineProvider>
       </RecoilRoot>
     </StrictMode>
   );

@@ -23,20 +23,25 @@ export function generateGroupCode(length: number = 4): string {
   return code;
 }
 
-// Takes a date and timezone and returns a 24-hour chunk of localized times
-export function getUniversalTimeInputs(date: string) {
-  var currTimeOfDay = moment(date).tz("Etc/GMT").startOf("day");
-
+// Takes dates and returns all UTC times by hour
+export function getUniversalTimeInputs(dates: string[]) {
+  // Create a UTC times array for all days
   const times = [];
 
-  for (var i = 0; i < 24; i++) {
-    times.push(currTimeOfDay.format());
-    currTimeOfDay.add(1, "hour");
+  // For each date, add all the localized times
+  for (var i = 0; i < dates.length; i++) {
+    const currentDate = dates[i];
+    var currTimeOfDay = moment(currentDate).tz("UTC").startOf("day");
+    for (var j = 0; j < 24; j++) {
+      times.push(currTimeOfDay.format());
+      currTimeOfDay.add(1, "hour");
+    }
   }
 
   return times;
 }
 
+// Takes times and timezone and returns all localized times by hour
 export function getLocalizedTimeInputs(times: string[], timezone: string) {
   const localizedTimes = [];
 

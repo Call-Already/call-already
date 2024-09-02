@@ -6,6 +6,7 @@ import { TimeButton } from "../components";
 import {
   date1State,
   date2State,
+  selectedDaysState,
   selectedTimesState,
   timezoneState,
 } from "../state";
@@ -23,8 +24,9 @@ export function TimePage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
-  const date1 = useRecoilValue(date1State);
-  const date2 = useRecoilValue(date2State);
+  // const date1 = useRecoilValue(date1State);
+  // const date2 = useRecoilValue(date2State);
+  const selectedDays = useRecoilValue(selectedDaysState);
   const timezone = useRecoilValue(timezoneState);
   const setSelectedTimesState = useSetRecoilState(selectedTimesState);
 
@@ -33,7 +35,7 @@ export function TimePage() {
   // Load in the correct time ranges for the call
   // localized to the user and based on
   // Coordinated Universal Time UTC+0.
-  const utcTimes = getUniversalTimeInputs(date1);
+  const utcTimes = getUniversalTimeInputs(selectedDays);
   const localTimes = getLocalizedTimeInputs(utcTimes, timezone.value);
 
   const timeSelectors = [];
