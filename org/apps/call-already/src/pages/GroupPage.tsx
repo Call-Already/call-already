@@ -4,7 +4,7 @@ import { DatePicker } from '@mantine/dates';
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { createGroup, CreateGroupProps } from "../gateways";
-import { date1State, date2State, groupCodeState } from "../state";
+import { date1State, date2State, groupCodeState, selectedDaysState, selectedTimesState } from "../state";
 import { isCreatingGroupState } from "../state";
 import {
   Button,
@@ -35,8 +35,11 @@ export function GroupPage() {
   const setUserGroupCode = useSetRecoilState(groupCodeState);
   const setIsCreatingGroup = useSetRecoilState(isCreatingGroupState);
 
+  const [pickedDays, selectPickedDays] = useState<[Date | null, Date | null]>([null, null]);
+
   const [date1, setDate1] = useRecoilState(date1State);
   const [date2, setDate2] = useRecoilState(date2State);
+  const setSelectedDays = useSetRecoilState(selectedDaysState);
 
   const header = "Your Group";
   const info = "Enter a room code below to join an existing group:";
@@ -49,7 +52,51 @@ export function GroupPage() {
     navigate(MY_INFO_ROUTE);
   };
 
+  function getDatesInRange(pickedDays: any) {
+
+    if (pickedDays.length === 0) {
+      throw new Error('Date range must include at least one date');
+    }
+
+    // Only one day from datepicker, return it in UTC format
+    if (pickedDays.length === 1) {
+      return [moment(pickedDays[0]).tz('UTC').startOf("day").format()];
+    }
+
+    // Tranform first day into moment
+    // Format it as a short date
+    const firstDate = pickedDays[0];
+    const simpleFirstDay = moment(firstDate).format('l');
+
+    // Transform second day into moment
+    // Format it as a short date
+    const lateDate = pickedDays[1];
+    const simpleLastDay = moment(lateDate).format('l');
+    
+    // Loop through the days until the first day
+    // becomes the second day, adding them to a 
+    // date array in full UTC format.
+    let simpleCurrentDay = simpleFirstDay;
+    let utcCurrentDay = moment(simpleCurrentDay).tz('UTC').startOf("day").format();
+    const utcDatesToReturn = [utcCurrentDay];
+    while (simpleCurrentDay !== simpleLastDay) {
+      simpleCurrentDay = moment(simpleCurrentDay).add(1, 'day').format('l');
+      utcCurrentDay = moment(simpleCurrentDay).tz('UTC').startOf("day").format();
+      utcDatesToReturn.push(utcCurrentDay);
+    }
+
+    // Return the UTC days array.
+    return utcDatesToReturn;
+  }
+
   async function onCreateGroup() {
+    const selectedDays = getDatesInRange(pickedDays);
+    setSelectedDays(selectedDays);
+    console.log(selectedDays);
+    // const day1 = moment(pickedDays[0]).tz('UTC').format();
+    // const day2 = moment(pickedDays[1]).tz('UTC').format();
+    // setSelectedDays([day1, day2]);
+
     const numUsersValue = (document.getElementById("numUsers") as HTMLInputElement).value;
     const showUsersValue = (document.getElementById("showUsers") as HTMLInputElement).value;
     setIsCreatingGroup(true);
@@ -63,7 +110,7 @@ export function GroupPage() {
       ID: groupCode,
       NumUsers: Number(numUsersValue),
       ShowUsers: Boolean(showUsersValue),
-      CallDates: [date1]
+      CallDates: selectedDays
     };
     const serverResponse = await createGroup(createGroupProps);
     if (serverResponse.status === 200) {
@@ -75,15 +122,10 @@ export function GroupPage() {
     }
   };
 
+  // Parameters for date picker component.
   const defaultDate = moment(new Date()).add(2, 'day').toDate();
   const minDate = moment(new Date()).toDate();
   const maxDate = moment(new Date()).add(14, 'day').toDate();
-  const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
-
-  const onDatesChange = (dates: [Date | null, Date | null]) => {
-    console.log(dates);
-    setValue(dates);
-  };
 
   return (
     <PageContainer $isMobile={isMobile}>
@@ -103,13 +145,13 @@ export function GroupPage() {
         allowSingleDateInRange
         defaultDate={defaultDate}
         firstDayOfWeek={0}
-        value={value}
         minDate={minDate}
         maxDate={maxDate}
         maxLevel={"month"}
         size="md"
-        locale={"ru"}
-        onChange={onDatesChange} />;
+        locale={"en"}
+        value={pickedDays}
+        onChange={selectPickedDays} />;
 
       {/* <DatePicker
         id="date"
