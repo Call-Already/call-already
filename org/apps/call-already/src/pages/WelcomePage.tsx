@@ -4,7 +4,7 @@ import { useSetRecoilState } from "recoil";
 import { nicknameState } from "../state";
 import {
   Button,
-  ButtonGroup,
+  Group,
   Header,
   InfoText,
   Mascot,
@@ -50,12 +50,12 @@ export function WelcomePage() {
       <InfoText>{introText}</InfoText>
       <InfoText>{introText2}</InfoText>
       <InfoText>{introText3}</InfoText>
-      <ButtonGroup>
+      <Group>
         <Button onClick={onLearnMore}>{submitText}</Button>
         <Button $primary onClick={onGetStarted}>
           {submitText2}
         </Button>
-      </ButtonGroup>
+      </Group>
     </PageContainer>
   );
 }

@@ -1,16 +1,18 @@
 import moment, { utc } from "moment";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { TimeButton } from "../components";
+import { Banner, ErrorObject, TimeButton } from "../components";
 import { selectedDaysState, selectedTimesState, timezoneState } from "../state";
 import {
   Button,
+  CardContainer,
+  CheckboxInput,
+  Group,
   Header,
   InfoText,
   PageContainer,
   palette,
-  theme,
 } from "../styles";
 import {
   getLocalizedTimeInputs,
@@ -28,6 +30,8 @@ export function TimePage() {
   const selectedDays = useRecoilValue(selectedDaysState);
   const timezone = useRecoilValue(timezoneState);
   const setSelectedTimesState = useSetRecoilState(selectedTimesState);
+
+  const [error, setError] = useState<ErrorObject>({});
 
   const header = "Select times";
 
@@ -85,36 +89,49 @@ export function TimePage() {
 
   const onSubmit = () => {
     const selectedTimesList = Array.from(selectedTimes);
-    setSelectedTimesState(selectedTimesList);
-    emitAnalytic("Times submitted");
-    navigate(REVIEW_ROUTE);
+    if (selectedTimesList.length > 0) {
+      setSelectedTimesState(selectedTimesList);
+      emitAnalytic("Times submitted");
+      navigate(REVIEW_ROUTE);
+    } else {
+      setError({message: "Please provide at least one time you're available."});
+    }
   };
 
   let currentDay = "";
   return (
     <PageContainer $isMobile={isMobile}>
+      {error.message && <Banner message={error.message} onClose={() => setError({})} />}
       <Header>{header}</Header>
       <InfoText>Showing times local to you in {timezone.value}</InfoText>
-      {timeSelectors.map((button) => {
-        const localMoment = moment(button.key).tz(timezone.value);
-        const localTime = localMoment.format("ha");
-        const localDay = localMoment.format("ll");
-        if (isDaytimeHours(localTime)) {
-          if (localDay !== currentDay) {
-            currentDay = localDay;
-            return (
-              <>
-                <p>{localDay}</p>
-                {button}
-              </>
-            );
+      <Group>
+        <CheckboxInput id="showNightTimes" type="checkbox"></CheckboxInput>
+        <InfoText>
+          Show night times
+        </InfoText> 
+      </Group>
+      <CardContainer $isMobile={isMobile}>
+        {timeSelectors.map((button) => {
+          const localMoment = moment(button.key).tz(timezone.value);
+          const localTime = localMoment.format("ha");
+          const localDay = localMoment.format("ll");
+          if (isDaytimeHours(localTime)) {
+            if (localDay !== currentDay) {
+              currentDay = localDay;
+              return (
+                <>
+                  <p>{localDay}</p>
+                  {button}
+                </>
+              );
+            } else {
+              return button;
+            }
           } else {
-            return button;
+            return <></>;
           }
-        } else {
-          return <></>;
-        }
-      })}
+        })}
+      </CardContainer>
       <Button onClick={onSubmit}>Submit</Button>
     </PageContainer>
   );

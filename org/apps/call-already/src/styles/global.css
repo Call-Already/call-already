@@ -49,3 +49,12 @@ li h3 {
 p {
   word-wrap: break-word;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  opacity: 1;
+  width: 30px;
+  height: 30px;
+  background-color: black;
+}
