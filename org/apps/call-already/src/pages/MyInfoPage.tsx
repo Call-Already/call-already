@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TimezoneSelect from "react-timezone-select";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { Banner, ErrorObject } from "../components";
-import { groupCodeState, nicknameState, timezoneState } from "../state";
+import { Banner, ErrorObject, IconHeader, Progress } from "../components";
+import { groupCodeState, isCreatingGroupState, nicknameState, timezoneState } from "../state";
 import {
   Clipboard,
   Button,
@@ -23,15 +23,18 @@ export function MyInfoPage() {
   const navigate = useNavigate();
 
   const groupCode = useRecoilValue(groupCodeState);
+  const isCreatingGroup = useRecoilValue(isCreatingGroupState);
   const setNickname = useSetRecoilState(nicknameState);
   const [timezone, setTimezone] = useRecoilState(timezoneState);
 
   const [error, setError] = useState<ErrorObject>({});
 
-  const header = "My Information";
+  const header = "About you";
+  const subHeader = "My Information";
   const codeText = "Group Code";
   const shareText = "Invite your friends to callalready.com and share this code with them."
   const copyText = "Copy code";
+  const provideNicknameText = "Please provide a nickname";
   const submit = "Submit";
 
   const onSubmitInfo = () => {
@@ -43,7 +46,7 @@ export function MyInfoPage() {
       emitAnalytic("My info submitted");
       navigate(TIME_ROUTE);
     } else {
-      setError({message: "Please provide a nickname for yourself"});
+      setError({message: provideNicknameText});
     }
   };
 
@@ -53,17 +56,22 @@ export function MyInfoPage() {
 
   return (
     <PageContainer $isMobile={isMobile}>
-      {/* <progress></progress> */}
+      <Progress progress={2} />
+      <IconHeader iconClassNames="fa-solid fa-clipboard" text={header} />
       {error.message && <Banner message={error.message} onClose={() => setError({})} />}
       <Mascot src={"/writing.png"} alt="logo" />
+      {
+        // Show the group code card if the user is the group creator.
+        isCreatingGroup &&
+          <CardContainer $isMobile={isMobile}>
+            <SubHeader>{codeText}</SubHeader>
+            <InfoText>{shareText}</InfoText>
+            <Clipboard id="clipboard">{groupCode}</Clipboard>
+            <Button onClick={onCopyCode}><i className="fa-solid fa-clipboard"></i>{"   " + copyText}</Button>
+          </CardContainer>
+      }
       <CardContainer $isMobile={isMobile}>
-        <SubHeader>{codeText}</SubHeader>
-        <InfoText>{shareText}</InfoText>
-        <Clipboard id="clipboard">{groupCode}</Clipboard>
-        <Button onClick={onCopyCode}><i className="fa-solid fa-clipboard"></i>{"   " + copyText}</Button>
-      </CardContainer>
-      <CardContainer $isMobile={isMobile}>
-        <SubHeader>{header}</SubHeader>
+        <SubHeader>{subHeader}</SubHeader>
         <InputContainer>
           <InfoText>Nickname</InfoText>
           <TextInput id="nickname" type="text"></TextInput>

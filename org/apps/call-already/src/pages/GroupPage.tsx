@@ -31,7 +31,7 @@ import {
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import moment from "moment";
-import { Banner, ErrorObject } from "../components";
+import { Banner, ErrorObject, Progress } from "../components";
 
 export function GroupPage() {
   const isMobile = useIsMobile();
@@ -108,7 +108,8 @@ export function GroupPage() {
 
   return (
     <PageContainer $isMobile={isMobile}>
-      <Header>{header}</Header>
+      <Progress progress={1} />
+      <Header><i className="fas fa-user-friends"></i>{header}</Header>
       {error.message && <Banner message={error.message} onClose={() => setError({})} />}
       <CardContainer $isMobile={isMobile}>
         <SubHeader>Join a group</SubHeader>

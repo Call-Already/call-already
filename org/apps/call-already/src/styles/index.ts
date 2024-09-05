@@ -53,7 +53,7 @@ export const PageContainer = styled.div<{ $isMobile?: boolean }>`
   background: ${palette.primary[400]};
   border-radius: 1em;
   padding: 1em 3em 1em 3em;
-  gap: 1em;
+  gap: 0.5em;
 `;
 
 export const CardContainer = styled.div<{ $isMobile?: boolean }>`
@@ -88,6 +88,8 @@ export const InputContainer = styled.div`
 `;
 
 export const Mascot = styled.img`
+  position: relative;
+  top: 50px;
   width: 15%;
   height: 15%;
 `;
@@ -197,3 +199,28 @@ export const CheckboxInput = styled.input`
   font-size: 1em;
   margin-right: 0.5em;
 `;
+
+export const ProgressBar = styled.div`
+  display: flex;
+  gap: 0.5em;
+  padding: 0.25em;
+  border-radius: 2em;
+  border: 1px solid ${theme.general.light};
+  background: ${theme.general.white};
+`;
+
+export const ProgressStep = styled.div<{ $complete?: boolean }>`
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 2em;
+  text-align: center;
+  display: table-cell;
+  background: ${(props) => props.$complete ? 
+    theme.primary.background : theme.general.light
+  };
+  color: ${(props) => props.$complete ? 
+    theme.primary.text :
+    theme.general.dark
+  };
+`;
+

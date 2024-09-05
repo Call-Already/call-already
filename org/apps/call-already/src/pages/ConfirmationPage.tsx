@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Progress } from "../components";
 import { Button, Header, InfoText, Mascot, PageContainer } from "../styles";
 import { emitAnalytic, GROUP_ROUTE, useIsMobile } from "../utils";
 
@@ -18,6 +19,7 @@ export function ConfirmationPage() {
 
   return (
     <PageContainer $isMobile={isMobile}>
+      <Progress progress={5} />
       <Header>{"Your times have been confirmed!"}</Header>
       <Mascot src={"/happy.png"} alt="logo" />
       <InfoText>{introText}</InfoText>

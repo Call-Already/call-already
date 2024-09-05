@@ -1,24 +1,22 @@
-import { RangeSlider, Slider } from "@mantine/core";
-import classes from './Progress.module.css';
+import { ProgressBar, ProgressStep } from "../styles";
+
+const MAX_PROGRESS = 5;
 
 interface ProgressProps extends React.HTMLAttributes<HTMLElement> {
-  title: string;
+  progress: number;
 }
 
-export const Progress: React.FC<ProgressProps> = ({
-  title,
-}) => {
+export const Progress: React.FC<ProgressProps> = ({progress}) => {
+  const progressSteps = [];
+  for (var i = 0; i < progress; i++) {
+    progressSteps.push(<ProgressStep $complete />);
+  }
+  for (var j = progress; j < MAX_PROGRESS; j++) {
+    progressSteps.push(<ProgressStep />);
+  }
   return (
-    <Slider
-      defaultValue={40}
-      min={10}
-      max={90}
-      label={null}
-      styles={{
-        thumb: {
-          transition: 'opacity 150ms ease',
-        },
-      }}
-    />
-  );
+    <ProgressBar>
+      {progressSteps}
+    </ProgressBar>
+  )
 }

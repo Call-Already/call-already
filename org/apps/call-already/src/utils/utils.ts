@@ -55,6 +55,32 @@ export function getLocalizedTimeInputs(times: string[], timezone: string) {
   return localizedTimes;
 }
 
+// Takes times and timezone and returns all localized times by hour formatted
+export function getFormattedLocalTimes(times: string[], timezone: string) {
+  const localizedTimes = getLocalizedTimeInputs(times, timezone);
+
+  const formattedTimes = [];
+
+  for (var i = 0; i < localizedTimes.length; i++) {
+    const time = localizedTimes[i];
+    formattedTimes.push(moment(time).tz(timezone).format('lll'))
+  };
+
+  return formattedTimes;
+}
+
+// Returns a list of formatted days
+export function getFormattedDays(days: string[]) {
+  const formattedDays = [];
+
+  for (var i = 0; i < days.length; i++) {
+    const time = days[i];
+    formattedDays.push(moment(time).format('ll'));
+  };
+
+  return formattedDays;
+}
+
 // Takes a beginning and end date, returning an array
 // of dates that fall within the range of the two.
 export function getDatesInRange(pickedDays: any) {

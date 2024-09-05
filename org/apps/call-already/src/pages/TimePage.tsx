@@ -2,7 +2,7 @@ import moment, { utc } from "moment";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { Banner, ErrorObject, TimeButton } from "../components";
+import { Banner, ErrorObject, IconHeader, Progress, TimeButton } from "../components";
 import { selectedDaysState, selectedTimesState, timezoneState } from "../state";
 import {
   Button,
@@ -101,16 +101,17 @@ export function TimePage() {
   let currentDay = "";
   return (
     <PageContainer $isMobile={isMobile}>
+      <Progress progress={3} />
+      <IconHeader iconClassNames="fa-solid fa-clock" text={header} />
       {error.message && <Banner message={error.message} onClose={() => setError({})} />}
-      <Header>{header}</Header>
       <InfoText>Showing times local to you in {timezone.value}</InfoText>
-      <Group>
-        <CheckboxInput id="showNightTimes" type="checkbox"></CheckboxInput>
-        <InfoText>
-          Show night times
-        </InfoText> 
-      </Group>
       <CardContainer $isMobile={isMobile}>
+        <Group>
+          <CheckboxInput id="showNightTimes" type="checkbox"></CheckboxInput>
+          <InfoText>
+            Show night times
+          </InfoText> 
+        </Group>
         {timeSelectors.map((button) => {
           const localMoment = moment(button.key).tz(timezone.value);
           const localTime = localMoment.format("ha");
@@ -131,8 +132,8 @@ export function TimePage() {
             return <></>;
           }
         })}
+        <Button onClick={onSubmit}>Submit</Button>
       </CardContainer>
-      <Button onClick={onSubmit}>Submit</Button>
     </PageContainer>
   );
 }
