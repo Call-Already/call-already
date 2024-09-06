@@ -1,6 +1,6 @@
 import { ProgressBar, ProgressStep } from "../styles";
 
-const MAX_PROGRESS = 5;
+const MAX_PROGRESS = 6;
 
 interface ProgressProps extends React.HTMLAttributes<HTMLElement> {
   progress: number;

@@ -12,13 +12,15 @@ export const StyledTimeButton = styled.button<{ $daytime?: boolean }>`
   color: ${theme.time.text};
   box-shadow: 3px 3px ${theme.time.boxShadow};
 
-  width: 10em;
-  height: 2.5em;
+  width: 6em;
+  height: 2em;
 
   font-size: 1em;
   padding: 0.25em 1em;
   border-radius: 3px;
   border: none;
+
+  margin-bottom: 2px;
 
   &:hover,
   &:focus {

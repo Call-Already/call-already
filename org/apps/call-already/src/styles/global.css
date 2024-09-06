@@ -59,13 +59,13 @@ input::-webkit-inner-spin-button {
   background-color: black;
 }
 
-td:nth-child(1) {  
+.reviewTitle {  
   font-weight: 900;
   vertical-align: top;
   width: 100px;
 }
 
-td:nth-child(2) {
+.reviewData {
   min-width: 200px;
   text-align: right;
   text-overflow: ellipsis;

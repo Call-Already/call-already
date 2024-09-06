@@ -2,21 +2,19 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TimezoneSelect from "react-timezone-select";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { Banner, ErrorObject, IconHeader, Progress } from "../components";
+import { Banner, ErrorObject, IconHeader, Page, Progress } from "../components";
 import { groupCodeState, isCreatingGroupState, nicknameState, timezoneState } from "../state";
 import {
   Clipboard,
   Button,
   FormLabel,
-  PageContainer,
   TextInput,
-  Mascot,
   InfoText,
   CardContainer,
   InputContainer,
   SubHeader,
 } from "../styles";
-import { emitAnalytic, TIME_ROUTE, useIsMobile } from "../utils";
+import { emitAnalytic, MASCOTS, TIME_ROUTE, useIsMobile } from "../utils";
 
 export function MyInfoPage() {
   const isMobile = useIsMobile();
@@ -30,8 +28,8 @@ export function MyInfoPage() {
   const [error, setError] = useState<ErrorObject>({});
 
   const header = "About you";
-  const subHeader = "My Information";
-  const codeText = "Group Code";
+  const codeText = "Your group";
+  const subHeader = "Your information";
   const shareText = "Invite your friends to callalready.com and share this code with them."
   const copyText = "Copy code";
   const provideNicknameText = "Please provide a nickname";
@@ -55,11 +53,8 @@ export function MyInfoPage() {
   };
 
   return (
-    <PageContainer $isMobile={isMobile}>
-      <Progress progress={2} />
-      <IconHeader iconClassNames="fa-solid fa-clipboard" text={header} />
+    <Page progress={3} iconClassNames={"fa-solid fa-clipboard"} headerText={header} mascot={MASCOTS.Happy}>
       {error.message && <Banner message={error.message} onClose={() => setError({})} />}
-      <Mascot src={"/writing.png"} alt="logo" />
       {
         // Show the group code card if the user is the group creator.
         isCreatingGroup &&
@@ -84,6 +79,6 @@ export function MyInfoPage() {
           {submit}
         </Button>
       </CardContainer>
-    </PageContainer>
+    </Page>
   );
 }

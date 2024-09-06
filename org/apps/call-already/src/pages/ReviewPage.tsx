@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { IconHeader, Progress } from "../components";
+import { Page } from "../components";
 import { postResponses, PostResponsesProps } from "../gateways";
 import {
   groupCodeState,
@@ -17,8 +17,6 @@ import {
   CardContainer,
   FormLabel,
   InfoText,
-  Mascot,
-  PageContainer,
   TextInput,
 } from "../styles";
 import {
@@ -26,7 +24,7 @@ import {
   emitAnalytic,
   getFormattedDays,
   getFormattedLocalTimes,
-  getLocalizedTimeInputs,
+  MASCOTS,
   useIsMobile,
 } from "../utils";
 
@@ -81,9 +79,7 @@ export function ReviewPage() {
   }
 
   return (
-    <PageContainer $isMobile={isMobile}>
-      <Progress progress={4} />
-      <IconHeader iconClassNames="fa-solid fa-magnifying-glass" text={header} />
+    <Page progress={5} iconClassNames={"fa-solid fa-magnifying-glass"} headerText={header} mascot={MASCOTS.Happy}>
       <CardContainer $isMobile={isMobile}>
         <InfoText>{isCreatingGroup ? createGroupText : joinGroupText}</InfoText>
         <Clipboard>{groupCode}</Clipboard>
@@ -91,16 +87,16 @@ export function ReviewPage() {
         <br />
         <table>
           <tr>
-            <td>{nicknameText}</td>
-            <td>{nickname}</td>
+            <td className={"reviewTitle"}>{nicknameText}</td>
+            <td className={"reviewData"}>{nickname}</td>
           </tr>
           <tr>
-            <td>{timezoneText}</td>
-            <td>{timezone.value}</td>
+            <td className={"reviewTitle"}>{timezoneText}</td>
+            <td className={"reviewData"}>{timezone.value}</td>
           </tr>
           <tr>
-            <td>{selectedDaysText}</td>
-            <td>
+            <td className={"reviewTitle"}>{selectedDaysText}</td>
+            <td className={"reviewData"}>
                 {
                   formattedDays.map((day) => {
                     return <p>{day}</p>
@@ -109,8 +105,8 @@ export function ReviewPage() {
             </td>
           </tr>
           <tr>
-            <td>{selectedTimesText}</td>
-            <td>
+            <td className={"reviewTitle"}>{selectedTimesText}</td>
+            <td className={"reviewData"}>
                 {
                   formattedLocalTimes.map((time) => {
                     return <p>{time}</p>
@@ -125,7 +121,6 @@ export function ReviewPage() {
           {submitText}
         </Button>
       </CardContainer>
-      <Mascot src={"/confused.png"} alt="logo" />
-    </PageContainer>
+    </Page>
   );
 }

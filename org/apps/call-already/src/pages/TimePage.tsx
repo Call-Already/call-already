@@ -2,7 +2,7 @@ import moment, { utc } from "moment";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { Banner, ErrorObject, IconHeader, Progress, TimeButton } from "../components";
+import { Banner, ErrorObject, IconHeader, Page, Progress, TimeButton } from "../components";
 import { selectedDaysState, selectedTimesState, timezoneState } from "../state";
 import {
   Button,
@@ -21,6 +21,7 @@ import {
   isDaytimeHours,
   emitAnalytic,
   REVIEW_ROUTE,
+  MASCOTS,
 } from "../utils";
 
 export function TimePage() {
@@ -100,12 +101,10 @@ export function TimePage() {
 
   let currentDay = "";
   return (
-    <PageContainer $isMobile={isMobile}>
-      <Progress progress={3} />
-      <IconHeader iconClassNames="fa-solid fa-clock" text={header} />
+    <Page progress={4} iconClassNames={"fa-solid fa-clock"} headerText={header} mascot={MASCOTS.Happy}>
       {error.message && <Banner message={error.message} onClose={() => setError({})} />}
-      <InfoText>Showing times local to you in {timezone.value}</InfoText>
       <CardContainer $isMobile={isMobile}>
+        <InfoText>Showing times local to you in {timezone.value}</InfoText>
         <Group>
           <CheckboxInput id="showNightTimes" type="checkbox"></CheckboxInput>
           <InfoText>
@@ -134,6 +133,6 @@ export function TimePage() {
         })}
         <Button onClick={onSubmit}>Submit</Button>
       </CardContainer>
-    </PageContainer>
+    </Page>
   );
 }

@@ -24,6 +24,7 @@ import {
   emitAnalytic,
   generateGroupCode,
   getDatesInRange,
+  MASCOTS,
   MY_INFO_ROUTE,
   useIsMobile,
 } from "../utils";
@@ -31,7 +32,7 @@ import {
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import moment from "moment";
-import { Banner, ErrorObject, Progress } from "../components";
+import { Banner, ErrorObject, Page, Progress } from "../components";
 
 export function GroupPage() {
   const isMobile = useIsMobile();
@@ -50,7 +51,7 @@ export function GroupPage() {
     null,
   ]);
 
-  const header = "Your Group";
+  const header = "Your Friends";
   const info = "Enter a room code below to join an existing group.";
   const submitText = "Join group";
   const info2 = "Create new group";
@@ -107,9 +108,7 @@ export function GroupPage() {
   }
 
   return (
-    <PageContainer $isMobile={isMobile}>
-      <Progress progress={1} />
-      <Header><i className="fas fa-user-friends"></i>{header}</Header>
+    <Page progress={2} iconClassNames={"fas fa-user-friends"} headerText={header} mascot={MASCOTS.Happy}>
       {error.message && <Banner message={error.message} onClose={() => setError({})} />}
       <CardContainer $isMobile={isMobile}>
         <SubHeader>Join a group</SubHeader>
@@ -117,8 +116,6 @@ export function GroupPage() {
         <RoomCodeInput id="groupCode" type="text" size={6} maxLength={4}></RoomCodeInput>
         <Button onClick={onJoinGroup}>{submitText}</Button>
       </CardContainer>
-      <br />
-      <InfoText>or</InfoText>
       <CardContainer $isMobile={isMobile}>
         <SubHeader>Create a new group</SubHeader>
         <InputContainer>
@@ -149,6 +146,6 @@ export function GroupPage() {
           {info2}
         </Button>
       </CardContainer>
-    </PageContainer>
+    </Page>
   );
 }

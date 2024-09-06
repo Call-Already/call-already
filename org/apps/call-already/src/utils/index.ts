@@ -1,3 +1,5 @@
+import { MASCOTS } from "./mascots";
+
 export {
   WELCOME_ROUTE,
   OVERVIEW_ROUTE,
@@ -21,3 +23,5 @@ export {
 } from "./utils";
 
 export { emitAnalytic } from "./metrics";
+
+export { MASCOTS } from "./mascots";

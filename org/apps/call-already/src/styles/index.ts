@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const palette = {
   primary: {
     200: "#DDDDDD", // Grey
-    300: "#555555", // Black
+    300: "#333333", // Black
     400: "#FFFFFF", // White
     500: "#0026ff", // Blue
     600: "#001aad", // Darker blue
@@ -44,6 +44,8 @@ export const theme = {
 };
 
 export const PageContainer = styled.div<{ $isMobile?: boolean }>`
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,8 +54,12 @@ export const PageContainer = styled.div<{ $isMobile?: boolean }>`
   width: ${(props) => (props.$isMobile ? "320px" : "880px")};
   background: ${palette.primary[400]};
   border-radius: 1em;
-  padding: 1em 3em 1em 3em;
-  gap: 0.5em;
+  padding: 3em 3em 0em 3em;
+  gap: 2em;
+`;
+
+export const PageHeader = styled.div`
+  
 `;
 
 export const CardContainer = styled.div<{ $isMobile?: boolean }>`
@@ -89,18 +95,18 @@ export const InputContainer = styled.div`
 
 export const Mascot = styled.img`
   position: relative;
-  top: 50px;
-  width: 15%;
-  height: 15%;
+  margin-bottom: 0;
+  bottom: -1px;
 `;
 
 export const IconList = styled.div<{ $isMobile?: boolean }>`
   display: flex;
-  width: ${(props) => (props.$isMobile ? "300px" : "880px")};
+  width: ${(props) => (props.$isMobile ? "280px" : "880px")};
 `;
 
 export const Header = styled.h1`
-  align-text: center;
+  text-align: center;
+  margin: 0px;
 `;
 
 export const SubHeader = styled.h2`
@@ -118,7 +124,7 @@ export const InfoText = styled.p`
 export const Group = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 1em;
+  gap: 0.25em;
 `;
 
 export const Button = styled.button<{ $primary?: boolean }>`
@@ -201,7 +207,9 @@ export const CheckboxInput = styled.input`
 `;
 
 export const ProgressBar = styled.div`
+  margin: 0 auto 1em auto;
   display: flex;
+  width: fit-content;
   gap: 0.5em;
   padding: 0.25em;
   border-radius: 2em;

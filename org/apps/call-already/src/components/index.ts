@@ -1,3 +1,4 @@
+export { Page } from "./Page";
 export { TimeButton } from "./TimeButton";
 export { Progress } from "./Progress";
 export { Banner } from "./Banner";

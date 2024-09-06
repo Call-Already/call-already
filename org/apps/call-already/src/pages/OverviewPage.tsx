@@ -1,20 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { nicknameState } from "../state";
-import { GROUP_ROUTE } from "../utils";
+import { GROUP_ROUTE, MASCOTS } from "../utils";
 import {
   Button,
+  CardContainer,
   Header,
   IconList,
   Mascot,
   PageContainer,
-  SubHeader,
 } from "../styles";
 import { useIsMobile } from "../utils";
+import { Page } from "../components";
 
 export function OverviewPage() {
-  const nickname = useRecoilValue(nicknameState);
   const navigate = useNavigate();
   const isMobile = useIsMobile();
 
@@ -33,43 +31,43 @@ export function OverviewPage() {
     navigate(GROUP_ROUTE);
   };
   return (
-    <PageContainer $isMobile={isMobile}>
-      <Header>{header}</Header>
-      <Mascot src={"/happy.png"} alt="logo" />
-      <IconList $isMobile={isMobile}>
-        <ol className="fa-ul">
-          <li>
-            <span className="fa-li">
-              <i className="fa-solid fa-user-group fa-2x"></i>
-            </span>
-            <div>
-              <h3>{step1}</h3>
-              <p>{details1}</p>
-            </div>
-          </li>
-          <li>
-            <span className="fa-li">
-              <i className="fa-solid fa-calendar-days fa-2x"></i>
-            </span>
-            <div>
-              <h3>{step2}</h3>
-              <p>{details2}</p>
-            </div>
-          </li>
-          <li>
-            <span className="fa-li">
-              <i className="fa-solid fa-phone fa-2x"></i>
-            </span>
-            <div>
-              <h3>{step3}</h3>
-              <p>{details3}</p>
-            </div>
-          </li>
-        </ol>
-      </IconList>
-      <Button $primary onClick={onSubmit}>
-        {submitText}
-      </Button>
-    </PageContainer>
+    <Page progress={1} iconClassNames={"fa-solid fa-question"} headerText={header} mascot={MASCOTS.Happy}>
+      <CardContainer $isMobile={isMobile}>
+        <IconList $isMobile={isMobile}>
+          <ol className="fa-ul">
+            <li>
+              <span className="fa-li">
+                <i className="fa-solid fa-user-group fa-xl"></i>
+              </span>
+              <div>
+                <h3>{step1}</h3>
+                <p>{details1}</p>
+              </div>
+            </li>
+            <li>
+              <span className="fa-li">
+                <i className="fa-solid fa-calendar-days fa-xl"></i>
+              </span>
+              <div>
+                <h3>{step2}</h3>
+                <p>{details2}</p>
+              </div>
+            </li>
+            <li>
+              <span className="fa-li">
+                <i className="fa-solid fa-phone fa-xl"></i>
+              </span>
+              <div>
+                <h3>{step3}</h3>
+                <p>{details3}</p>
+              </div>
+            </li>
+          </ol>
+        </IconList>
+        <Button $primary onClick={onSubmit}>
+          {submitText}
+        </Button>
+      </CardContainer>
+    </Page>
   );
 }

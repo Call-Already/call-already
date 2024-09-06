@@ -1,14 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { nicknameState } from "../state";
+import { Page } from "../components";
 import {
   Button,
+  CardContainer,
   Group,
-  Header,
   InfoText,
-  Mascot,
-  PageContainer,
 } from "../styles";
 import {
   emitAnalytic,
@@ -16,12 +13,13 @@ import {
   OVERVIEW_ROUTE,
   useIsMobile,
 } from "../utils";
+import { MASCOTS } from "../utils/mascots";
 
 export function WelcomePage() {
-  const setNickNameState = useSetRecoilState(nicknameState);
-  const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
+  const header = "Welcome to CallAlready.com";
   const introText =
     "CallAlready.com is a free website for helping you reconnect with your friends around the world.";
   const introText2 =
@@ -32,30 +30,26 @@ export function WelcomePage() {
   const submitText2 = "Get Started";
 
   const onLearnMore = () => {
-    setNickNameState("Matty");
     emitAnalytic("Flow started");
     navigate(OVERVIEW_ROUTE);
   };
 
   const onGetStarted = () => {
-    setNickNameState("Matty");
     emitAnalytic("Flow started");
     navigate(GROUP_ROUTE);
   };
 
   return (
-    <PageContainer $isMobile={isMobile}>
-      <Header>{"Welcome!"}</Header>
-      <Mascot src={"/happy.png"} alt="logo" />
-      <InfoText>{introText}</InfoText>
-      <InfoText>{introText2}</InfoText>
-      <InfoText>{introText3}</InfoText>
-      <Group>
+    <Page progress={0} iconClassNames="fa-solid fa-earth-americas" headerText={header} mascot={MASCOTS.Happy}>
+      <CardContainer $isMobile={isMobile}>
+        <InfoText>{introText}</InfoText>
+        <InfoText>{introText2}</InfoText>
+        <InfoText>{introText3}</InfoText>
         <Button onClick={onLearnMore}>{submitText}</Button>
         <Button $primary onClick={onGetStarted}>
           {submitText2}
         </Button>
-      </Group>
-    </PageContainer>
+      </CardContainer>
+    </Page>
   );
 }

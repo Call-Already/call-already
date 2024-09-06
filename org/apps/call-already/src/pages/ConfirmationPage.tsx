@@ -1,15 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Progress } from "../components";
-import { Button, Header, InfoText, Mascot, PageContainer } from "../styles";
-import { emitAnalytic, GROUP_ROUTE, useIsMobile } from "../utils";
+import { Page, Progress } from "../components";
+import { Button, CardContainer, Header, InfoText, Mascot, PageContainer } from "../styles";
+import { emitAnalytic, GROUP_ROUTE, MASCOTS, useIsMobile } from "../utils";
 
 export function ConfirmationPage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
+  const header = "Responses confirmed"
   const introText =
-    "Thank you! Your responses have will be matched with your friends and we’ll let you the best time to call each other to your email.";
+    "Thank you! Your responses have been confirmed. Your times will be matched with your friends' and we'll let you the best time to call each other. A summary will be sent to your email.";
   const submitText = "Make another call";
 
   const onReturn = () => {
@@ -18,12 +19,11 @@ export function ConfirmationPage() {
   };
 
   return (
-    <PageContainer $isMobile={isMobile}>
-      <Progress progress={5} />
-      <Header>{"Your times have been confirmed!"}</Header>
-      <Mascot src={"/happy.png"} alt="logo" />
-      <InfoText>{introText}</InfoText>
-      <Button onClick={onReturn}>{submitText}</Button>
-    </PageContainer>
+    <Page progress={6} iconClassNames={"fa-solid fa-circle-check"} headerText={header} mascot={MASCOTS.Happy}>
+      <CardContainer $isMobile={isMobile}>
+        <InfoText>{introText}</InfoText>
+        <Button onClick={onReturn}>{submitText}</Button>
+      </CardContainer>
+    </Page>
   );
 }
