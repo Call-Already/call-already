@@ -1,28 +1,30 @@
-import moment from "moment";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+import { Page } from "../components";
+import { CodeClipboard } from "../components/CodeClipboard";
 import { postResponses, PostResponsesProps } from "../gateways";
 import {
-  date1State,
   groupCodeState,
   isCreatingGroupState,
   nicknameState,
+  selectedDaysState,
   selectedTimesState,
   timezoneState,
 } from "../state";
 import {
   Button,
+  CardContainer,
   FormLabel,
   InfoText,
-  Mascot,
-  PageContainer,
   TextInput,
 } from "../styles";
 import {
   CONFIRMATION_ROUTE,
   emitAnalytic,
-  getLocalizedTimeInputs,
+  getFormattedDays,
+  getFormattedLocalTimes,
+  MASCOTS,
   useIsMobile,
 } from "../utils";
 
@@ -34,18 +36,26 @@ export function ReviewPage() {
   const nickname = useRecoilValue(nicknameState);
   const timezone = useRecoilValue(timezoneState);
   const isCreatingGroup = useRecoilValue(isCreatingGroupState);
-  const date1 = useRecoilValue(date1State);
+  const selectedDays = useRecoilValue(selectedDaysState);
   const selectedTimes = useRecoilValue(selectedTimesState);
 
   const header = "Review";
   const createGroupText = "You are creating a group with code:";
   const joinGroupText = "You are goining a group with code:";
-  const emailLabel = "Enter your email to receive results:";
-  const submitText = "Submit";
+  const nicknameText = "Nickname";
+  const timezoneText = "Timezone";
+  const selectedDaysText = "Days";
+  const selectedTimesText = "Times";
+  const emailLabel = "Enter your email to receive your call time:";
+  const submitText = "Finish";
+
+  const formattedDays = getFormattedDays(selectedDays);
+  const formattedLocalTimes = getFormattedLocalTimes(selectedTimes, timezone.value);
 
   async function onSubmit() {
-    const emailValue = (document.getElementById("email") as HTMLInputElement).value;
-    const props : PostResponsesProps = {
+    const emailValue = (document.getElementById("email") as HTMLInputElement)
+      .value;
+    const props: PostResponsesProps = {
       ID: groupCode,
       Nickname: nickname,
       Email: emailValue,
@@ -64,26 +74,47 @@ export function ReviewPage() {
   }
 
   return (
-    <PageContainer $isMobile={isMobile}>
-      <h1>{header}</h1>
-      <Mascot src={"/writing.png"} alt="logo" />
-      {isCreatingGroup ? (
-        <InfoText>{`${createGroupText} ${groupCode}`}</InfoText>
-      ) : (
-        <InfoText>{`${joinGroupText} ${groupCode}`}</InfoText>
-      )}
-      <InfoText>{nickname}</InfoText>
-      <InfoText>{timezone.value}</InfoText>
-      <InfoText>{moment(date1).format("ll")}</InfoText>
-      <InfoText>{selectedTimes}</InfoText>
-      <InfoText>
-        {getLocalizedTimeInputs(selectedTimes, timezone.value)}
-      </InfoText>
-      <FormLabel htmlFor="email">{emailLabel}</FormLabel>
-      <TextInput id="email" type="text"></TextInput>
-      <Button $primary onClick={onSubmit}>
-        {submitText}
-      </Button>
-    </PageContainer>
+    <Page progress={5} iconClassNames={"fa-solid fa-magnifying-glass"} headerText={header} mascot={MASCOTS.Confused}>
+      <CardContainer $isMobile={isMobile}>
+        <InfoText>{isCreatingGroup ? createGroupText : joinGroupText}</InfoText>
+        <CodeClipboard groupCode={groupCode} />
+        <br />
+        <table>
+          <tr>
+            <td className={"reviewTitle"}>{nicknameText}</td>
+            <td className={"reviewData"}>{nickname}</td>
+          </tr>
+          <tr>
+            <td className={"reviewTitle"}>{timezoneText}</td>
+            <td className={"reviewData"}>{timezone.value}</td>
+          </tr>
+          <tr>
+            <td className={"reviewTitle"}>{selectedDaysText}</td>
+            <td className={"reviewData"}>
+                {
+                  formattedDays.map((day) => {
+                    return <p>{day}</p>
+                  })
+                }
+            </td>
+          </tr>
+          <tr>
+            <td className={"reviewTitle"}>{selectedTimesText}</td>
+            <td className={"reviewData"}>
+                {
+                  formattedLocalTimes.map((time) => {
+                    return <p>{time}</p>
+                  })
+                }</td>
+          </tr>
+        </table>
+        <br />
+        <FormLabel htmlFor="email">{emailLabel}</FormLabel>
+        <TextInput id="email" type="text"></TextInput>
+        <Button $primary onClick={onSubmit}>
+          {submitText}
+        </Button>
+      </CardContainer>
+    </Page>
   );
 }

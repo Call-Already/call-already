@@ -4,6 +4,7 @@ import { theme } from "../styles";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
+  isDaytime: boolean;
 }
 
 export const StyledTimeButton = styled.button<{ $daytime?: boolean }>`
@@ -11,13 +12,15 @@ export const StyledTimeButton = styled.button<{ $daytime?: boolean }>`
   color: ${theme.time.text};
   box-shadow: 3px 3px ${theme.time.boxShadow};
 
-  width: 10em;
-  height: 2.5em;
+  width: 6em;
+  height: 2em;
 
   font-size: 1em;
   padding: 0.25em 1em;
   border-radius: 3px;
   border: none;
+
+  margin-bottom: 2px;
 
   &:hover,
   &:focus {
@@ -28,10 +31,19 @@ export const StyledTimeButton = styled.button<{ $daytime?: boolean }>`
   }
 `;
 
-export const TimeButton: React.FC<ButtonProps> = ({ title, ...props }) => {
+export const TimeButton: React.FC<ButtonProps> = ({
+  title,
+  isDaytime,
+  ...props
+}) => {
+  const icon = isDaytime ? (
+    <i className="fa-solid fa-sun"></i>
+  ) : (
+    <i className="fa-solid fa-moon"></i>
+  );
   return (
     <StyledTimeButton {...props}>
-      {<i className="fa-solid fa-sun"></i>}
+      {icon}
       {title}
     </StyledTimeButton>
   );

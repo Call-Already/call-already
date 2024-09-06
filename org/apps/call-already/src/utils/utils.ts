@@ -55,6 +55,73 @@ export function getLocalizedTimeInputs(times: string[], timezone: string) {
   return localizedTimes;
 }
 
+// Takes times and timezone and returns all localized times by hour formatted
+export function getFormattedLocalTimes(times: string[], timezone: string) {
+  const localizedTimes = getLocalizedTimeInputs(times, timezone);
+
+  const formattedTimes = [];
+
+  for (var i = 0; i < localizedTimes.length; i++) {
+    const time = localizedTimes[i];
+    formattedTimes.push(moment(time).tz(timezone).format('lll'))
+  };
+
+  return formattedTimes;
+}
+
+// Returns a list of formatted days
+export function getFormattedDays(days: string[]) {
+  const formattedDays = [];
+
+  for (var i = 0; i < days.length; i++) {
+    const day = days[i];
+    formattedDays.push(moment(day).tz('UTC').format('ll'));
+  };
+
+  return formattedDays;
+}
+
+// Takes a beginning and end date, returning an array
+// of dates that fall within the range of the two.
+export function getDatesInRange(pickedDays: any) {
+  if (pickedDays.length === 0) {
+    throw new Error("Date range must include at least one date");
+  }
+
+  // Only one day from datepicker, return it in UTC format
+  if (pickedDays[1] === null) {
+    return [moment(pickedDays[0]).tz("UTC").startOf("day").format()];
+  }
+
+  // Tranform first day into moment
+  // Format it as a short date
+  const firstDate = pickedDays[0];
+  const simpleFirstDay = moment(firstDate).format("l");
+
+  // Transform second day into moment
+  // Format it as a short date
+  const lateDate = pickedDays[1];
+  const simpleLastDay = moment(lateDate).format("l");
+
+  // Loop through the days until the first day
+  // becomes the second day, adding them to a
+  // date array in full UTC format.
+  let simpleCurrentDay = simpleFirstDay;
+  let utcCurrentDay = moment(simpleCurrentDay)
+    .tz("UTC")
+    .startOf("day")
+    .format();
+  const utcDatesToReturn = [utcCurrentDay];
+  while (simpleCurrentDay !== simpleLastDay) {
+    simpleCurrentDay = moment(simpleCurrentDay).add(1, "day").format("l");
+    utcCurrentDay = moment(simpleCurrentDay).tz("UTC").startOf("day").format();
+    utcDatesToReturn.push(utcCurrentDay);
+  }
+
+  // Return the UTC days array.
+  return utcDatesToReturn;
+}
+
 export function isDaytimeHours(time: string): boolean {
   const isPM = time.includes("pm");
 

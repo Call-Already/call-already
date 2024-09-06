@@ -1,14 +1,22 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Header, InfoText, Mascot, PageContainer } from "../styles";
-import { emitAnalytic, GROUP_ROUTE, useIsMobile } from "../utils";
+import { useRecoilValue } from "recoil";
+import { Page, Progress } from "../components";
+import { CodeClipboard } from "../components/CodeClipboard";
+import { groupCodeState } from "../state";
+import { Button, CardContainer, Header, InfoText, Mascot, PageContainer } from "../styles";
+import { emitAnalytic, GROUP_ROUTE, MASCOTS, useIsMobile } from "../utils";
 
 export function ConfirmationPage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
+  const groupCode = useRecoilValue(groupCodeState);
+
+  const header = "Responses confirmed"
   const introText =
-    "Thank you! Your responses have will be matched with your friends and we’ll let you the best time to call each other to your email.";
+    "Thank you! Your responses have been confirmed. Your times will be matched with your friends' and we'll let you the best time to call each other. A summary will be sent to your email.";
+  const groupCodeReminder = "Remember to share the group code with your friends!";
   const submitText = "Make another call";
 
   const onReturn = () => {
@@ -17,11 +25,13 @@ export function ConfirmationPage() {
   };
 
   return (
-    <PageContainer $isMobile={isMobile}>
-      <Header>{"Your times have been confirmed!"}</Header>
-      <Mascot src={"/happy.png"} alt="logo" />
-      <InfoText>{introText}</InfoText>
-      <Button onClick={onReturn}>{submitText}</Button>
-    </PageContainer>
+    <Page progress={6} iconClassNames={"fa-solid fa-circle-check"} headerText={header} mascot={MASCOTS.Happy}>
+      <CardContainer $isMobile={isMobile}>
+        <InfoText>{introText}</InfoText>
+        <InfoText>{groupCodeReminder}</InfoText>
+        <CodeClipboard groupCode={groupCode} />
+        <Button $primary onClick={onReturn}>{submitText}</Button>
+      </CardContainer>
+    </Page>
   );
 }

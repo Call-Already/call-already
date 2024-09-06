@@ -1,57 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TimezoneSelect from "react-timezone-select";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { groupCodeState, nicknameState, timezoneState } from "../state";
+import { Banner, ErrorObject, IconHeader, Page, Progress } from "../components";
+import { CodeClipboard } from "../components/CodeClipboard";
+import { groupCodeState, isCreatingGroupState, nicknameState, timezoneState } from "../state";
 import {
   Clipboard,
   Button,
   FormLabel,
-  Header,
-  PageContainer,
   TextInput,
-  Mascot,
+  InfoText,
+  CardContainer,
+  InputContainer,
+  SubHeader,
 } from "../styles";
-import { emitAnalytic, TIME_ROUTE, useIsMobile } from "../utils";
+import { emitAnalytic, MASCOTS, TIME_ROUTE, useIsMobile } from "../utils";
 
 export function MyInfoPage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
   const groupCode = useRecoilValue(groupCodeState);
+  const isCreatingGroup = useRecoilValue(isCreatingGroupState);
   const setNickname = useSetRecoilState(nicknameState);
   const [timezone, setTimezone] = useRecoilState(timezoneState);
 
-  const header = "My Information";
-  const codeText = "Your group code:";
-  const copyText = "Copy code";
+  const [error, setError] = useState<ErrorObject>({});
+
+  const header = "About you";
+  const codeText = "Your group";
+  const subHeader = "Your information";
+  const shareText = "Invite your friends to callalready.com and share this code with them."
+  const provideNicknameText = "Please provide a nickname";
   const submit = "Submit";
 
   const onSubmitInfo = () => {
-    const nicknameValue = (document.getElementById("nickname") as HTMLInputElement).value;
-    setNickname(nicknameValue);
-    emitAnalytic("My info submitted");
-    navigate(TIME_ROUTE);
-  };
-
-  const onCopyCode = () => {
-    navigator.clipboard.writeText(groupCode);
+    const nicknameValue = (
+      document.getElementById("nickname") as HTMLInputElement
+    ).value;
+    if (nicknameValue !== "") {
+      setNickname(nicknameValue);
+      emitAnalytic("My info submitted");
+      navigate(TIME_ROUTE);
+    } else {
+      setError({message: provideNicknameText});
+    }
   };
 
   return (
-    <PageContainer $isMobile={isMobile}>
-      <Header>{header}</Header>
-      <Mascot src={"/writing.png"} alt="logo" />
-      <FormLabel htmlFor="clipboard">{codeText}</FormLabel>
-      <Clipboard id="clipboard">{groupCode}</Clipboard>
-      <Button onClick={onCopyCode}>{copyText}</Button>
-      <FormLabel htmlFor="nickname">Nickname</FormLabel>
-      <TextInput id="nickname" type="text"></TextInput>
-      <FormLabel htmlFor="timezone">Timezone</FormLabel>
-      <TimezoneSelect id="timezone" value={timezone} onChange={setTimezone} />
-      <Button $primary onClick={onSubmitInfo}>
-        {submit}
-      </Button>
-    </PageContainer>
+    <Page progress={3} iconClassNames={"fa-solid fa-clipboard"} headerText={header} mascot={MASCOTS.Happy}>
+      {error.message && <Banner message={error.message} onClose={() => setError({})} />}
+      {
+        // Show the group code card if the user is the group creator.
+        isCreatingGroup &&
+          <CardContainer $isMobile={isMobile}>
+            <SubHeader>{codeText}</SubHeader>
+            <InfoText>{shareText}</InfoText>
+            <CodeClipboard groupCode={groupCode}/>
+          </CardContainer>
+      }
+      <CardContainer $isMobile={isMobile}>
+        <SubHeader>{subHeader}</SubHeader>
+        <InputContainer>
+          <InfoText>Nickname</InfoText>
+          <TextInput id="nickname" type="text"></TextInput>
+        </InputContainer>
+        <InputContainer>
+          <FormLabel htmlFor="timezone">Timezone</FormLabel>
+          <TimezoneSelect id="timezone" value={timezone} onChange={setTimezone} />
+        </InputContainer>
+        <Button $primary onClick={onSubmitInfo}>
+          {submit}
+        </Button>
+      </CardContainer>
+    </Page>
   );
 }

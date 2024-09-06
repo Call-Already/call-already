@@ -1,3 +1,5 @@
+import { MASCOTS } from "./mascots";
+
 export {
   WELCOME_ROUTE,
   OVERVIEW_ROUTE,
@@ -6,6 +8,7 @@ export {
   TIME_ROUTE,
   REVIEW_ROUTE,
   CONFIRMATION_ROUTE,
+  ROUTES
 } from "./routes";
 
 export {
@@ -14,7 +17,12 @@ export {
   generateGroupCode,
   getUniversalTimeInputs,
   getLocalizedTimeInputs,
+  getFormattedLocalTimes,
+  getFormattedDays,
+  getDatesInRange,
   isDaytimeHours,
 } from "./utils";
 
 export { emitAnalytic } from "./metrics";
+
+export { MASCOTS } from "./mascots";
