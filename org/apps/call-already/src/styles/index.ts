@@ -58,9 +58,7 @@ export const PageContainer = styled.div<{ $isMobile?: boolean }>`
   gap: 2em;
 `;
 
-export const PageHeader = styled.div`
-  
-`;
+export const PageHeader = styled.div``;
 
 export const CardContainer = styled.div<{ $isMobile?: boolean }>`
   display: flex;
@@ -101,7 +99,7 @@ export const Mascot = styled.img`
 
 export const IconList = styled.div<{ $isMobile?: boolean }>`
   display: flex;
-  width: ${(props) => (props.$isMobile ? "280px" : "880px")};
+  width: ${(props) => (props.$isMobile ? "280px" : "450px")};
 `;
 
 export const Header = styled.h1`
@@ -121,10 +119,12 @@ export const InfoText = styled.p`
   margin-bottom: 1em;
 `;
 
-export const Group = styled.div`
+export const Group = styled.div<{ $isMobile?: boolean }>`
   display: flex;
+  width: ${(props) => (props.$isMobile ? "280px" : "400px")};
+  justify-content: center;
   flex-direction: row;
-  gap: 0.25em;
+  gap: 1em;
 `;
 
 export const Button = styled.button<{ $primary?: boolean }>`

@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { Page } from "../components";
+import { CodeClipboard } from "../components/CodeClipboard";
 import { postResponses, PostResponsesProps } from "../gateways";
 import {
   groupCodeState,
@@ -13,7 +14,6 @@ import {
 } from "../state";
 import {
   Button,
-  Clipboard,
   CardContainer,
   FormLabel,
   InfoText,
@@ -40,9 +40,8 @@ export function ReviewPage() {
   const selectedTimes = useRecoilValue(selectedTimesState);
 
   const header = "Review";
-  const createGroupText = "You are creating a group with code";
-  const joinGroupText = "You are goining a group with code";
-  const copyText = "Copy code";
+  const createGroupText = "You are creating a group with code:";
+  const joinGroupText = "You are goining a group with code:";
   const nicknameText = "Nickname";
   const timezoneText = "Timezone";
   const selectedDaysText = "Days";
@@ -79,11 +78,10 @@ export function ReviewPage() {
   }
 
   return (
-    <Page progress={5} iconClassNames={"fa-solid fa-magnifying-glass"} headerText={header} mascot={MASCOTS.Happy}>
+    <Page progress={5} iconClassNames={"fa-solid fa-magnifying-glass"} headerText={header} mascot={MASCOTS.Confused}>
       <CardContainer $isMobile={isMobile}>
         <InfoText>{isCreatingGroup ? createGroupText : joinGroupText}</InfoText>
-        <Clipboard>{groupCode}</Clipboard>
-        <Button onClick={onCopyCode}><i className="fa-solid fa-clipboard"></i>{"   " + copyText}</Button>
+        <CodeClipboard groupCode={groupCode} />
         <br />
         <table>
           <tr>

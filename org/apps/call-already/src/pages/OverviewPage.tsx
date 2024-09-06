@@ -17,21 +17,24 @@ export function OverviewPage() {
   const isMobile = useIsMobile();
 
   const header = "How it Works";
-  const step1 = "Setup a call with your friends";
+  const step1 = "Set up a friend group";
   const details1 =
-    "Create a new group and share the code with your friends. Or join an existing group using a code.";
-  const step2 = "Share your timezone and your availability";
+  "Create a new group and share the code with friends, or join an existing group using a code.";
+    // "Create a new group and share the code with your friends. Or join an existing group using a code.";
+  const step2 = "Share your preferences";
   const details2 =
-    "Pick one or a few days your group agrees upon. Provide as much availability as you can to find the best times.";
-  const step3 = "CallAlready.com picks a time for you!";
+  "Choose a few days your group agrees on and provide as much availability as possible to find the best times.";
+    // "Pick one or a few days your group agrees upon. Provide as much availability as you can to find the best times.";
+  const step3 = "We pick a time for you!";
   const details3 =
-    "After the group has finished responding to the survey, everyone receives a email with their best local time to join the call.";
+  "Once the group completes the survey, everyone will receive an email with their optimal local time for the call.";
+    // "After the group has finished responding to the survey, everyone receives a email with their best local time to join the call.";
   const submitText = "Start a Call";
   const onSubmit = () => {
     navigate(GROUP_ROUTE);
   };
   return (
-    <Page progress={1} iconClassNames={"fa-solid fa-question"} headerText={header} mascot={MASCOTS.Happy}>
+    <Page progress={1} iconClassNames={"fa-solid fa-circle-question"} headerText={header} mascot={MASCOTS.Confused}>
       <CardContainer $isMobile={isMobile}>
         <IconList $isMobile={isMobile}>
           <ol className="fa-ul">

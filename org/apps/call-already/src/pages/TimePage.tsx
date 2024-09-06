@@ -35,6 +35,8 @@ export function TimePage() {
   const [error, setError] = useState<ErrorObject>({});
 
   const header = "Select times";
+  const infoText = "Provide the times that work best for you. Select as many as possible to maximize calling chances.";
+  const showNightText = "Show night times";
 
   // Load in the correct time ranges for the call
   // localized to the user and based on
@@ -101,14 +103,15 @@ export function TimePage() {
 
   let currentDay = "";
   return (
-    <Page progress={4} iconClassNames={"fa-solid fa-clock"} headerText={header} mascot={MASCOTS.Happy}>
+    <Page progress={4} iconClassNames={"fa-solid fa-clock"} headerText={header} mascot={MASCOTS.Writing}>
       {error.message && <Banner message={error.message} onClose={() => setError({})} />}
       <CardContainer $isMobile={isMobile}>
+        <InfoText>{infoText}</InfoText>
         <InfoText>Showing times local to you in {timezone.value}</InfoText>
         <Group>
           <CheckboxInput id="showNightTimes" type="checkbox"></CheckboxInput>
           <InfoText>
-            Show night times
+            {showNightText}
           </InfoText> 
         </Group>
         {timeSelectors.map((button) => {

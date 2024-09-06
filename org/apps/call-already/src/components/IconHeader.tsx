@@ -7,8 +7,6 @@ interface IconHeaderProps extends React.HTMLAttributes<HTMLElement> {
 
 export const IconHeader: React.FC<IconHeaderProps> = ({iconClassNames, text}) => {
   return (
-    <Header><i className={iconClassNames}></i>{"\t\t\t\t\t" + text}</Header>
+    <Header><i className={iconClassNames}></i><div style={{width: "0.5em"}}></div>{text}</Header>
   )
 }
-
-"fa-solid fa-clipboard"

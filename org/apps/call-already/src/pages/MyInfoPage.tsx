@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import TimezoneSelect from "react-timezone-select";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Banner, ErrorObject, IconHeader, Page, Progress } from "../components";
+import { CodeClipboard } from "../components/CodeClipboard";
 import { groupCodeState, isCreatingGroupState, nicknameState, timezoneState } from "../state";
 import {
   Clipboard,
@@ -31,7 +32,6 @@ export function MyInfoPage() {
   const codeText = "Your group";
   const subHeader = "Your information";
   const shareText = "Invite your friends to callalready.com and share this code with them."
-  const copyText = "Copy code";
   const provideNicknameText = "Please provide a nickname";
   const submit = "Submit";
 
@@ -48,10 +48,6 @@ export function MyInfoPage() {
     }
   };
 
-  const onCopyCode = () => {
-    navigator.clipboard.writeText(groupCode);
-  };
-
   return (
     <Page progress={3} iconClassNames={"fa-solid fa-clipboard"} headerText={header} mascot={MASCOTS.Happy}>
       {error.message && <Banner message={error.message} onClose={() => setError({})} />}
@@ -61,8 +57,7 @@ export function MyInfoPage() {
           <CardContainer $isMobile={isMobile}>
             <SubHeader>{codeText}</SubHeader>
             <InfoText>{shareText}</InfoText>
-            <Clipboard id="clipboard">{groupCode}</Clipboard>
-            <Button onClick={onCopyCode}><i className="fa-solid fa-clipboard"></i>{"   " + copyText}</Button>
+            <CodeClipboard groupCode={groupCode}/>
           </CardContainer>
       }
       <CardContainer $isMobile={isMobile}>

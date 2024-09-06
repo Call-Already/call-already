@@ -74,7 +74,8 @@ export function GroupPage() {
   async function onCreateGroup() {
     const selectedDays = getDatesInRange(pickedDays);
     // Using only an agreeable amount of days to pick from.
-    if (selectedDays.length === 0 || selectedDays.length > 3) {
+    console.log(selectedDays);
+    if (selectedDays[0] === 'Invalid date' || selectedDays.length === 0 || selectedDays.length > 3) {
       setError({message: "Please select between one and three days."});
       return;
     }
@@ -108,7 +109,7 @@ export function GroupPage() {
   }
 
   return (
-    <Page progress={2} iconClassNames={"fas fa-user-friends"} headerText={header} mascot={MASCOTS.Happy}>
+    <Page progress={2} iconClassNames={"fas fa-user-friends"} headerText={header} mascot={MASCOTS.Writing}>
       {error.message && <Banner message={error.message} onClose={() => setError({})} />}
       <CardContainer $isMobile={isMobile}>
         <SubHeader>Join a group</SubHeader>
@@ -116,6 +117,7 @@ export function GroupPage() {
         <RoomCodeInput id="groupCode" type="text" size={6} maxLength={4}></RoomCodeInput>
         <Button onClick={onJoinGroup}>{submitText}</Button>
       </CardContainer>
+      <p style={{margin: "0", fontWeight: "1000"}}>or</p>
       <CardContainer $isMobile={isMobile}>
         <SubHeader>Create a new group</SubHeader>
         <InputContainer>

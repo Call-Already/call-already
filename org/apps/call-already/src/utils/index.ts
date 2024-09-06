@@ -8,6 +8,7 @@ export {
   TIME_ROUTE,
   REVIEW_ROUTE,
   CONFIRMATION_ROUTE,
+  ROUTES
 } from "./routes";
 
 export {
