@@ -176,7 +176,7 @@ export const Clipboard = styled.div`
 `;
 
 export const FormLabel = styled.label`
-  align-text: center;
+  text-align: center;
   font-size: 1em;
   margin-right: 0.5em;
 `;

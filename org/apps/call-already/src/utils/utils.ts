@@ -74,8 +74,8 @@ export function getFormattedDays(days: string[]) {
   const formattedDays = [];
 
   for (var i = 0; i < days.length; i++) {
-    const time = days[i];
-    formattedDays.push(moment(time).format('ll'));
+    const day = days[i];
+    formattedDays.push(moment(day).tz('UTC').format('ll'));
   };
 
   return formattedDays;
@@ -89,7 +89,7 @@ export function getDatesInRange(pickedDays: any) {
   }
 
   // Only one day from datepicker, return it in UTC format
-  if (pickedDays.length === 1) {
+  if (pickedDays[1] === null) {
     return [moment(pickedDays[0]).tz("UTC").startOf("day").format()];
   }
 

@@ -52,10 +52,6 @@ export function ReviewPage() {
   const formattedDays = getFormattedDays(selectedDays);
   const formattedLocalTimes = getFormattedLocalTimes(selectedTimes, timezone.value);
 
-  const onCopyCode = () => {
-    navigator.clipboard.writeText(groupCode);
-  };
-
   async function onSubmit() {
     const emailValue = (document.getElementById("email") as HTMLInputElement)
       .value;

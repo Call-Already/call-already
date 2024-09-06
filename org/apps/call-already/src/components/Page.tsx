@@ -36,8 +36,8 @@ export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, he
     <PageContainer $isMobile={isMobile}>
         {prevRoute && <NavArrow prevRoute={prevRoute}></NavArrow>}
         <PageHeader>
-          {groupCode && hasFinishedGroupPage && <InfoText style={{color: "#dddddd"}}>{`${groupCodeText} ${groupCode}`}</InfoText>}
-          <Progress progress={progress} />
+            {groupCode && hasFinishedGroupPage && <InfoText style={{color: "#dddddd", marginBottom: "0.1em"}}>{`${groupCodeText} ${groupCode}`}</InfoText>}
+            <Progress progress={progress} />
           <IconHeader iconClassNames={`${iconClassNames} fa-md`} text={headerText} />
         </PageHeader>
         {children}

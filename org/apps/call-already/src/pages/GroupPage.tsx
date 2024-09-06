@@ -55,7 +55,7 @@ export function GroupPage() {
   const info = "Enter a room code below to join an existing group.";
   const submitText = "Join group";
   const info2 = "Create new group";
-
+  const selectDaysTips = "Select one to three days within the next two weeks for the call. Calls scheduled in the next three to five days tend to be more successful.";
   // Parameters for date picker component.
   const defaultDate = moment(new Date()).add(2, "day").toDate();
   const minDate = moment(new Date()).toDate();
@@ -74,7 +74,6 @@ export function GroupPage() {
   async function onCreateGroup() {
     const selectedDays = getDatesInRange(pickedDays);
     // Using only an agreeable amount of days to pick from.
-    console.log(selectedDays);
     if (selectedDays[0] === 'Invalid date' || selectedDays.length === 0 || selectedDays.length > 3) {
       setError({message: "Please select between one and three days."});
       return;
@@ -129,7 +128,7 @@ export function GroupPage() {
           Show other callers' responses while picking times
         </InfoText> */}
         <InputContainer>
-          <InfoText>Select a range of one to three days within the next two weeks for the call to take place.</InfoText>
+          <InfoText><i className="fa-solid fa-circle-info fa-sm"></i>{"\t" + selectDaysTips}</InfoText>
         </InputContainer>
         <DatePicker
           type="range"
