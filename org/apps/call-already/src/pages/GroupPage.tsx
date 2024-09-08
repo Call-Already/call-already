@@ -31,7 +31,7 @@ import {
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import moment from "moment";
-import { Banner, ErrorObject, Page } from "../components";
+import { ErrorObject, Page } from "../components";
 
 export function GroupPage() {
   const isMobile = useIsMobile();
@@ -99,6 +99,9 @@ export function GroupPage() {
         const status = error.response.status;
         if (error.response) {
           if (status === 400) {
+            setError({message: `Group ${groupCodeValue} is already full.`});
+            emitAnalytic("Group is already full");
+          } else if (status === 404) {
             setError({message: `Group ${groupCodeValue} does not exist.`});
             emitAnalytic("Group does not exist");
           } else {
@@ -154,8 +157,7 @@ export function GroupPage() {
   }
 
   return (
-    <Page progress={2} iconClassNames={"fas fa-user-friends"} headerText={header} mascot={MASCOTS.Writing} isLoading={isLoading}>
-      {error.message && <Banner message={error.message} onClose={() => setError({})} />}
+    <Page progress={2} iconClassNames={"fas fa-user-friends"} headerText={header} mascot={MASCOTS.Writing} isLoading={isLoading} error={error} setError={setError}>
       <CardContainer $isMobile={isMobile}>
         <SubHeader>Join a group</SubHeader>
         <InfoText>{info}</InfoText>

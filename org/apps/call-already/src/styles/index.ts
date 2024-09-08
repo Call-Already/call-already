@@ -55,7 +55,7 @@ export const PageContainer = styled.div<{ $isMobile?: boolean }>`
   background: ${palette.primary[400]};
   border-radius: 1em;
   padding: 3em 3em 0em 3em;
-  gap: 2em;
+  gap: 1.5em;
 `;
 
 export const PageHeader = styled.div``;

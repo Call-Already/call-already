@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TimezoneSelect from "react-timezone-select";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { Banner, ErrorObject, IconHeader, Page, Progress } from "../components";
+import { ErrorObject, Page } from "../components";
 import { CodeClipboard } from "../components/CodeClipboard";
 import { existingUsersState, expectedNumUsersState, groupCodeState, isCreatingGroupState, nicknameState, timezoneState } from "../state";
 import {
@@ -68,8 +68,7 @@ export function MyInfoPage() {
   };
 
   return (
-    <Page progress={3} iconClassNames={"fa-solid fa-clipboard"} headerText={header} mascot={MASCOTS.Happy} isLoading={false}>
-      {error.message && <Banner message={error.message} onClose={() => setError({})} />}
+    <Page progress={3} iconClassNames={"fa-solid fa-clipboard"} headerText={header} mascot={MASCOTS.Happy} isLoading={false} error={error} setError={setError}>
       <CardContainer $isMobile={isMobile}>
         <SubHeader>{codeText}</SubHeader>
         {

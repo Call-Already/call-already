@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { Banner, ErrorObject, Page } from "../components";
+import { ErrorObject, Page } from "../components";
 import { CodeClipboard } from "../components/CodeClipboard";
 import { postResponses, PostResponsesProps } from "../gateways";
 import {
@@ -89,6 +89,9 @@ export function ReviewPage() {
           if (status === 400) {
             setError({message: `Your responses could not be submitted.`});
             emitAnalytic("Bad post responses request");
+          } else if (status === 404) {
+            setError({message: `Group ${groupCode} does not exist.`});
+            emitAnalytic("Group does not exist from review page");
           } else {
             setError({message: "There was an error submitting your responses."});
             emitAnalytic("Post responses unavailable");
@@ -100,8 +103,7 @@ export function ReviewPage() {
   }
 
   return (
-    <Page progress={5} iconClassNames={"fa-solid fa-magnifying-glass"} headerText={header} mascot={MASCOTS.Confused} isLoading={isLoading}>
-      {error.message && <Banner message={error.message} onClose={() => setError({})} />}
+    <Page progress={5} iconClassNames={"fa-solid fa-magnifying-glass"} headerText={header} mascot={MASCOTS.Confused} isLoading={isLoading} error={error} setError={setError}>
       <CardContainer $isMobile={isMobile}>
         <InfoText>{isCreatingGroup ? createGroupText : joinGroupText}</InfoText>
         <CodeClipboard groupCode={groupCode} />
