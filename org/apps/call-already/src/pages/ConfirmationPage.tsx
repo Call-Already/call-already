@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { Page, Progress } from "../components";
+import { Page } from "../components";
 import { CodeClipboard } from "../components/CodeClipboard";
 import { groupCodeState } from "../state";
 import { Button, CardContainer, Header, InfoText, Mascot, PageContainer } from "../styles";
@@ -15,7 +15,7 @@ export function ConfirmationPage() {
 
   const header = "Responses confirmed"
   const introText =
-    "Thank you! Your responses have been confirmed. Your times will be matched with your friends' and we'll let you the best time to call each other. A summary will be sent to your email.";
+    "Thank you! We have confirmed your responses. We’ll match your availability with your friends' schedules and provide you with the optimal time to call each other. A summary will be sent to your email shortly.";
   const groupCodeReminder = "Remember to share the group code with your friends!";
   const submitText = "Make another call";
 
@@ -25,7 +25,7 @@ export function ConfirmationPage() {
   };
 
   return (
-    <Page progress={6} iconClassNames={"fa-solid fa-circle-check"} headerText={header} mascot={MASCOTS.Happy}>
+    <Page progress={6} iconClassNames={"fa-solid fa-circle-check"} headerText={header} mascot={MASCOTS.Happy} isLoading={false}>
       <CardContainer $isMobile={isMobile}>
         <InfoText>{introText}</InfoText>
         <InfoText>{groupCodeReminder}</InfoText>

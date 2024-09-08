@@ -12,11 +12,9 @@ import {
   CardContainer,
   // CheckboxInput,
   // FormLabel,
-  Header,
   InfoText,
   InputContainer,
   NumberInput,
-  PageContainer,
   RoomCodeInput,
   SubHeader,
 } from "../styles";
@@ -46,6 +44,7 @@ export function GroupPage() {
   const setExpectedNumUsers = useSetRecoilState(expectedNumUsersState);
 
   const [error, setError] = useState<ErrorObject>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // React state is only used temporarily while on the page.
   // When creating a group, the responses are saved to Recoil.
@@ -81,8 +80,11 @@ export function GroupPage() {
       ID: groupCodeValue,
     }
 
+    setIsLoading(true);
     validateGroup(validateGroupProps)
       .then((response) => {
+        setIsLoading(false);
+
         const data = response.data;
         setUserGroupCode(groupCodeValue);
         setExistingUsers(data.UserNicknames);
@@ -92,6 +94,8 @@ export function GroupPage() {
         navigate(MY_INFO_ROUTE);
       })
       .catch((error) => {
+        setIsLoading(false);
+
         const status = error.response.status;
         if (error.response) {
           if (status === 400) {
@@ -134,18 +138,23 @@ export function GroupPage() {
       ShowUsers: Boolean(showUsersValue),
       CallDates: selectedDays,
     };
-    const serverResponse = await createGroup(createGroupProps);
-    if (serverResponse.status === 200) {
-      emitAnalytic("Group created");
-      navigate(MY_INFO_ROUTE);
-    } else {
-      emitAnalytic("Group creation failed");
-      setError({message: "There was an error creating the group."});
-    }
+
+    setIsLoading(true);
+    createGroup(createGroupProps)
+      .then((response) => {
+        setIsLoading(false);
+        emitAnalytic("Group created");
+        navigate(MY_INFO_ROUTE);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        emitAnalytic("Group creation failed");
+        setError({message: "There was an error creating the group."});
+      });
   }
 
   return (
-    <Page progress={2} iconClassNames={"fas fa-user-friends"} headerText={header} mascot={MASCOTS.Writing}>
+    <Page progress={2} iconClassNames={"fas fa-user-friends"} headerText={header} mascot={MASCOTS.Writing} isLoading={isLoading}>
       {error.message && <Banner message={error.message} onClose={() => setError({})} />}
       <CardContainer $isMobile={isMobile}>
         <SubHeader>Join a group</SubHeader>

@@ -238,9 +238,10 @@ export const LoadingContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.8);
   z-index: 9999;
   display: flex;
+  font-weight: 1000;
   justify-content: center;
   align-items: center;
 `;

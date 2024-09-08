@@ -40,6 +40,7 @@ export function ReviewPage() {
   const selectedTimes = useRecoilValue(selectedTimesState);
 
   const [error, setError] = useState<ErrorObject>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const header = "Review";
   const createGroupText = "You are creating a group with code:";
@@ -74,12 +75,15 @@ export function ReviewPage() {
       IsGroupCreator: isCreatingGroup,
     };
 
+    setIsLoading(true);
     postResponses(props)
       .then((response) => {
+        setIsLoading(false);
         emitAnalytic("Responses submitted");
         navigate(CONFIRMATION_ROUTE);
       })
       .catch((error) => {
+        setIsLoading(false);
         if (error.response) {
           const status = error.response.status;
           if (status === 400) {
@@ -96,7 +100,7 @@ export function ReviewPage() {
   }
 
   return (
-    <Page progress={5} iconClassNames={"fa-solid fa-magnifying-glass"} headerText={header} mascot={MASCOTS.Confused}>
+    <Page progress={5} iconClassNames={"fa-solid fa-magnifying-glass"} headerText={header} mascot={MASCOTS.Confused} isLoading={isLoading}>
       {error.message && <Banner message={error.message} onClose={() => setError({})} />}
       <CardContainer $isMobile={isMobile}>
         <InfoText>{isCreatingGroup ? createGroupText : joinGroupText}</InfoText>

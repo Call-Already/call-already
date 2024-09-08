@@ -68,7 +68,7 @@ export function MyInfoPage() {
   };
 
   return (
-    <Page progress={3} iconClassNames={"fa-solid fa-clipboard"} headerText={header} mascot={MASCOTS.Happy}>
+    <Page progress={3} iconClassNames={"fa-solid fa-clipboard"} headerText={header} mascot={MASCOTS.Happy} isLoading={false}>
       {error.message && <Banner message={error.message} onClose={() => setError({})} />}
       <CardContainer $isMobile={isMobile}>
         <SubHeader>{codeText}</SubHeader>

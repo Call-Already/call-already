@@ -4,6 +4,7 @@ import { groupCodeState } from "../state";
 import { InfoText, Mascot, PageContainer, PageHeader } from "../styles";
 import { CONFIRMATION_ROUTE, ROUTES, useIsMobile } from "../utils";
 import { IconHeader } from "./IconHeader";
+import { LoadingOverlay } from "./LoadingOverlay";
 import { NavArrow } from "./NavArrow";
 import { Progress } from "./Progress";
 
@@ -11,10 +12,11 @@ interface PageContainerProps extends React.HTMLAttributes<HTMLElement> {
   progress: number;
   iconClassNames: string;
   headerText: string;
+  isLoading: Boolean;
   mascot: string;
 }
 
-export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, headerText, mascot, children}) => {
+export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, headerText, isLoading, mascot, children}) => {
   const isMobile = useIsMobile();
   const location = useLocation().pathname;
 
@@ -34,6 +36,7 @@ export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, he
 
   return (
     <PageContainer $isMobile={isMobile}>
+        <LoadingOverlay isMobile={isMobile} isLoading={isLoading} />
         {prevRoute && <NavArrow prevRoute={prevRoute}></NavArrow>}
         <PageHeader>
             {groupCode && hasFinishedGroupPage && <InfoText style={{color: "#dddddd", marginBottom: "0.1em"}}>{`${groupCodeText} ${groupCode}`}</InfoText>}
