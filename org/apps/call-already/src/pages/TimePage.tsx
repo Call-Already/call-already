@@ -1,17 +1,15 @@
-import moment, { utc } from "moment";
+import moment from "moment";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { Banner, ErrorObject, IconHeader, Page, Progress, TimeButton } from "../components";
+import { ErrorObject, Page, TimeButton } from "../components";
 import { selectedDaysState, selectedTimesState, timezoneState } from "../state";
 import {
   Button,
   CardContainer,
   CheckboxInput,
   Group,
-  Header,
   InfoText,
-  PageContainer,
   palette,
 } from "../styles";
 import {
@@ -103,8 +101,7 @@ export function TimePage() {
 
   let currentDay = "";
   return (
-    <Page progress={4} iconClassNames={"fa-solid fa-clock"} headerText={header} mascot={MASCOTS.Writing}>
-      {error.message && <Banner message={error.message} onClose={() => setError({})} />}
+    <Page progress={4} iconClassNames={"fa-solid fa-clock"} headerText={header} mascot={MASCOTS.Writing} isLoading={false} error={error} setError={setError}>
       <CardContainer $isMobile={isMobile}>
         <InfoText>{infoText}</InfoText>
         <InfoText>Showing times local to you in {timezone.value}</InfoText>

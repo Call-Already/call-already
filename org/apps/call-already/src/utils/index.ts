@@ -23,6 +23,10 @@ export {
   isDaytimeHours,
 } from "./utils";
 
+export {
+  isValidGroupCode
+} from "./validation";
+
 export { emitAnalytic } from "./metrics";
 
 export { MASCOTS } from "./mascots";

@@ -4,19 +4,17 @@ import React, { useState } from "react";
 import { DatePicker } from "@mantine/dates";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { createGroup, CreateGroupProps } from "../gateways";
-import { groupCodeState, selectedDaysState } from "../state";
+import { createGroup, CreateGroupProps, validateGroup } from "../gateways";
+import { existingUsersState, expectedNumUsersState, groupCodeState, selectedDaysState } from "../state";
 import { isCreatingGroupState } from "../state";
 import {
   Button,
   CardContainer,
   // CheckboxInput,
   // FormLabel,
-  Header,
   InfoText,
   InputContainer,
   NumberInput,
-  PageContainer,
   RoomCodeInput,
   SubHeader,
 } from "../styles";
@@ -24,6 +22,7 @@ import {
   emitAnalytic,
   generateGroupCode,
   getDatesInRange,
+  isValidGroupCode,
   MASCOTS,
   MY_INFO_ROUTE,
   useIsMobile,
@@ -32,7 +31,7 @@ import {
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import moment from "moment";
-import { Banner, ErrorObject, Page, Progress } from "../components";
+import { ErrorObject, Page } from "../components";
 
 export function GroupPage() {
   const isMobile = useIsMobile();
@@ -41,8 +40,11 @@ export function GroupPage() {
   const setUserGroupCode = useSetRecoilState(groupCodeState);
   const setIsCreatingGroup = useSetRecoilState(isCreatingGroupState);
   const setSelectedDays = useSetRecoilState(selectedDaysState);
+  const setExistingUsers = useSetRecoilState(existingUsersState);
+  const setExpectedNumUsers = useSetRecoilState(expectedNumUsersState);
 
   const [error, setError] = useState<ErrorObject>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // React state is only used temporarily while on the page.
   // When creating a group, the responses are saved to Recoil.
@@ -55,23 +57,66 @@ export function GroupPage() {
   const info = "Enter a room code below to join an existing group.";
   const submitText = "Join group";
   const info2 = "Create new group";
-  const selectDaysTips = "Select one to three days within the next two weeks for the call. Calls scheduled in the next three to five days tend to be more successful.";
+  const selectDaysTips = "Select one to three days within the next two weeks for the call. Days are in UTC (Coordinated Universal Time). Calls scheduled in the next three to five days tend to be more successful.";
   // Parameters for date picker component.
   const defaultDate = moment(new Date()).add(2, "day").toDate();
   const minDate = moment(new Date()).toDate();
   const maxDate = moment(new Date()).add(14, "day").toDate();
 
-  const onJoinGroup = () => {
+  async function onJoinGroup() {
     setIsCreatingGroup(false);
     const groupCodeValue = (
       document.getElementById("groupCode") as HTMLInputElement
-    ).value;
-    setError({message: "There was an error joining the group"});
-    emitAnalytic("Group joined");
-    // navigate(MY_INFO_ROUTE);
+    ).value.toUpperCase();
+
+    // Validate the group code is a valid format.
+    if (!isValidGroupCode(groupCodeValue)) {
+      setError({message: "Please enter a valid group code."});
+      return;
+    }
+
+    // Validate that the group exists
+    const validateGroupProps = {
+      ID: groupCodeValue,
+    }
+
+    setIsLoading(true);
+    validateGroup(validateGroupProps)
+      .then((response) => {
+        setIsLoading(false);
+
+        const data = response.data;
+        setUserGroupCode(groupCodeValue);
+        setExistingUsers(data.UserNicknames);
+        setExpectedNumUsers(data.NumUsers);
+        setSelectedDays(data.Dates);
+        emitAnalytic("Group joined");
+        navigate(MY_INFO_ROUTE);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+
+        const status = error.response.status;
+        if (error.response) {
+          if (status === 400) {
+            setError({message: `Group ${groupCodeValue} is already full.`});
+            emitAnalytic("Group is already full");
+          } else if (status === 404) {
+            setError({message: `Group ${groupCodeValue} does not exist.`});
+            emitAnalytic("Group does not exist");
+          } else {
+            setError({message: "There was an error joining the group."});
+            emitAnalytic("Join group unavailable");
+          }
+        } else {
+          setError({message: "There was an error joining the group."});
+        }
+      });
   };
 
   async function onCreateGroup() {
+    setIsCreatingGroup(true);
+
     const selectedDays = getDatesInRange(pickedDays);
     // Using only an agreeable amount of days to pick from.
     if (selectedDays[0] === 'Invalid date' || selectedDays.length === 0 || selectedDays.length > 3) {
@@ -86,7 +131,6 @@ export function GroupPage() {
     const showUsersValue = false;
     //   document.getElementById("showUsers") as HTMLInputElement
     // ).value;
-    setIsCreatingGroup(true);
 
     const groupCode = generateGroupCode(4);
     setUserGroupCode(groupCode);
@@ -97,19 +141,23 @@ export function GroupPage() {
       ShowUsers: Boolean(showUsersValue),
       CallDates: selectedDays,
     };
-    const serverResponse = await createGroup(createGroupProps);
-    if (serverResponse.status === 200) {
-      emitAnalytic("Group created");
-      navigate(MY_INFO_ROUTE);
-    } else {
-      emitAnalytic("Group creation failed");
-      setError({message: "There was an error creating the group."});
-    }
+
+    setIsLoading(true);
+    createGroup(createGroupProps)
+      .then((response) => {
+        setIsLoading(false);
+        emitAnalytic("Group created");
+        navigate(MY_INFO_ROUTE);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        emitAnalytic("Group creation failed");
+        setError({message: "There was an error creating the group."});
+      });
   }
 
   return (
-    <Page progress={2} iconClassNames={"fas fa-user-friends"} headerText={header} mascot={MASCOTS.Writing}>
-      {error.message && <Banner message={error.message} onClose={() => setError({})} />}
+    <Page progress={2} iconClassNames={"fas fa-user-friends"} headerText={header} mascot={MASCOTS.Writing} isLoading={isLoading} error={error} setError={setError}>
       <CardContainer $isMobile={isMobile}>
         <SubHeader>Join a group</SubHeader>
         <InfoText>{info}</InfoText>

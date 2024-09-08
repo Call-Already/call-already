@@ -15,6 +15,10 @@ export const GROUP_CODE_STATE_KEY = "myGroupCode";
 
 export const IS_CREATING_GROUP_KEY = "isCreatingGroup";
 
+export const EXISTING_USERS_KEY = "existingUsers";
+
+export const EXPECTED_NUM_USERS_KEY = "expectedNumUsers";
+
 export const nicknameState = atom({
   key: NICKNAME_STATE_KEY,
   default: "",
@@ -48,5 +52,17 @@ export const groupCodeState = atom({
 export const isCreatingGroupState = atom({
   key: IS_CREATING_GROUP_KEY,
   default: false,
+  effects: [persistAtom],
+});
+
+export const existingUsersState = atom({
+  key: EXISTING_USERS_KEY,
+  default: [],
+  effects: [persistAtom],
+});
+
+export const expectedNumUsersState = atom({
+  key: EXPECTED_NUM_USERS_KEY,
+  default: 0,
   effects: [persistAtom],
 });

@@ -2,8 +2,10 @@ import { useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { groupCodeState } from "../state";
 import { InfoText, Mascot, PageContainer, PageHeader } from "../styles";
-import { CONFIRMATION_ROUTE, ROUTES, useIsMobile } from "../utils";
+import { ROUTES, useIsMobile } from "../utils";
+import { Banner, ErrorObject } from "./Banner";
 import { IconHeader } from "./IconHeader";
+import { LoadingOverlay } from "./LoadingOverlay";
 import { NavArrow } from "./NavArrow";
 import { Progress } from "./Progress";
 
@@ -11,10 +13,13 @@ interface PageContainerProps extends React.HTMLAttributes<HTMLElement> {
   progress: number;
   iconClassNames: string;
   headerText: string;
+  isLoading: Boolean;
+  error?: ErrorObject;
+  setError?: React.Dispatch<React.SetStateAction<ErrorObject>>;
   mascot: string;
 }
 
-export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, headerText, mascot, children}) => {
+export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, headerText, isLoading, error, setError, mascot, children}) => {
   const isMobile = useIsMobile();
   const location = useLocation().pathname;
 
@@ -34,14 +39,16 @@ export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, he
 
   return (
     <PageContainer $isMobile={isMobile}>
-        {prevRoute && <NavArrow prevRoute={prevRoute}></NavArrow>}
-        <PageHeader>
-            {groupCode && hasFinishedGroupPage && <InfoText style={{color: "#dddddd", marginBottom: "0.1em"}}>{`${groupCodeText} ${groupCode}`}</InfoText>}
-            <Progress progress={progress} />
-          <IconHeader iconClassNames={`${iconClassNames} fa-md`} text={headerText} />
-        </PageHeader>
-        {children}
-        <Mascot src={mascot} alt="logo" />
+      <LoadingOverlay isMobile={isMobile} isLoading={isLoading} />
+      {prevRoute && <NavArrow prevRoute={prevRoute}></NavArrow>}
+      <PageHeader>
+          {groupCode && hasFinishedGroupPage && <InfoText style={{color: "#dddddd", marginBottom: "0.1em"}}>{`${groupCodeText} ${groupCode}`}</InfoText>}
+          <Progress progress={progress} />
+        <IconHeader iconClassNames={`${iconClassNames} fa-md`} text={headerText} />
+      </PageHeader>
+      {error && setError && error.message && <Banner message={error.message} onClose={() => setError({})} />}
+      {children}
+      <Mascot src={mascot} alt="logo" />
     </PageContainer>
   )
 }

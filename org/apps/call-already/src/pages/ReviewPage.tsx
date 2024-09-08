@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { Page } from "../components";
+import { ErrorObject, Page } from "../components";
 import { CodeClipboard } from "../components/CodeClipboard";
 import { postResponses, PostResponsesProps } from "../gateways";
 import {
@@ -39,9 +39,12 @@ export function ReviewPage() {
   const selectedDays = useRecoilValue(selectedDaysState);
   const selectedTimes = useRecoilValue(selectedTimesState);
 
+  const [error, setError] = useState<ErrorObject>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const header = "Review";
   const createGroupText = "You are creating a group with code:";
-  const joinGroupText = "You are goining a group with code:";
+  const joinGroupText = "You are joining a group with code:";
   const nicknameText = "Nickname";
   const timezoneText = "Timezone";
   const selectedDaysText = "Days";
@@ -55,6 +58,14 @@ export function ReviewPage() {
   async function onSubmit() {
     const emailValue = (document.getElementById("email") as HTMLInputElement)
       .value;
+
+    // Validate email here.
+
+    if (emailValue === "") {
+      setError({message: "Please enter a valid email."});
+      return;
+    }
+
     const props: PostResponsesProps = {
       ID: groupCode,
       Nickname: nickname,
@@ -63,18 +74,36 @@ export function ReviewPage() {
       SelectedTimes: selectedTimes,
       IsGroupCreator: isCreatingGroup,
     };
-    const serverResponse = await postResponses(props);
-    if (serverResponse.status === 200) {
-      emitAnalytic("Responses submitted");
-      navigate(CONFIRMATION_ROUTE);
-    } else {
-      // Handle post responses failure.
-      console.log(serverResponse);
-    }
+
+    setIsLoading(true);
+    postResponses(props)
+      .then((response) => {
+        setIsLoading(false);
+        emitAnalytic("Responses submitted");
+        navigate(CONFIRMATION_ROUTE);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        if (error.response) {
+          const status = error.response.status;
+          if (status === 400) {
+            setError({message: `Your responses could not be submitted.`});
+            emitAnalytic("Bad post responses request");
+          } else if (status === 404) {
+            setError({message: `Group ${groupCode} does not exist.`});
+            emitAnalytic("Group does not exist from review page");
+          } else {
+            setError({message: "There was an error submitting your responses."});
+            emitAnalytic("Post responses unavailable");
+          }
+        } else {
+          setError({message: "There was an error submitting your responses."});
+        }
+      });
   }
 
   return (
-    <Page progress={5} iconClassNames={"fa-solid fa-magnifying-glass"} headerText={header} mascot={MASCOTS.Confused}>
+    <Page progress={5} iconClassNames={"fa-solid fa-magnifying-glass"} headerText={header} mascot={MASCOTS.Confused} isLoading={isLoading} error={error} setError={setError}>
       <CardContainer $isMobile={isMobile}>
         <InfoText>{isCreatingGroup ? createGroupText : joinGroupText}</InfoText>
         <CodeClipboard groupCode={groupCode} />

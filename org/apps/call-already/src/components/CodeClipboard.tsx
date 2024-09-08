@@ -19,5 +19,3 @@ export const CodeClipboard: React.FC<CodeClipboardProps> = ({groupCode}) => {
     </>
   )
 }
-
-"fa-solid fa-clipboard"

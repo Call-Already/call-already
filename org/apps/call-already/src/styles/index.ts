@@ -55,7 +55,7 @@ export const PageContainer = styled.div<{ $isMobile?: boolean }>`
   background: ${palette.primary[400]};
   border-radius: 1em;
   padding: 3em 3em 0em 3em;
-  gap: 2em;
+  gap: 1.5em;
 `;
 
 export const PageHeader = styled.div``;
@@ -232,3 +232,16 @@ export const ProgressStep = styled.div<{ $complete?: boolean }>`
   };
 `;
 
+export const LoadingContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+  display: flex;
+  font-weight: 1000;
+  justify-content: center;
+  align-items: center;
+`;
