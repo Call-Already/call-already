@@ -25,7 +25,8 @@
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
     "styled-components": "5.3.6",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
