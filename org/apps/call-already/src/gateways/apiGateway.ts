@@ -5,19 +5,6 @@ const instance = axios.create({
   timeout: 5000,
 });
 
-// Add a response interceptor
-instance.interceptors.response.use(function (response) {
-  // Any status code that lie within the range of 2xx cause this function to trigger
-  // Do something with response data
-
-  return response;
-}, function (error) {
-  // Any status codes that falls outside the range of 2xx cause this function to trigger
-  // Do something with response error
-  console.log("Interceptor says: " + error);
-  return Promise.reject(error);
-});
-
 export type ValidateGroupProps = {
   ID: string;
 }
@@ -41,7 +28,7 @@ export type CreateGroupProps = {
   ID: string;
   NumUsers: number;
   ShowUsers: boolean;
-  CallDates: Array<string>;
+  Dates: Array<string>;
 };
 
 export async function validateGroup(props: ValidateGroupProps) {
