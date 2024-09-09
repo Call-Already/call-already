@@ -5,3 +5,4 @@ export { TimePage } from "./TimePage";
 export { MyInfoPage } from "./MyInfoPage";
 export { ReviewPage } from "./ReviewPage";
 export { GroupPage } from "./GroupPage";
+export { LoginPage } from "./LoginPage";

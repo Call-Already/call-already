@@ -96,8 +96,8 @@ export function GroupPage() {
       .catch((error) => {
         setIsLoading(false);
 
-        const status = error.response.status;
         if (error.response) {
+          const status = error.response.status;
           if (status === 400) {
             setError({message: `Group ${groupCodeValue} is already full.`});
             emitAnalytic("Group is already full");
@@ -139,7 +139,7 @@ export function GroupPage() {
       ID: groupCode,
       NumUsers: Number(numUsersValue),
       ShowUsers: Boolean(showUsersValue),
-      CallDates: selectedDays,
+      Dates: selectedDays,
     };
 
     setIsLoading(true);

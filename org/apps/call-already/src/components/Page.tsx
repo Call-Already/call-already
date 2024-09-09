@@ -35,7 +35,12 @@ export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, he
 
   const groupCodeText = "Group code:";
 
-  const hasFinishedGroupPage = progress > 2;
+  let hasFinishedGroupPage;
+  if (progress) {
+    hasFinishedGroupPage = progress > 2;
+  } else {
+    hasFinishedGroupPage = false;
+  }
 
   return (
     <PageContainer $isMobile={isMobile}>
