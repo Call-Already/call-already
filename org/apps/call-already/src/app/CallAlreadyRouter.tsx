@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   ConfirmationPage,
   GroupPage,
+  LoginPage,
   MyInfoPage,
   OverviewPage,
   ReviewPage,
@@ -16,16 +17,21 @@ import {
   REVIEW_ROUTE,
   TIME_ROUTE,
   WELCOME_ROUTE,
+  LOGIN_ROUTE,
 } from "../utils";
 
 const browserRouter = createBrowserRouter([
   {
-    path: WELCOME_ROUTE,
+    path: LOGIN_ROUTE,
     element: <WelcomePage />,
   },
   {
     path: OVERVIEW_ROUTE,
     element: <OverviewPage />,
+  },
+  {
+    path: WELCOME_ROUTE,
+    element: <LoginPage />,
   },
   {
     path: GROUP_ROUTE,

@@ -3,6 +3,7 @@ import { MASCOTS } from "./mascots";
 export {
   WELCOME_ROUTE,
   OVERVIEW_ROUTE,
+  LOGIN_ROUTE,
   GROUP_ROUTE,
   MY_INFO_ROUTE,
   TIME_ROUTE,
