@@ -19,6 +19,22 @@ export const EXISTING_USERS_KEY = "existingUsers";
 
 export const EXPECTED_NUM_USERS_KEY = "expectedNumUsers";
 
+export const EMAIL_STATE_KEY = "email";
+
+export const IS_VERIFIED_STATE_KEY = "isVerified";
+
+export const emailState = atom({
+  key: EMAIL_STATE_KEY,
+  default: "",
+  effects: [persistAtom],
+});
+
+export const isVerifiedState = atom({
+  key: IS_VERIFIED_STATE_KEY,
+  default: "",
+  effects: [persistAtom],
+});
+
 export const nicknameState = atom({
   key: NICKNAME_STATE_KEY,
   default: "",
