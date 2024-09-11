@@ -175,6 +175,13 @@ export const Clipboard = styled.div`
   border: 1px dotted ${theme.general.dark};
 `;
 
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+`;
+
 export const FormLabel = styled.label`
   text-align: center;
   font-size: 1em;

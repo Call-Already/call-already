@@ -2,7 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: process.env.NX_PUBLIC_API_URL,
-  timeout: 5000,
+  timeout: 8000,
 });
 
 export type ValidateGroupProps = {
@@ -31,6 +31,34 @@ export type CreateGroupProps = {
   Dates: Array<string>;
 };
 
+export type RegisterProps = {
+  Nickname: string;
+  Email: string;
+  Password: string;
+};
+
+export type VerifyEmailResponse = {
+  Email: string;
+  Nickname: string;
+  IsVerified: boolean;
+};
+
+export type VerifyEmailProps = {
+  Email: string;
+  UserID: string;
+};
+
+export type LoginResponse = {
+  Email: string;
+  Nickname: string;
+  IsVerified: boolean;
+};
+
+export type LoginProps = {
+  Email: string;
+  Password: string;
+};
+
 export async function validateGroup(props: ValidateGroupProps) {
   const response = await instance.get<ValidateGroupResponse>(`/validate-group?ID=${props.ID}`);
   return response;
@@ -43,5 +71,20 @@ export async function postResponses(props: PostResponsesProps) {
 
 export async function createGroup(props: CreateGroupProps) {
   const serverResponse = await instance.post("/create-group", props);
+  return serverResponse;
+}
+
+export async function register(props: RegisterProps) {
+  const serverResponse = await instance.post("/register", props);
+  return serverResponse;
+}
+
+export async function verifyEmail(props: VerifyEmailProps) {
+  const serverResponse = await instance.get(`/verify-email?Email=${props.Email}&UserID=${props.UserID}`);
+  return serverResponse;
+}
+
+export async function loginUser(props: LoginProps) {
+  const serverResponse = await instance.post<LoginResponse>("/login-user", props);
   return serverResponse;
 }

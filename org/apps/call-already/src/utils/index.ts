@@ -1,16 +1,4 @@
-import { MASCOTS } from "./mascots";
-
-export {
-  WELCOME_ROUTE,
-  OVERVIEW_ROUTE,
-  LOGIN_ROUTE,
-  GROUP_ROUTE,
-  MY_INFO_ROUTE,
-  TIME_ROUTE,
-  REVIEW_ROUTE,
-  CONFIRMATION_ROUTE,
-  ROUTES
-} from "./routes";
+export * from "./routes";
 
 export {
   env,

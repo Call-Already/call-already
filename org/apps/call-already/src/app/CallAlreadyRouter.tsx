@@ -2,11 +2,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   ConfirmationPage,
   GroupPage,
-  LoginPage,
   MyInfoPage,
   OverviewPage,
   ReviewPage,
   TimePage,
+  VerificationPage,
+  RegistrationPage,
+  LoginPage,
   WelcomePage,
 } from "../pages";
 import {
@@ -17,13 +19,23 @@ import {
   REVIEW_ROUTE,
   TIME_ROUTE,
   WELCOME_ROUTE,
+  REGISTRATION_ROUTE,
+  VERIFICATION_ROUTE,
   LOGIN_ROUTE,
 } from "../utils";
 
 const browserRouter = createBrowserRouter([
   {
+    path: REGISTRATION_ROUTE,
+    element: <RegistrationPage />,
+  },
+  {
     path: LOGIN_ROUTE,
-    element: <WelcomePage />,
+    element: <LoginPage />,
+  },
+  {
+    path: VERIFICATION_ROUTE,
+    element: <VerificationPage />
   },
   {
     path: OVERVIEW_ROUTE,
@@ -31,7 +43,7 @@ const browserRouter = createBrowserRouter([
   },
   {
     path: WELCOME_ROUTE,
-    element: <LoginPage />,
+    element: <WelcomePage />,
   },
   {
     path: GROUP_ROUTE,
