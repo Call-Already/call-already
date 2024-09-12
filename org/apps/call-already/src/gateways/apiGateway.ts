@@ -38,9 +38,12 @@ export type RegisterProps = {
 };
 
 export type VerifyEmailResponse = {
-  Email: string;
-  Nickname: string;
-  IsVerified: boolean;
+  User: {
+    Email: string;
+    Nickname: string;
+    IsVerified: boolean;
+  },
+  Token: string;
 };
 
 export type VerifyEmailProps = {
@@ -49,9 +52,12 @@ export type VerifyEmailProps = {
 };
 
 export type LoginResponse = {
-  Email: string;
-  Nickname: string;
-  IsVerified: boolean;
+  User: {
+    Email: string;
+    Nickname: string;
+    IsVerified: boolean;
+  },
+  Token: string;
 };
 
 export type LoginProps = {

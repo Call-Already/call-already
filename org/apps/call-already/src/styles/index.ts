@@ -51,7 +51,7 @@ export const PageContainer = styled.div<{ $isMobile?: boolean }>`
   align-items: center;
   margin-top: auto;
   margin-bottom: auto;
-  width: ${(props) => (props.$isMobile ? "320px" : "880px")};
+  width: ${(props) => (props.$isMobile ? "330px" : "880px")};
   background: ${palette.primary[400]};
   border-radius: 1em;
   padding: 3em 3em 0em 3em;
@@ -66,7 +66,7 @@ export const CardContainer = styled.div<{ $isMobile?: boolean }>`
   align-items: center;
   background: ${palette.primary[400]};
   border-radius: 3px;
-  width: ${(props) => (props.$isMobile ? "300px" : "500px")};
+  width: ${(props) => (props.$isMobile ? "310px" : "500px")};
   border: 1px solid ${palette.primary[300]};
   box-shadow: 3px 3px ${palette.primary[300]};
   padding: 1em;
@@ -78,7 +78,7 @@ export const SecondaryContainer = styled.div<{ $isMobile?: boolean }>`
   align-items: center;
   background: ${palette.primary[400]};
   border-radius: 3px;
-  width: ${(props) => (props.$isMobile ? "300px" : "500px")};
+  width: ${(props) => (props.$isMobile ? "310px" : "500px")};
   border: 1px dotted ${palette.primary[200]};
   box-shadow: 3px 3px ${palette.primary[200]};
   padding: 1em;
@@ -251,4 +251,8 @@ export const LoadingContainer = styled.div`
   font-weight: 1000;
   justify-content: center;
   align-items: center;
+`;
+
+export const LinkText = styled.a`
+  color: ${theme.general.dark};
 `;

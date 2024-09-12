@@ -9,11 +9,12 @@ import {
   Group,
   Button,
   Form,
+  InfoText,
 } from "../styles";
-import { emitAnalytic, MASCOTS, useIsMobile, WELCOME_ROUTE } from "../utils";
+import { emitAnalytic, MASCOTS, REGISTRATION_ROUTE, useIsMobile, WELCOME_ROUTE } from "../utils";
 import { LoginProps, loginUser } from "../gateways";
 import { useSetRecoilState } from "recoil";
-import { emailState, isVerifiedState, nicknameState } from "../state";
+import { authTokenState, emailState, isVerifiedState, nicknameState } from "../state";
 
 export function LoginPage() {
   const isMobile = useIsMobile();
@@ -25,11 +26,13 @@ export function LoginPage() {
   const setNickname = useSetRecoilState(nicknameState);
   const setEmail = useSetRecoilState(emailState);
   const setIsVerified = useSetRecoilState(isVerifiedState);
+  const setAuthToken = useSetRecoilState(authTokenState);
 
   const header = "Log in";
   const email = "Email";
   const password = "Password";
   const logIn = "Log in";
+  const registrationOptionText = "Or visit here to register.";
 
   let schema = yup.object({
     Email: yup.string()
@@ -62,9 +65,10 @@ export function LoginPage() {
 
             console.log(response);
 
-            setNickname(response.data.Nickname);
-            setEmail(response.data.Email);
-            setIsVerified(response.data.IsVerified);
+            setNickname(response.data.User.Nickname);
+            setEmail(response.data.User.Email);
+            setIsVerified(response.data.User.IsVerified);
+            setAuthToken(response.data.Token);
 
             emitAnalytic("Logged in");
             navigate(WELCOME_ROUTE);
@@ -106,8 +110,10 @@ export function LoginPage() {
           <FormLabel htmlFor="password">{password}</FormLabel>
           <TextInput type={"password"} name="password" id="password"></TextInput>
           <Group>
-            <Button type="submit">{logIn}</Button>
+            <Button $primary type="submit">{logIn}</Button>
           </Group>
+          <br />
+          <InfoText><a style={{color: "black"}}href={REGISTRATION_ROUTE}>{registrationOptionText}</a></InfoText>
         </Form>
       </CardContainer>
     </Page>

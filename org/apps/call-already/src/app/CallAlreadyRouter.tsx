@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ProtectedPage } from "../components/ProtectedPage";
 import {
   ConfirmationPage,
   GroupPage,
@@ -35,7 +36,7 @@ const browserRouter = createBrowserRouter([
   },
   {
     path: VERIFICATION_ROUTE,
-    element: <VerificationPage />
+    element: <VerificationPage />,
   },
   {
     path: OVERVIEW_ROUTE,
@@ -47,24 +48,43 @@ const browserRouter = createBrowserRouter([
   },
   {
     path: GROUP_ROUTE,
-    element: <GroupPage />,
+    element: 
+    <ProtectedPage>
+      <GroupPage />,
+    </ProtectedPage>
   },
   {
     path: MY_INFO_ROUTE,
-    element: <MyInfoPage />,
+    element: 
+    <ProtectedPage>
+      <MyInfoPage />,
+    </ProtectedPage>
   },
   {
     path: TIME_ROUTE,
-    element: <TimePage />,
+    element: 
+    <ProtectedPage>
+      <TimePage />,
+    </ProtectedPage>
   },
   {
     path: REVIEW_ROUTE,
-    element: <ReviewPage />,
+    element: 
+    <ProtectedPage>
+      <ReviewPage />,
+    </ProtectedPage>
   },
   {
     path: CONFIRMATION_ROUTE,
-    element: <ConfirmationPage />,
+    element: 
+    <ProtectedPage>
+      <ConfirmationPage />,
+    </ProtectedPage>
   },
+  {
+    path: "*",
+    element: <WelcomePage />
+  }
 ]);
 
 export function CallAlreadyRouter() {

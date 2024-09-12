@@ -5,6 +5,7 @@ import { RecoilRoot } from "recoil";
 import { initAnalytics } from "../utils/metrics";
 import "../styles/global.css";
 import { createTheme, MantineProvider } from "@mantine/core";
+import { Authorization } from "../auth/Authorization";
 
 const theme = createTheme({
   /** Your theme override here */
@@ -17,7 +18,9 @@ export function App() {
     <StrictMode>
       <RecoilRoot>
         <MantineProvider theme={theme} cssVariablesSelector="html">
-          <CallAlreadyRouter />
+          <Authorization>
+            <CallAlreadyRouter />
+          </Authorization>
         </MantineProvider>
       </RecoilRoot>
     </StrictMode>

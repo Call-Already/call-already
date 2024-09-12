@@ -9,8 +9,9 @@ import {
   Group,
   Button,
   Form,
+  InfoText,
 } from "../styles";
-import { emitAnalytic, MASCOTS, useIsMobile, VERIFICATION_ROUTE } from "../utils";
+import { emitAnalytic, LOGIN_ROUTE, MASCOTS, useIsMobile, VERIFICATION_ROUTE } from "../utils";
 import { register, RegisterProps } from "../gateways";
 
 export function RegistrationPage() {
@@ -26,6 +27,7 @@ export function RegistrationPage() {
   const password = "Password";
   const createAccount = "Register";
   const passwordStrongerText = "Please create a stronger password";
+  const loginOptionText = "Or visit here to log in.";
 
   const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
@@ -108,8 +110,10 @@ export function RegistrationPage() {
           <FormLabel htmlFor="password">{password}</FormLabel>
           <TextInput type={"password"} name="password" id="password"></TextInput>
           <Group>
-            <Button type="submit">{createAccount}</Button>
+            <Button $primary type="submit">{createAccount}</Button>
           </Group>
+          <br/>
+          <InfoText><a style={{color: "black"}} href={LOGIN_ROUTE}>{loginOptionText}</a></InfoText>
         </Form>
       </CardContainer>
     </Page>

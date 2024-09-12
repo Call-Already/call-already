@@ -1,9 +1,10 @@
+import React from "react";
 import { useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+import { Banner, ErrorObject } from ".";
 import { groupCodeState } from "../state";
 import { InfoText, Mascot, PageContainer, PageHeader } from "../styles";
 import { ROUTES, useIsMobile } from "../utils";
-import { Banner, ErrorObject } from "./Banner";
 import { IconHeader } from "./IconHeader";
 import { LoadingOverlay } from "./LoadingOverlay";
 import { NavArrow } from "./NavArrow";

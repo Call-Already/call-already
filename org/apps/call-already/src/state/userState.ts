@@ -23,6 +23,8 @@ export const EMAIL_STATE_KEY = "email";
 
 export const IS_VERIFIED_STATE_KEY = "isVerified";
 
+export const AUTH_TOKEN_STATE = "authToken";
+
 export const emailState = atom({
   key: EMAIL_STATE_KEY,
   default: "",
@@ -31,6 +33,12 @@ export const emailState = atom({
 
 export const isVerifiedState = atom({
   key: IS_VERIFIED_STATE_KEY,
+  default: "",
+  effects: [persistAtom],
+});
+
+export const authTokenState = atom({
+  key: AUTH_TOKEN_STATE,
   default: "",
   effects: [persistAtom],
 });
