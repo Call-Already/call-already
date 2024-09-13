@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { ErrorObject, Page } from "../components";
 import { verifyEmail, VerifyEmailProps } from "../gateways";
-import { emailState, isVerifiedState, nicknameState } from "../state";
+import { authTokenState, emailState, isVerifiedState, nicknameState } from "../state";
 import { CardContainer, InfoText } from "../styles";
 import { emitAnalytic, GROUP_ROUTE, MASCOTS, useIsMobile, WELCOME_ROUTE } from "../utils";
 
@@ -19,6 +19,7 @@ export function VerificationPage() {
   const setNickname = useSetRecoilState(nicknameState);
   const setEmail = useSetRecoilState(emailState);
   const setIsVerified = useSetRecoilState(isVerifiedState);
+  const setAuthToken = useSetRecoilState(authTokenState);
 
   const header = "Verify your email";
   const infoText = "We have sent a verification link to the email you provided.";
@@ -45,11 +46,16 @@ export function VerificationPage() {
           .then((response) => {
             setIsLoading(false);
 
-            setNickname(response.data.Nickname);
-            setEmail(response.data.Email);
-            setIsVerified(response.data.IsVerified);
+            setNickname(response.data.User.Nickname);
+            setEmail(response.data.User.Email);
+            setIsVerified(response.data.User.IsVerified);
+            setAuthToken(response.data.Token);
 
-            navigate(WELCOME_ROUTE);
+            navigate(WELCOME_ROUTE, {
+              state: {
+                isVerified: "true"
+              }
+            });
           })
           .catch((error) => {
             emitAnalytic("Unable to verify email");

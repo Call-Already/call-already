@@ -10,7 +10,6 @@ export const ProtectedPage: React.FC<Props> = ({ children }) => {
 
   const token = useContext(AuthContext);
 
-  console.log(token);
   if (token) {
     return (
       <>

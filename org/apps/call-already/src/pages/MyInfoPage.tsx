@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TimezoneSelect from "react-timezone-select";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { ErrorObject, Page } from "../components";
 import { CodeClipboard } from "../components/CodeClipboard";
+import { MessageObject } from "../components/SuccessBanner";
 import { existingUsersState, expectedNumUsersState, groupCodeState, isCreatingGroupState, nicknameState, timezoneState } from "../state";
 import {
   Button,
@@ -31,6 +32,7 @@ export function MyInfoPage() {
   const [timezone, setTimezone] = useRecoilState(timezoneState);
 
   const [error, setError] = useState<ErrorObject>({});
+  const [message, setMessage] = useState<MessageObject>({});
 
   const header = "About you";
   const codeText = "Your group";
@@ -40,7 +42,13 @@ export function MyInfoPage() {
   const allHereText = "All of your friends are here!";
   const joinedText = "Welcome to the group!";
   const provideNicknameText = "Please provide a valid nickname.";
+  const provideTimezoneText = "Please provide a timezone.";
   const submit = "Submit";
+  const friendsFound = "We found your friends!";
+
+  useEffect(() => {
+    setMessage({message: friendsFound});
+  }, []);
 
   const numUsersRemaining = expectedNumUsers - existingUsers.length - 1;
 
@@ -62,13 +70,22 @@ export function MyInfoPage() {
       setError({message: provideNicknameText});
       return;
     }
+
+    const timezoneValue = (
+      document.getElementById("timezone") as HTMLInputElement
+    ).value;
+
+    if (timezoneValue === '') {
+      setError({message: provideTimezoneText});
+      return;
+    }
     
     emitAnalytic("My info submitted");
     navigate(TIME_ROUTE);
   };
 
   return (
-    <Page progress={3} iconClassNames={"fa-solid fa-clipboard"} headerText={header} mascot={MASCOTS.Happy} isLoading={false} error={error} setError={setError}>
+    <Page progress={3} iconClassNames={"fa-solid fa-clipboard"} headerText={header} mascot={MASCOTS.Happy} isLoading={false} error={error} setError={setError} message={message} setMessage={setMessage}>
       <CardContainer $isMobile={isMobile}>
         <SubHeader>{codeText}</SubHeader>
         {

@@ -63,15 +63,17 @@ export function LoginPage() {
           .then((response) => {
             setIsLoading(false);
 
-            console.log(response);
-
             setNickname(response.data.User.Nickname);
             setEmail(response.data.User.Email);
             setIsVerified(response.data.User.IsVerified);
             setAuthToken(response.data.Token);
 
             emitAnalytic("Logged in");
-            navigate(WELCOME_ROUTE);
+            navigate(WELCOME_ROUTE, {
+              state: {
+                justLoggedIn: true
+              }
+            });
           })
           .catch((error) => {
             setIsLoading(false);
@@ -79,8 +81,11 @@ export function LoginPage() {
             if (error.response) {
               const status = error.response.status;
               if (status === 400) {
-                setError({message: `Email does not exist.`});
+                setError({message: `Email ${email} does not exist.`});
                 emitAnalytic("Email does not exist");
+              } else if (status === 403) {
+                setError({message: "Please verify your email address."});
+                emitAnalytic("Email is not verified");
               } else if (status === 404) {
                 setError({message: `Email and password do not match.`});
                 emitAnalytic("Email and password do not match");

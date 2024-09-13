@@ -9,6 +9,7 @@ import { IconHeader } from "./IconHeader";
 import { LoadingOverlay } from "./LoadingOverlay";
 import { NavArrow } from "./NavArrow";
 import { Progress } from "./Progress";
+import { MessageObject, SuccessBanner } from "./SuccessBanner";
 
 interface PageContainerProps extends React.HTMLAttributes<HTMLElement> {
   progress: number;
@@ -17,10 +18,12 @@ interface PageContainerProps extends React.HTMLAttributes<HTMLElement> {
   isLoading: Boolean;
   error?: ErrorObject;
   setError?: React.Dispatch<React.SetStateAction<ErrorObject>>;
+  message?: MessageObject;
+  setMessage?: React.Dispatch<React.SetStateAction<MessageObject>>;
   mascot: string;
 }
 
-export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, headerText, isLoading, error, setError, mascot, children}) => {
+export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, headerText, isLoading, error, setError, mascot, children, message, setMessage}) => {
   const isMobile = useIsMobile();
   const location = useLocation().pathname;
 
@@ -53,6 +56,7 @@ export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, he
         <IconHeader iconClassNames={`${iconClassNames} fa-md`} text={headerText} />
       </PageHeader>
       {error && setError && error.message && <Banner message={error.message} onClose={() => setError({})} />}
+      {message && setMessage && message.message && <SuccessBanner message={message.message} onClose={() => setMessage({})} />}
       {children}
       <Mascot src={mascot} alt="logo" />
     </PageContainer>
