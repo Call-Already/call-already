@@ -10,13 +10,13 @@ export const ProtectedPage: React.FC<Props> = ({ children }) => {
 
   const token = useContext(AuthContext);
 
-  // if (token) {
+  if (token) {
     return (
       <>
         {children}
       </>
     );
-  // } else {
-  //   return <Navigate to={LOGIN_ROUTE} />
-  // }
+  } else {
+    return <Navigate to={LOGIN_ROUTE} />
+  }
 }
