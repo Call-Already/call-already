@@ -10,11 +10,14 @@ import { isCreatingGroupState } from "../state";
 import {
   Button,
   CardContainer,
+  FormLabel,
+  Group,
   // CheckboxInput,
   // FormLabel,
   InfoText,
   InputContainer,
   NumberInput,
+  RadioButton,
   RoomCodeInput,
   SubHeader,
 } from "../styles";
@@ -57,7 +60,7 @@ export function GroupPage() {
   const info = "Enter a room code below to join an existing group.";
   const submitText = "Join group";
   const info2 = "Create new group";
-  const selectDaysTips = "Select one to three days within the next two weeks for the call. Days are in UTC (Coordinated Universal Time). Calls scheduled in the next three to five days tend to be more successful.";
+  const callTypeText = "How should we schedule your call?";
   // Parameters for date picker component.
   const defaultDate = moment(new Date()).add(2, "day").toDate();
   const minDate = moment(new Date()).toDate();
@@ -135,11 +138,18 @@ export function GroupPage() {
     const groupCode = generateGroupCode(4);
     setUserGroupCode(groupCode);
 
+    const callTypeValue = (
+      document.querySelector(`input[name="callType"]:checked`) as HTMLInputElement
+    ).value;
+
+    console.log(callTypeValue);
+
     const createGroupProps: CreateGroupProps = {
       ID: groupCode,
       NumUsers: Number(numUsersValue),
       ShowUsers: Boolean(showUsersValue),
       Dates: selectedDays,
+      CallType: callTypeValue,
     };
 
     setIsLoading(true);
@@ -175,9 +185,7 @@ export function GroupPage() {
         <InfoText>
           Show other callers' responses while picking times
         </InfoText> */}
-        <InputContainer>
-          <InfoText><i className="fa-solid fa-circle-info fa-sm"></i>{"\t" + selectDaysTips}</InfoText>
-        </InputContainer>
+        <InfoText>Select <strong>one to three days</strong> within the next two weeks for the call. Calls scheduled in the next three to five days tend to be more successful.</InfoText>
         <DatePicker
           type="range"
           allowSingleDateInRange
@@ -191,6 +199,30 @@ export function GroupPage() {
           value={pickedDays}
           onChange={selectPickedDays}
         />
+        <h3>{callTypeText}</h3>
+        <Group>
+          <input
+            type="radio"
+            name="callType"
+            id="imperfect"
+            value="imperfect"
+            checked
+          />
+          <FormLabel>
+            Include the most friends possible
+          </FormLabel>
+        </Group>
+        <Group>
+          <input
+            type="radio"
+            name="callType"
+            id="perfect"
+            value="perfect"
+          />
+          <FormLabel htmlFor="perfect">
+            Call time must work for everyone
+          </FormLabel>
+        </Group>
         <Button $primary onClick={onCreateGroup}>
           {info2}
         </Button>

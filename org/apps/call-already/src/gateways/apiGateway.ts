@@ -29,6 +29,7 @@ export type CreateGroupProps = {
   NumUsers: number;
   ShowUsers: boolean;
   Dates: Array<string>;
+  CallType: string;
 };
 
 export type RegisterProps = {

@@ -256,3 +256,13 @@ export const LoadingContainer = styled.div`
 export const LinkText = styled.a`
   color: ${theme.general.dark};
 `;
+
+export const RadioButton = styled.input`
+  opacity: 0;
+  z-index: 1;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  }
+`;
