@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { Banner, ErrorObject } from ".";
+import { Banner, ErrorObject, NavHome } from ".";
 import { groupCodeState } from "../state";
 import { InfoText, Mascot, PageContainer, PageHeader } from "../styles";
 import { ROUTES, useIsMobile } from "../utils";
@@ -49,10 +49,11 @@ export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, he
   return (
     <PageContainer $isMobile={isMobile}>
       <LoadingOverlay isMobile={isMobile} isLoading={isLoading} />
-      {prevRoute && <NavArrow prevRoute={prevRoute}></NavArrow>}
+      {progress > 0 && prevRoute && <NavArrow prevRoute={prevRoute}></NavArrow>}
+      {progress < 0 && <NavHome></NavHome>}
       <PageHeader>
           {groupCode && hasFinishedGroupPage && <InfoText style={{color: "#dddddd", marginBottom: "0.1em"}}>{`${groupCodeText} ${groupCode}`}</InfoText>}
-          <Progress progress={progress} />
+          {progress >= 0 && <Progress progress={progress} />}
         <IconHeader iconClassNames={`${iconClassNames} fa-md`} text={headerText} />
       </PageHeader>
       {error && setError && error.message && <Banner message={error.message} onClose={() => setError({})} />}

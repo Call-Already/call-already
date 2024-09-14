@@ -10,6 +10,7 @@ import {
   Button,
   Form,
   InfoText,
+  InfoSubText,
 } from "../styles";
 import { emitAnalytic, MASCOTS, REGISTRATION_ROUTE, useIsMobile, WELCOME_ROUTE } from "../utils";
 import { LoginProps, loginUser } from "../gateways";
@@ -107,7 +108,7 @@ export function LoginPage() {
   };
 
   return (
-    <Page progress={0} iconClassNames={"fa-solid fa-right-to-bracket"} headerText={header} mascot={MASCOTS.Writing} isLoading={isLoading} error={error} setError={setError}>
+    <Page progress={-1} iconClassNames={"fa-solid fa-right-to-bracket"} headerText={header} mascot={MASCOTS.Writing} isLoading={isLoading} error={error} setError={setError}>
       <CardContainer $isMobile={isMobile}>
         <Form onSubmit={onSubmit}>
           <FormLabel htmlFor="email">{email}</FormLabel>
@@ -117,9 +118,13 @@ export function LoginPage() {
           <Group>
             <Button $primary type="submit">{logIn}</Button>
           </Group>
-          <br />
-          <InfoText><a style={{color: "black"}}href={REGISTRATION_ROUTE}>{registrationOptionText}</a></InfoText>
         </Form>
+        <InfoText><a style={{color: "black"}}href={REGISTRATION_ROUTE}>{registrationOptionText}</a></InfoText>
+      </CardContainer>
+      <CardContainer $isMobile={isMobile}>
+        <h3>Thanks for keeping us healthy</h3>
+        <InfoSubText $isMobile={isMobile}>We only require keeping an account in order to keep our email channels healthy from spam folders and bounces, which would deny us email access.</InfoSubText>
+        <InfoSubText $isMobile={isMobile}>Your email will only be used to communicate call times to you. Will not share it, use it for promotional purposes or otherwise misuse it.</InfoSubText>
       </CardContainer>
     </Page>
   );

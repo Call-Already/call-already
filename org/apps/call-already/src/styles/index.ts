@@ -87,8 +87,8 @@ export const SecondaryContainer = styled.div<{ $isMobile?: boolean }>`
 export const InputContainer = styled.div`
   display: flex;
   align-items: baseline;
-  gap: 1em;
-  margin-top: 1em;
+  gap: 0.5em;
+  margin-top: 0.5em;
 `;
 
 export const Mascot = styled.img`
@@ -117,6 +117,15 @@ export const InfoText = styled.p`
   text-align: center;
   margin-top: 0;
   margin-bottom: 1em;
+`;
+
+export const InfoSubText = styled.p<{ $isMobile?: boolean }>`
+  color: ${theme.general.md};
+  width: ${(props) => (props.$isMobile ? "280px" : "450px")};
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1em;
+  font-size: 0.75em;
 `;
 
 export const Group = styled.div<{ $isMobile?: boolean }>`
@@ -193,7 +202,7 @@ export const TextInput = styled.input`
   align-text: left;
   border-radius: 0.5em;
   font-size: 1em;
-  size: 16;
+  size: 12;
 `;
 
 export const NumberInput = styled.input`

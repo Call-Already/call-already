@@ -12,6 +12,8 @@ export {
   isDaytimeHours,
 } from "./utils";
 
+export * from "./callTypes";
+
 export {
   isValidGroupCode
 } from "./validation";

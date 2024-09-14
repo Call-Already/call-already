@@ -38,26 +38,19 @@ export function MyInfoPage() {
   const codeText = "Your group";
   const subHeader = "Your information";
   const shareText = "Invite your friends to callalready.com and share this code with them."
-  const waitingText = "Waiting on responses from some more of your friends:";
-  const allHereText = "All of your friends are here!";
+  const waitingText = "Waiting on more friends:";
   const joinedText = "Welcome to the group!";
   const provideNicknameText = "Please provide a valid nickname.";
   const provideTimezoneText = "Please provide a timezone.";
   const submit = "Submit";
   const friendsFound = "We found your friends!";
-
-  useEffect(() => {
-    setMessage({message: friendsFound});
-  }, []);
+  const groupCreation = "You've created a new group!";
 
   const numUsersRemaining = expectedNumUsers - existingUsers.length - 1;
 
-  let usersRemainingMessage;
-  if (numUsersRemaining > 0) {
-    usersRemainingMessage = <InfoText>{`${waitingText} ${numUsersRemaining}`}</InfoText>
-  } else {
-    usersRemainingMessage = <InfoText>{allHereText}</InfoText>
-  }
+  useEffect(() => {
+    setMessage({message: isCreatingGroup ? groupCreation:  friendsFound });
+  }, []);
 
   const onSubmitInfo = () => {
     const nicknameValue = (
@@ -71,11 +64,7 @@ export function MyInfoPage() {
       return;
     }
 
-    const timezoneValue = (
-      document.getElementById("timezone") as HTMLInputElement
-    ).value;
-
-    if (timezoneValue === '') {
+    if (!timezone) {
       setError({message: provideTimezoneText});
       return;
     }
@@ -96,13 +85,15 @@ export function MyInfoPage() {
               <CodeClipboard groupCode={groupCode}/>
             </>
           ) : (
-            <>
+            <table>
               {existingUsers.map((user: string) => {
                 return <InfoText><i className="fa-solid fa-face-smile"></i>{"\t" + user}</InfoText>
               })}
-              {usersRemainingMessage}
-              <InfoText style={{fontWeight: "1000"}}>{joinedText}</InfoText>
-            </>
+              <tr>
+                <td className={"reviewTitle"}>{waitingText}</td>
+                <td className={"reviewData"}>{numUsersRemaining}</td>
+              </tr>
+            </table>
           )
         }
       </CardContainer>

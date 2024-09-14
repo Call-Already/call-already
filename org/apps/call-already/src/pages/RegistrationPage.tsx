@@ -100,7 +100,7 @@ export function RegistrationPage() {
   };
 
   return (
-    <Page progress={0} iconClassNames={"fa-solid fa-right-to-bracket"} headerText={header} mascot={MASCOTS.Writing} isLoading={isLoading} error={error} setError={setError}>
+    <Page progress={-1} iconClassNames={"fa-solid fa-right-to-bracket"} headerText={header} mascot={MASCOTS.Writing} isLoading={isLoading} error={error} setError={setError}>
       <CardContainer $isMobile={isMobile}>
         <Form onSubmit={onSubmit}>
           <FormLabel htmlFor="nickname">{nickname}</FormLabel>
@@ -114,6 +114,7 @@ export function RegistrationPage() {
           </Group>
           <br/>
           <InfoText><a style={{color: "black"}} href={LOGIN_ROUTE}>{loginOptionText}</a></InfoText>
+          <InfoText><i className="fa-brands fa-whatsapp"></i>  WhatsApp coming soon!</InfoText>
         </Form>
       </CardContainer>
     </Page>

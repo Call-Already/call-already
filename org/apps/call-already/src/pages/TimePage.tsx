@@ -33,7 +33,7 @@ export function TimePage() {
   const [error, setError] = useState<ErrorObject>({});
 
   const header = "Select times";
-  const infoText = "Provide the times that work best for you. Select as many as possible to maximize calling chances.";
+  const infoText = "These are the times you're available for a call. Select as many as possible and let's make this thing happen!";
   const showNightText = "Show night times";
 
   // Load in the correct time ranges for the call

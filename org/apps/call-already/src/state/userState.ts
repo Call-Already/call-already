@@ -1,5 +1,6 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
+import { CallTypes } from "../utils";
 
 const { persistAtom } = recoilPersist();
 
@@ -18,6 +19,8 @@ export const IS_CREATING_GROUP_KEY = "isCreatingGroup";
 export const EXISTING_USERS_KEY = "existingUsers";
 
 export const EXPECTED_NUM_USERS_KEY = "expectedNumUsers";
+
+export const CALL_TYPE_KEY = "callType";
 
 export const EMAIL_STATE_KEY = "email";
 
@@ -88,5 +91,11 @@ export const existingUsersState = atom({
 export const expectedNumUsersState = atom({
   key: EXPECTED_NUM_USERS_KEY,
   default: 0,
+  effects: [persistAtom],
+});
+
+export const callTypeState = atom({
+  key: CALL_TYPE_KEY,
+  default: CallTypes.PERFECT,
   effects: [persistAtom],
 });

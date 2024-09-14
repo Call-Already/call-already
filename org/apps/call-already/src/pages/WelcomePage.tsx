@@ -56,6 +56,7 @@ export function WelcomePage() {
 
   return (
     <Page progress={0} iconClassNames="fa-solid fa-earth-americas" headerText={header} mascot={MASCOTS.Happy} isLoading={false} message={message} setMessage={setMessage}>
+      <InfoText>by Matty Phillips</InfoText>
       <CardContainer $isMobile={isMobile}>
         <InfoText>{introText}</InfoText>
         <InfoText>{introText2}</InfoText>

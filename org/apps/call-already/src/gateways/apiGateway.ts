@@ -13,6 +13,7 @@ export type ValidateGroupResponse = {
   UserNicknames: string[];
   Dates: string[],
   NumUsers: number;
+  CallType: string;
 };
 
 export type PostResponsesProps = {

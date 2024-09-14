@@ -5,7 +5,7 @@ import { DatePicker } from "@mantine/dates";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { createGroup, CreateGroupProps, validateGroup } from "../gateways";
-import { existingUsersState, expectedNumUsersState, groupCodeState, selectedDaysState } from "../state";
+import { callTypeState, existingUsersState, expectedNumUsersState, groupCodeState, selectedDaysState } from "../state";
 import { isCreatingGroupState } from "../state";
 import {
   Button,
@@ -17,11 +17,11 @@ import {
   InfoText,
   InputContainer,
   NumberInput,
-  RadioButton,
   RoomCodeInput,
   SubHeader,
 } from "../styles";
 import {
+  CallTypes,
   emitAnalytic,
   generateGroupCode,
   getDatesInRange,
@@ -45,6 +45,7 @@ export function GroupPage() {
   const setSelectedDays = useSetRecoilState(selectedDaysState);
   const setExistingUsers = useSetRecoilState(existingUsersState);
   const setExpectedNumUsers = useSetRecoilState(expectedNumUsersState);
+  const setCallType = useSetRecoilState(callTypeState);
 
   const [error, setError] = useState<ErrorObject>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -93,6 +94,7 @@ export function GroupPage() {
         setExistingUsers(data.UserNicknames);
         setExpectedNumUsers(data.NumUsers);
         setSelectedDays(data.Dates);
+        setCallType(data.CallType);
         emitAnalytic("Group joined");
         navigate(MY_INFO_ROUTE);
       })
@@ -141,8 +143,7 @@ export function GroupPage() {
     const callTypeValue = (
       document.querySelector(`input[name="callType"]:checked`) as HTMLInputElement
     ).value;
-
-    console.log(callTypeValue);
+    setCallType(callTypeValue);
 
     const createGroupProps: CreateGroupProps = {
       ID: groupCode,
@@ -204,11 +205,11 @@ export function GroupPage() {
           <input
             type="radio"
             name="callType"
-            id="imperfect"
-            value="imperfect"
+            id={CallTypes.IMPERFECT}
+            value={CallTypes.IMPERFECT}
             checked
           />
-          <FormLabel>
+          <FormLabel htmlFor={CallTypes.IMPERFECT}>
             Include the most friends possible
           </FormLabel>
         </Group>
@@ -216,10 +217,10 @@ export function GroupPage() {
           <input
             type="radio"
             name="callType"
-            id="perfect"
-            value="perfect"
+            id={CallTypes.PERFECT}
+            value={CallTypes.PERFECT}
           />
-          <FormLabel htmlFor="perfect">
+          <FormLabel htmlFor={CallTypes.PERFECT}>
             Call time must work for everyone
           </FormLabel>
         </Group>

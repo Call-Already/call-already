@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { WELCOME_ROUTE } from "../utils";
 
-interface NavArrowProps extends React.HTMLAttributes<HTMLElement> {
-  prevRoute: string;
+interface NavHomeProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const NavButton = styled.button`
@@ -14,12 +14,12 @@ const NavButton = styled.button`
   border-radius: 2em;
 `;
 
-export const NavArrow: React.FC<NavArrowProps> = ({prevRoute}) => {
+export const NavHome: React.FC<NavHomeProps> = () => {
   const navigate = useNavigate();
 
   return (
-    <NavButton onClick={() => {navigate(prevRoute)}}>
-      <i className="fa-solid fa-arrow-left fa-xl" style={{color: "#dddddd"}}></i>
+    <NavButton onClick={() => {navigate(WELCOME_ROUTE)}}>
+      <i className="fa-solid fa-home fa-xl" style={{color: "#dddddd"}}></i>
     </NavButton>
   )
 }

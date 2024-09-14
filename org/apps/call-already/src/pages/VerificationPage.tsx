@@ -25,11 +25,6 @@ export function VerificationPage() {
   const infoText = "We have sent a verification link to the email you provided.";
   const infoText2 = "Click the link to verify your email, or return to the login page."
 
-  const onReturn = () => {
-    emitAnalytic("Confirmed times");
-    navigate(GROUP_ROUTE);
-  };
-
   useEffect(() => {
     if (searchParams) {
       const Email = searchParams.get("Email");
@@ -66,7 +61,7 @@ export function VerificationPage() {
   }, []);
 
   return (
-    <Page progress={0} iconClassNames={"fa-solid fa-envelope"} headerText={header} mascot={MASCOTS.Happy} isLoading={isLoading} error={error} setError={setError}>
+    <Page progress={-1} iconClassNames={"fa-solid fa-envelope"} headerText={header} mascot={MASCOTS.Happy} isLoading={isLoading} error={error} setError={setError}>
       <CardContainer $isMobile={isMobile}>
         <InfoText>{infoText}</InfoText>
         <InfoText>{infoText2}</InfoText>

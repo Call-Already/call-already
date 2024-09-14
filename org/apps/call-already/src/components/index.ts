@@ -5,4 +5,6 @@ export { Banner } from "./Banner";
 export { SuccessBanner } from "./SuccessBanner";
 export { IconHeader } from "./IconHeader";
 export { LoadingOverlay } from "./LoadingOverlay";
+export { NavArrow } from "./NavArrow";
+export { NavHome } from "./NavHome";
 export type { ErrorObject } from "./Banner";
