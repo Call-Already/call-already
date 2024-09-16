@@ -5,7 +5,7 @@ import { ErrorObject, Page } from "../components";
 import { verifyEmail, VerifyEmailProps } from "../gateways";
 import { authTokenState, emailState, isVerifiedState, nicknameState } from "../state";
 import { CardContainer, InfoText } from "../styles";
-import { emitAnalytic, GROUP_ROUTE, MASCOTS, useIsMobile, WELCOME_ROUTE } from "../utils";
+import { emitAnalytic, MASCOTS, useIsMobile, WELCOME_ROUTE } from "../utils";
 
 export function VerificationPage() {
   const isMobile = useIsMobile();

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TimezoneSelect from "react-timezone-select";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { ErrorObject, Page } from "../components";
 import { CodeClipboard } from "../components/CodeClipboard";
 import { MessageObject } from "../components/SuccessBanner";
@@ -22,14 +22,13 @@ export function MyInfoPage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
+  const timezone = useRecoilValue(timezoneState);
   const groupCode = useRecoilValue(groupCodeState);
   const isCreatingGroup = useRecoilValue(isCreatingGroupState);
   const existingUsers = useRecoilValue(existingUsersState);
   const expectedNumUsers = useRecoilValue(expectedNumUsersState);
 
-  const setNickname = useSetRecoilState(nicknameState);
-
-  const [timezone, setTimezone] = useRecoilState(timezoneState);
+  const setTimezone = useSetRecoilState(timezoneState);
 
   const [error, setError] = useState<ErrorObject>({});
   const [message, setMessage] = useState<MessageObject>({});
@@ -39,7 +38,6 @@ export function MyInfoPage() {
   const subHeader = "Your information";
   const shareText = "Invite your friends to callalready.com and share this code with them."
   const waitingText = "Waiting on more friends:";
-  const joinedText = "Welcome to the group!";
   const provideNicknameText = "Please provide a valid nickname.";
   const provideTimezoneText = "Please provide a timezone.";
   const submit = "Submit";
@@ -53,16 +51,6 @@ export function MyInfoPage() {
   }, []);
 
   const onSubmitInfo = () => {
-    const nicknameValue = (
-      document.getElementById("nickname") as HTMLInputElement
-    ).value;
-
-    if (isValidNickname(nicknameValue)) {
-      setNickname(nicknameValue);
-    } else {
-      setError({message: provideNicknameText});
-      return;
-    }
 
     if (!timezone) {
       setError({message: provideTimezoneText});
@@ -99,10 +87,6 @@ export function MyInfoPage() {
       </CardContainer>
       <CardContainer $isMobile={isMobile}>
         <SubHeader>{subHeader}</SubHeader>
-        <InputContainer>
-          <InfoText>Nickname</InfoText>
-          <TextInput id="nickname" type="text"></TextInput>
-        </InputContainer>
         <InputContainer>
           <FormLabel htmlFor="timezone">Timezone</FormLabel>
           <TimezoneSelect id="timezone" value={timezone} onChange={setTimezone} />

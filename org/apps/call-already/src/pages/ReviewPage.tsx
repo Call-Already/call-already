@@ -5,6 +5,7 @@ import { ErrorObject, Page } from "../components";
 import { CodeClipboard } from "../components/CodeClipboard";
 import { postResponses, PostResponsesProps } from "../gateways";
 import {
+  emailState,
   groupCodeState,
   isCreatingGroupState,
   nicknameState,
@@ -15,9 +16,7 @@ import {
 import {
   Button,
   CardContainer,
-  FormLabel,
   InfoText,
-  TextInput,
 } from "../styles";
 import {
   CONFIRMATION_ROUTE,
@@ -34,6 +33,7 @@ export function ReviewPage() {
 
   const groupCode = useRecoilValue(groupCodeState);
   const nickname = useRecoilValue(nicknameState);
+  const email = useRecoilValue(emailState);
   const timezone = useRecoilValue(timezoneState);
   const isCreatingGroup = useRecoilValue(isCreatingGroupState);
   const selectedDays = useRecoilValue(selectedDaysState);
@@ -49,27 +49,16 @@ export function ReviewPage() {
   const timezoneText = "Timezone";
   const selectedDaysText = "Days";
   const selectedTimesText = "Times";
-  const emailLabel = "Enter your email to receive your call time:";
   const submitText = "Finish";
 
   const formattedDays = getFormattedDays(selectedDays);
   const formattedLocalTimes = getFormattedLocalTimes(selectedTimes, timezone.value);
 
   async function onSubmit() {
-    const emailValue = (document.getElementById("email") as HTMLInputElement)
-      .value;
-
-    // Validate email here.
-
-    if (emailValue === "") {
-      setError({message: "Please enter a valid email."});
-      return;
-    }
-
     const props: PostResponsesProps = {
       ID: groupCode,
       Nickname: nickname,
-      Email: emailValue,
+      Email: email,
       Timezone: timezone.value,
       SelectedTimes: selectedTimes,
       IsGroupCreator: isCreatingGroup,
@@ -138,8 +127,6 @@ export function ReviewPage() {
           </tr>
         </table>
         <br />
-        <FormLabel htmlFor="email">{emailLabel}</FormLabel>
-        <TextInput id="email" type="text"></TextInput>
         <Button $primary onClick={onSubmit}>
           {submitText}
         </Button>
