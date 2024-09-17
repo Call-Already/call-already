@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { WELCOME_ROUTE } from "../utils";
+import { HOME_ROUTE, WELCOME_ROUTE } from "../utils";
 
 interface NavHomeProps extends React.HTMLAttributes<HTMLElement> {
 }
@@ -18,7 +18,7 @@ export const NavHome: React.FC<NavHomeProps> = () => {
   const navigate = useNavigate();
 
   return (
-    <NavButton onClick={() => {navigate(WELCOME_ROUTE)}}>
+    <NavButton onClick={() => {navigate(HOME_ROUTE)}}>
       <i className="fa-solid fa-home fa-xl" style={{color: "#dddddd"}}></i>
     </NavButton>
   )

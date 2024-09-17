@@ -135,3 +135,20 @@ export function isDaytimeHours(time: string): boolean {
 
   return true;
 }
+
+export function generateRandomNumberFromDate(): number {
+  // Get today's date in YYYYMMDD format
+  const today = new Date();
+  const dateString = today.toISOString().split('T')[0].replace(/-/g, '');
+
+  // Convert the date string to a number
+  const dateNumber = parseInt(dateString, 10);
+
+  // Simple hash function to ensure randomness
+  const hash = (dateNumber * 9301 + 49297) % 233280;
+
+  // Scale hash to range 0-99
+  const randomNumber = Math.floor((hash / 233280) * 100);
+
+  return randomNumber;
+}

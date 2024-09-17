@@ -28,6 +28,10 @@ export const IS_VERIFIED_STATE_KEY = "isVerified";
 
 export const AUTH_TOKEN_STATE = "authToken";
 
+export const NUM_GROUPS_CREATED_STATE = "numGroupsCreated";
+
+export const NUM_GROUPS_JOINED_STATE = "numGroupsJoined";
+
 export const emailState = atom({
   key: EMAIL_STATE_KEY,
   default: "",
@@ -97,5 +101,17 @@ export const expectedNumUsersState = atom({
 export const callTypeState = atom({
   key: CALL_TYPE_KEY,
   default: CallTypes.PERFECT,
+  effects: [persistAtom],
+});
+
+export const numGroupsCreatedState = atom({
+  key: NUM_GROUPS_CREATED_STATE,
+  default: 0,
+  effects: [persistAtom],
+});
+
+export const numGroupsJoinedState = atom({
+  key: NUM_GROUPS_JOINED_STATE,
+  default: 0,
   effects: [persistAtom],
 });

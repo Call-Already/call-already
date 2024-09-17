@@ -13,7 +13,7 @@ import {
   InfoSubText,
   SmallHeader,
 } from "../styles";
-import { emitAnalytic, MASCOTS, REGISTRATION_ROUTE, useIsMobile, WELCOME_ROUTE } from "../utils";
+import { emitAnalytic, HOME_ROUTE, MASCOTS, REGISTRATION_ROUTE, useIsMobile, WELCOME_ROUTE } from "../utils";
 import { LoginProps, loginUser } from "../gateways";
 import { useSetRecoilState } from "recoil";
 import { authTokenState, emailState, isVerifiedState, nicknameState } from "../state";
@@ -71,7 +71,7 @@ export function LoginPage() {
             setAuthToken(response.data.Token);
 
             emitAnalytic("Logged in");
-            navigate(WELCOME_ROUTE, {
+            navigate(HOME_ROUTE, {
               state: {
                 justLoggedIn: true
               }

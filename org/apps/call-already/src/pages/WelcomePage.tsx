@@ -11,6 +11,7 @@ import {
 import {
   emitAnalytic,
   GROUP_ROUTE,
+  HOME_ROUTE,
   OVERVIEW_ROUTE,
   useIsMobile,
 } from "../utils";
@@ -51,7 +52,7 @@ export function WelcomePage() {
 
   const onGetStarted = () => {
     emitAnalytic("Flow started");
-    navigate(GROUP_ROUTE);
+    navigate(HOME_ROUTE);
   };
 
   return (

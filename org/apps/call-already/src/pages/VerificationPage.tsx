@@ -5,7 +5,7 @@ import { ErrorObject, Page } from "../components";
 import { verifyEmail, VerifyEmailProps } from "../gateways";
 import { authTokenState, emailState, isVerifiedState, nicknameState } from "../state";
 import { CardContainer, InfoText } from "../styles";
-import { emitAnalytic, MASCOTS, useIsMobile, WELCOME_ROUTE } from "../utils";
+import { emitAnalytic, HOME_ROUTE, MASCOTS, useIsMobile, WELCOME_ROUTE } from "../utils";
 
 export function VerificationPage() {
   const isMobile = useIsMobile();
@@ -46,7 +46,7 @@ export function VerificationPage() {
             setIsVerified(response.data.User.IsVerified);
             setAuthToken(response.data.Token);
 
-            navigate(WELCOME_ROUTE, {
+            navigate(HOME_ROUTE, {
               state: {
                 isVerified: "true"
               }

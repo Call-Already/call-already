@@ -69,6 +69,18 @@ export type LoginProps = {
   Password: string;
 };
 
+export type GetUserProps = {
+  Email: string;
+}
+
+export type GetUserResponse = {
+    Email: string;
+    Nickname: string;
+    IsVerified: boolean;
+    GroupsCreated?: number;
+    GroupsJoined?: number;
+};
+
 export async function validateGroup(props: ValidateGroupProps) {
   const serverResponse = await instance.get<ValidateGroupResponse>(`/validate-group?ID=${props.ID}`);
   console.log("ValidateGroup", "[RESPONSE]", serverResponse);
@@ -107,5 +119,10 @@ export async function loginUser(props: LoginProps) {
   console.log("LoginUser", "[REQUEST]", props);
   const serverResponse = await instance.post<LoginResponse>("/login-user", props);
   console.log("LoginUser", "[RESPONSE]", serverResponse);
+  return serverResponse;
+}
+
+export async function getUser(props: GetUserProps) {
+  const serverResponse = await instance.get<GetUserResponse>(`/get-user?Email=${props.Email}`);
   return serverResponse;
 }

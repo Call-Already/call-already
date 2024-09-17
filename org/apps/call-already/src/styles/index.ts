@@ -12,6 +12,7 @@ export const palette = {
     900: "##808080", // Medium
     1000: "#caedff", // Lt Blue
     1100: "#ffa800", // Dk orange
+    1200: "#fefefe", // Lt Grey
   },
 };
 
@@ -63,7 +64,7 @@ export const PageContainer = styled.div<{ $isMobile?: boolean }>`
   align-items: center;
   margin-top: auto;
   margin-bottom: auto;
-  width: ${(props) => (props.$isMobile ? "330px" : "880px")};
+  width: ${(props) => (props.$isMobile ? "350px" : "880px")};
   background: ${palette.primary[400]};
   border-radius: 1em;
   padding: 3em 3em 0em 3em;
@@ -88,11 +89,10 @@ export const SecondaryContainer = styled.div<{ $isMobile?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: ${palette.primary[400]};
+  background: ${palette.primary[1200]};
   border-radius: 3px;
-  width: ${(props) => (props.$isMobile ? "310px" : "500px")};
+  width: ${(props) => (props.$isMobile ? "250px" : "380px")};
   border: 1px dotted ${palette.primary[200]};
-  box-shadow: 3px 3px ${palette.primary[200]};
   padding: 1em;
 `;
 
@@ -149,6 +149,13 @@ export const InfoSubText = styled.p<{ $isMobile?: boolean }>`
   margin-top: 0;
   margin-bottom: 1em;
   font-size: 0.75em;
+`;
+
+export const QuoteText = styled.p`
+  font-size: 0.9em;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: italics;
 `;
 
 export const Group = styled.div<{ $isMobile?: boolean }>`

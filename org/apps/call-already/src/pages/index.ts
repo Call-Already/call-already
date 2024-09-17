@@ -8,3 +8,4 @@ export { GroupPage } from "./GroupPage";
 export { RegistrationPage } from "./RegistrationPage";
 export { VerificationPage } from "./VerificationPage";
 export { LoginPage } from "./LoginPage";
+export { HomePage } from "./HomePage";

@@ -11,6 +11,7 @@ import {
   RegistrationPage,
   LoginPage,
   WelcomePage,
+  HomePage,
 } from "../pages";
 import {
   CONFIRMATION_ROUTE,
@@ -23,6 +24,7 @@ import {
   REGISTRATION_ROUTE,
   VERIFICATION_ROUTE,
   LOGIN_ROUTE,
+  HOME_ROUTE,
 } from "../utils";
 
 const browserRouter = createBrowserRouter([
@@ -45,6 +47,12 @@ const browserRouter = createBrowserRouter([
   {
     path: WELCOME_ROUTE,
     element: <WelcomePage />,
+  },
+  {
+    path: HOME_ROUTE,
+    element: <ProtectedPage>
+      <HomePage />,
+    </ProtectedPage>
   },
   {
     path: GROUP_ROUTE,

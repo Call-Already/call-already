@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { GROUP_ROUTE, MASCOTS } from "../utils";
+import { GROUP_ROUTE, HOME_ROUTE, MASCOTS } from "../utils";
 import {
   Button,
   CardContainer,
@@ -28,7 +28,7 @@ export function OverviewPage() {
     "Once the group completes the survey, everyone will receive an email with their optimal local time for the call.";
   const submitText = "Start a Call";
   const onSubmit = () => {
-    navigate(GROUP_ROUTE);
+    navigate(HOME_ROUTE);
   };
   return (
     <Page progress={1} iconClassNames={"fa-solid fa-circle-question"} headerText={header} mascot={MASCOTS.Confused} isLoading={false}>
