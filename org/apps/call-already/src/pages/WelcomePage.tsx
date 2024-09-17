@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Page } from "../components";
-import { MessageObject } from "../components/SuccessBanner";
 import { Button, CardContainer, Group, InfoText } from "../styles";
 import {
   emitAnalytic,
-  GROUP_ROUTE,
   HOME_ROUTE,
   OVERVIEW_ROUTE,
   useIsMobile,
@@ -15,9 +13,6 @@ import { MASCOTS } from "../utils/mascots";
 export function WelcomePage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const [message, setMessage] = useState<MessageObject>({});
 
   const header = "Welcome to CallAlready.com";
   const introText =
@@ -28,17 +23,6 @@ export function WelcomePage() {
   // "Friends are sometimes on different schedules and in different timezones. We remove the pressure of connecting by picking the best time for you to call!";
   const submitText = "Learn More";
   const submitText2 = "Get Started";
-  const successfullyVerifiedMessage = "Your email has been verified!";
-  const successfullyLoggedInMessage = "You have successfully been logged in.";
-
-  useEffect(() => {
-    if (location.state && location.state.isVerified) {
-      setMessage({ message: successfullyVerifiedMessage });
-    }
-    if (location.state && location.state.justLoggedIn) {
-      setMessage({ message: successfullyLoggedInMessage });
-    }
-  }, []);
 
   const onLearnMore = () => {
     emitAnalytic("Flow started");
@@ -52,13 +36,11 @@ export function WelcomePage() {
 
   return (
     <Page
-      progress={0}
+      progress={-1}
       iconClassNames="fa-solid fa-earth-americas"
       headerText={header}
       mascot={MASCOTS.Happy}
       isLoading={false}
-      message={message}
-      setMessage={setMessage}
     >
       <CardContainer $isMobile={isMobile}>
         <InfoText>{introText}</InfoText>

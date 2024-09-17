@@ -5,7 +5,7 @@ import { Footer, MessageObject, Page } from "../components";
 import { CodeClipboard } from "../components/CodeClipboard";
 import { groupCodeState } from "../state";
 import { Button, CardContainer, InfoText } from "../styles";
-import { emitAnalytic, GROUP_ROUTE, MASCOTS, useIsMobile } from "../utils";
+import { emitAnalytic, HOME_ROUTE, MASCOTS, useIsMobile } from "../utils";
 
 export function ConfirmationPage() {
   const isMobile = useIsMobile();
@@ -26,13 +26,13 @@ export function ConfirmationPage() {
 
   const onReturn = () => {
     emitAnalytic("Confirmed times");
-    navigate(GROUP_ROUTE);
+    navigate(HOME_ROUTE);
   };
 
   return (
     <>
       <Page
-        progress={6}
+        progress={4}
         iconClassNames={"fa-solid fa-circle-check"}
         headerText={header}
         mascot={MASCOTS.Happy}

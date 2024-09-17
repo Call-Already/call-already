@@ -32,7 +32,7 @@ export function OverviewPage() {
   };
   return (
     <Page
-      progress={1}
+      progress={-1}
       iconClassNames={"fa-solid fa-circle-question"}
       headerText={header}
       mascot={MASCOTS.Confused}

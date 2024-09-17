@@ -70,7 +70,7 @@ export function MyInfoPage() {
 
   return (
     <Page
-      progress={3}
+      progress={1}
       iconClassNames={"fa-solid fa-clipboard"}
       headerText={header}
       mascot={MASCOTS.Happy}

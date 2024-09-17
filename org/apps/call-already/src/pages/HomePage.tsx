@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { ErrorObject, Page } from "../components";
+import { ErrorObject, MessageObject, Page } from "../components";
 import { getUser, GetUserProps } from "../gateways";
 import {
   emailState,
@@ -12,13 +12,14 @@ import {
 import {
   Button,
   CardContainer,
+  Group,
   InfoSubText,
   InfoText,
   QuoteText,
   SecondaryContainer,
   SmallHeader,
 } from "../styles";
-import { emitAnalytic, GROUP_ROUTE, MASCOTS, useIsMobile } from "../utils";
+import { emitAnalytic, GROUP_ROUTE, MASCOTS, OVERVIEW_ROUTE, useIsMobile } from "../utils";
 import { data } from "../assets/quotes";
 import { generateRandomNumberFromDate } from "../utils/utils";
 import moment from "moment";
@@ -26,11 +27,13 @@ import moment from "moment";
 export function HomePage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
+  const location = useLocation();
 
   type QuoteObject = {
     [key: string]: any;
   };
 
+  const [message, setMessage] = useState<MessageObject>({});
   const [error, setError] = useState<ErrorObject>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [quote, setQuote] = useState<QuoteObject>({});
@@ -52,7 +55,10 @@ export function HomePage() {
   const groupsJoined = "group(s) joined";
   const noActivityYet = "You haven't created or joined any call groups yet.";
   const startACall = "Start a call";
+  const learnMore = "Learn more";
   const quoteText = `Quote of the day (${date})`;
+  const successfullyVerifiedMessage = "Your email has been verified!";
+  const successfullyLoggedInMessage = "You have successfully been logged in.";
 
   const generateDayHashQuote = () => {
     const randomNumber = generateRandomNumberFromDate();
@@ -64,6 +70,13 @@ export function HomePage() {
   };
 
   useEffect(() => {
+    if (location.state && location.state.isVerified) {
+      setMessage({ message: successfullyVerifiedMessage });
+    }
+    if (location.state && location.state.justLoggedIn) {
+      setMessage({ message: successfullyLoggedInMessage });
+    }
+
     generateDayHashQuote();
 
     setIsLoading(true);
@@ -71,7 +84,6 @@ export function HomePage() {
     const getUserProps: GetUserProps = {
       Email: email,
     };
-    console.log(getUserProps);
 
     getUser(getUserProps)
       .then((response) => {
@@ -81,10 +93,17 @@ export function HomePage() {
         setNumGroupsJoined(response.data.GroupsJoined);
       })
       .catch((error) => {
+        setIsLoading(false);
+        
         console.log(error);
         setError({ message: errorMessage });
       });
   }, []);
+
+  const onLearnMore = () => {
+    emitAnalytic("Flow started");
+    navigate(OVERVIEW_ROUTE);
+  };
 
   const onGetStarted = () => {
     emitAnalytic("Flow started");
@@ -102,6 +121,8 @@ export function HomePage() {
       isLoading={isLoading}
       error={error}
       setError={setError}
+      message={message}
+      setMessage={setMessage}
     >
       <CardContainer $isMobile={isMobile}>
         {quote && quote.quote && (
@@ -128,9 +149,12 @@ export function HomePage() {
             <InfoText>{noActivityYet}</InfoText>
           )}
         </SecondaryContainer>
-        <Button $primary onClick={onGetStarted}>
-          {startACall}
-        </Button>
+        <Group $isMobile={isMobile}>
+          <Button onClick={onLearnMore}>{learnMore}</Button>
+          <Button $primary onClick={onGetStarted}>
+            {startACall}
+          </Button>
+        </Group>
       </CardContainer>
     </Page>
   );

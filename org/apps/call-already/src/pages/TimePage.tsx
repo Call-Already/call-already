@@ -119,7 +119,7 @@ export function TimePage() {
   let currentDay = "";
   return (
     <Page
-      progress={4}
+      progress={2}
       iconClassNames={"fa-solid fa-clock"}
       headerText={header}
       mascot={MASCOTS.Writing}

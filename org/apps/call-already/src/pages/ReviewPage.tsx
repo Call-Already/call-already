@@ -96,7 +96,7 @@ export function ReviewPage() {
 
   return (
     <Page
-      progress={5}
+      progress={3}
       iconClassNames={"fa-solid fa-magnifying-glass"}
       headerText={header}
       mascot={MASCOTS.Confused}

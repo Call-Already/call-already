@@ -192,7 +192,7 @@ export function GroupPage() {
 
   return (
     <Page
-      progress={2}
+      progress={0}
       iconClassNames={"fas fa-user-friends"}
       headerText={header}
       mascot={MASCOTS.Writing}
