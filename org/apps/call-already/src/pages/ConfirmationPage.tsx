@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { Page } from "../components";
+import { Footer, MessageObject, Page } from "../components";
 import { CodeClipboard } from "../components/CodeClipboard";
 import { groupCodeState } from "../state";
-import { Button, CardContainer, Header, InfoText, Mascot, PageContainer } from "../styles";
+import { Button, CardContainer, InfoText } from "../styles";
 import { emitAnalytic, GROUP_ROUTE, MASCOTS, useIsMobile } from "../utils";
 
 export function ConfirmationPage() {
@@ -12,6 +12,8 @@ export function ConfirmationPage() {
   const navigate = useNavigate();
 
   const groupCode = useRecoilValue(groupCodeState);
+
+  const [message, setMessage] = useState<MessageObject>({message: "Show footer"});
 
   const header = "Responses confirmed"
   const introText =
@@ -25,13 +27,16 @@ export function ConfirmationPage() {
   };
 
   return (
-    <Page progress={6} iconClassNames={"fa-solid fa-circle-check"} headerText={header} mascot={MASCOTS.Happy} isLoading={false}>
-      <CardContainer $isMobile={isMobile}>
-        <InfoText>{introText}</InfoText>
-        <InfoText>{groupCodeReminder}</InfoText>
-        <CodeClipboard groupCode={groupCode} />
-        <Button $primary onClick={onReturn}>{submitText}</Button>
-      </CardContainer>
-    </Page>
+    <>
+      <Page progress={6} iconClassNames={"fa-solid fa-circle-check"} headerText={header} mascot={MASCOTS.Happy} isLoading={false}>
+        <CardContainer $isMobile={isMobile}>
+          <InfoText>{introText}</InfoText>
+          <InfoText>{groupCodeReminder}</InfoText>
+          <CodeClipboard groupCode={groupCode} />
+          <Button $primary onClick={onReturn}>{submitText}</Button>
+        </CardContainer>
+      </Page>
+      {message.message && <Footer onClose={() => setMessage({})}/>}
+    </>
   );
 }

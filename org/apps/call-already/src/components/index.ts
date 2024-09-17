@@ -7,4 +7,6 @@ export { IconHeader } from "./IconHeader";
 export { LoadingOverlay } from "./LoadingOverlay";
 export { NavArrow } from "./NavArrow";
 export { NavHome } from "./NavHome";
+export { Footer } from "./Footer";
 export type { ErrorObject } from "./Banner";
+export type { MessageObject } from "./Footer";

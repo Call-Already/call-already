@@ -10,6 +10,7 @@ export const palette = {
     700: "#28ad02", // Green
     800: "#1f8a00", // Darker green
     900: "##808080", // Medium
+    1000: "#caedff", // Lt Blue
   },
 };
 
@@ -40,8 +41,17 @@ export const theme = {
     light: palette.primary[200],
     md: palette.primary[900],
     dark: palette.primary[300],
+  },
+  footer: {
+    background: palette.primary[1000],
+    border: palette.primary[600],
   }
 };
+
+export const PageComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const PageContainer = styled.div<{ $isMobile?: boolean }>`
   position: relative;
@@ -95,6 +105,12 @@ export const Mascot = styled.img`
   position: relative;
   margin-bottom: 0;
   bottom: -1px;
+`;
+
+export const Matty = styled.img`
+  align-self: center;
+  width: 120px;
+  height: 120px;
 `;
 
 export const IconList = styled.div<{ $isMobile?: boolean }>`
@@ -274,4 +290,26 @@ export const RadioButton = styled.input`
   height: 25px;
   margin-right: 10px;
   }
+`;
+
+export const FooterContainer = styled.div`
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 1em;
+  gap: 0.5em;
+  background-color: red;
+  background:  ${theme.footer.background};
+  border-top: 3px solid ${theme.footer.border};
+  text-align: center;
+  box-shadow: 3px 3px ${theme.general.dark};
+`;
+
+export const FooterTextArea = styled.div<{ $isMobile?: boolean }>`
+  width: ${(props) => (props.$isMobile ? "340px" : "600px")};
+  color: ${theme.footer.border};
 `;
