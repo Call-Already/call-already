@@ -13,12 +13,15 @@ export function ConfirmationPage() {
 
   const groupCode = useRecoilValue(groupCodeState);
 
-  const [message, setMessage] = useState<MessageObject>({message: "Show footer"});
+  const [message, setMessage] = useState<MessageObject>({
+    message: "Show footer",
+  });
 
-  const header = "Responses confirmed"
+  const header = "Responses confirmed";
   const introText =
     "Thank you! We have confirmed your responses. We’ll match your availability with your friends' schedules and provide you with the optimal time to call each other. A summary will be sent to your email shortly.";
-  const groupCodeReminder = "Remember to share the group code with your friends!";
+  const groupCodeReminder =
+    "Remember to share the group code with your friends!";
   const submitText = "Make another call";
 
   const onReturn = () => {
@@ -28,15 +31,23 @@ export function ConfirmationPage() {
 
   return (
     <>
-      <Page progress={6} iconClassNames={"fa-solid fa-circle-check"} headerText={header} mascot={MASCOTS.Happy} isLoading={false}>
+      <Page
+        progress={6}
+        iconClassNames={"fa-solid fa-circle-check"}
+        headerText={header}
+        mascot={MASCOTS.Happy}
+        isLoading={false}
+      >
         <CardContainer $isMobile={isMobile}>
           <InfoText>{introText}</InfoText>
           <InfoText>{groupCodeReminder}</InfoText>
           <CodeClipboard groupCode={groupCode} />
-          <Button $primary onClick={onReturn}>{submitText}</Button>
+          <Button $primary onClick={onReturn}>
+            {submitText}
+          </Button>
         </CardContainer>
       </Page>
-      {message.message && <Footer onClose={() => setMessage({})}/>}
+      {message.message && <Footer onClose={() => setMessage({})} />}
     </>
   );
 }

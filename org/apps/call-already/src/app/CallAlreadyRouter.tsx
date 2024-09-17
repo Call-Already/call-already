@@ -50,49 +50,56 @@ const browserRouter = createBrowserRouter([
   },
   {
     path: HOME_ROUTE,
-    element: <ProtectedPage>
-      <HomePage />,
-    </ProtectedPage>
+    element: (
+      <ProtectedPage>
+        <HomePage />,
+      </ProtectedPage>
+    ),
   },
   {
     path: GROUP_ROUTE,
-    element: 
-    <ProtectedPage>
-      <GroupPage />,
-    </ProtectedPage>
+    element: (
+      <ProtectedPage>
+        <GroupPage />,
+      </ProtectedPage>
+    ),
   },
   {
     path: MY_INFO_ROUTE,
-    element: 
-    <ProtectedPage>
-      <MyInfoPage />,
-    </ProtectedPage>
+    element: (
+      <ProtectedPage>
+        <MyInfoPage />,
+      </ProtectedPage>
+    ),
   },
   {
     path: TIME_ROUTE,
-    element: 
-    <ProtectedPage>
-      <TimePage />,
-    </ProtectedPage>
+    element: (
+      <ProtectedPage>
+        <TimePage />,
+      </ProtectedPage>
+    ),
   },
   {
     path: REVIEW_ROUTE,
-    element: 
-    <ProtectedPage>
-      <ReviewPage />,
-    </ProtectedPage>
+    element: (
+      <ProtectedPage>
+        <ReviewPage />,
+      </ProtectedPage>
+    ),
   },
   {
     path: CONFIRMATION_ROUTE,
-    element: 
-    <ProtectedPage>
-      <ConfirmationPage />,
-    </ProtectedPage>
+    element: (
+      <ProtectedPage>
+        <ConfirmationPage />,
+      </ProtectedPage>
+    ),
   },
   {
     path: "*",
-    element: <WelcomePage />
-  }
+    element: <WelcomePage />,
+  },
 ]);
 
 export function CallAlreadyRouter() {

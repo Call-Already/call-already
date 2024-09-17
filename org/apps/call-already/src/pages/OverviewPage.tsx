@@ -31,7 +31,13 @@ export function OverviewPage() {
     navigate(HOME_ROUTE);
   };
   return (
-    <Page progress={1} iconClassNames={"fa-solid fa-circle-question"} headerText={header} mascot={MASCOTS.Confused} isLoading={false}>
+    <Page
+      progress={1}
+      iconClassNames={"fa-solid fa-circle-question"}
+      headerText={header}
+      mascot={MASCOTS.Confused}
+      isLoading={false}
+    >
       <CardContainer $isMobile={isMobile}>
         <IconList $isMobile={isMobile}>
           <ol className="fa-ul">

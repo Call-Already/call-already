@@ -23,7 +23,18 @@ interface PageContainerProps extends React.HTMLAttributes<HTMLElement> {
   mascot: string;
 }
 
-export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, headerText, isLoading, error, setError, mascot, children, message, setMessage}) => {
+export const Page: React.FC<PageContainerProps> = ({
+  progress,
+  iconClassNames,
+  headerText,
+  isLoading,
+  error,
+  setError,
+  mascot,
+  children,
+  message,
+  setMessage,
+}) => {
   const isMobile = useIsMobile();
   const location = useLocation().pathname;
 
@@ -52,14 +63,28 @@ export const Page: React.FC<PageContainerProps> = ({progress, iconClassNames, he
       {progress > 0 && prevRoute && <NavArrow prevRoute={prevRoute}></NavArrow>}
       {progress < 0 && <NavHome></NavHome>}
       <PageHeader>
-          {groupCode && hasFinishedGroupPage && <InfoText style={{color: "#dddddd", marginBottom: "0.1em"}}>{`${groupCodeText} ${groupCode}`}</InfoText>}
-          {progress >= 0 && <Progress progress={progress} />}
-        <IconHeader iconClassNames={`${iconClassNames} fa-md`} text={headerText} />
+        {groupCode && hasFinishedGroupPage && (
+          <InfoText
+            style={{ color: "#dddddd", marginBottom: "0.1em" }}
+          >{`${groupCodeText} ${groupCode}`}</InfoText>
+        )}
+        {progress >= 0 && <Progress progress={progress} />}
+        <IconHeader
+          iconClassNames={`${iconClassNames} fa-md`}
+          text={headerText}
+        />
       </PageHeader>
-      {error && setError && error.message && <Banner message={error.message} onClose={() => setError({})} />}
-      {message && setMessage && message.message && <SuccessBanner message={message.message} onClose={() => setMessage({})} />}
+      {error && setError && error.message && (
+        <Banner message={error.message} onClose={() => setError({})} />
+      )}
+      {message && setMessage && message.message && (
+        <SuccessBanner
+          message={message.message}
+          onClose={() => setMessage({})}
+        />
+      )}
       {children}
       <Mascot src={mascot} alt="logo" />
     </PageContainer>
-  )
-}
+  );
+};

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ErrorObject, Page } from "../components";
-import * as yup from 'yup';
+import * as yup from "yup";
 import {
   CardContainer,
   TextInput,
@@ -11,7 +11,13 @@ import {
   Form,
   InfoText,
 } from "../styles";
-import { emitAnalytic, LOGIN_ROUTE, MASCOTS, useIsMobile, VERIFICATION_ROUTE } from "../utils";
+import {
+  emitAnalytic,
+  LOGIN_ROUTE,
+  MASCOTS,
+  useIsMobile,
+  VERIFICATION_ROUTE,
+} from "../utils";
 import { register, RegisterProps } from "../gateways";
 
 export function RegistrationPage() {
@@ -32,17 +38,20 @@ export function RegistrationPage() {
   const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
   let schema = yup.object({
-    Nickname: yup.string()
+    Nickname: yup
+      .string()
       .required("Nickname is required.")
       .min(2)
       .max(16)
       .matches(/^[a-zA-Z0-9]{2,16}$/, {
-        message: "Please enter a valid nickname."
+        message: "Please enter a valid nickname.",
       }),
-    Email: yup.string()
+    Email: yup
+      .string()
       .required("Email is required.")
       .email("Please provide a valid email address."),
-    Password: yup.string()
+    Password: yup
+      .string()
       .required("Password is required.")
       .min(6)
       .max(24)
@@ -55,16 +64,17 @@ export function RegistrationPage() {
     e.preventDefault();
 
     const nickname: string = e.target.nickname.value;
-    const email : string = e.target.email.value;
-    const password : string = e.target.password.value;
+    const email: string = e.target.email.value;
+    const password: string = e.target.password.value;
 
-    const formData : RegisterProps = {
+    const formData: RegisterProps = {
       Nickname: nickname,
       Email: email,
       Password: password,
     };
 
-    schema.validate(formData)
+    schema
+      .validate(formData)
       .then(() => {
         setIsLoading(true);
 
@@ -81,26 +91,36 @@ export function RegistrationPage() {
               const status = error.response.status;
               if (status === 400) {
                 emitAnalytic("User already exists");
-                setError({message: `User with email ${email} already exists.`});
+                setError({
+                  message: `User with email ${email} already exists.`,
+                });
               } else {
                 emitAnalytic("Unable to register");
-                setError({message: "There was an error registering."});
+                setError({ message: "There was an error registering." });
               }
             } else {
               emitAnalytic("Unable to register");
-              setError({message: "There was an error registering."});
+              setError({ message: "There was an error registering." });
             }
-          })
+          });
       })
       .catch((schemaError) => {
         if (schemaError.errors[0]) {
-          setError({message: schemaError.errors[0]});
+          setError({ message: schemaError.errors[0] });
         }
-      })
-  };
+      });
+  }
 
   return (
-    <Page progress={-1} iconClassNames={"fa-solid fa-right-to-bracket"} headerText={header} mascot={MASCOTS.Writing} isLoading={isLoading} error={error} setError={setError}>
+    <Page
+      progress={-1}
+      iconClassNames={"fa-solid fa-right-to-bracket"}
+      headerText={header}
+      mascot={MASCOTS.Writing}
+      isLoading={isLoading}
+      error={error}
+      setError={setError}
+    >
       <CardContainer $isMobile={isMobile}>
         <Form onSubmit={onSubmit}>
           <FormLabel htmlFor="nickname">{nickname}</FormLabel>
@@ -108,13 +128,25 @@ export function RegistrationPage() {
           <FormLabel htmlFor="email">{email}</FormLabel>
           <TextInput type={"text"} name="email" id="email"></TextInput>
           <FormLabel htmlFor="password">{password}</FormLabel>
-          <TextInput type={"password"} name="password" id="password"></TextInput>
+          <TextInput
+            type={"password"}
+            name="password"
+            id="password"
+          ></TextInput>
           <Group>
-            <Button $primary type="submit">{createAccount}</Button>
+            <Button $primary type="submit">
+              {createAccount}
+            </Button>
           </Group>
-          <br/>
-          <InfoText><a style={{color: "black"}} href={LOGIN_ROUTE}>{loginOptionText}</a></InfoText>
-          <InfoText><i className="fa-brands fa-whatsapp"></i>  WhatsApp coming soon!</InfoText>
+          <br />
+          <InfoText>
+            <a style={{ color: "black" }} href={LOGIN_ROUTE}>
+              {loginOptionText}
+            </a>
+          </InfoText>
+          <InfoText>
+            <i className="fa-brands fa-whatsapp"></i> WhatsApp coming soon!
+          </InfoText>
         </Form>
       </CardContainer>
     </Page>

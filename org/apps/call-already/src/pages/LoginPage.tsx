@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ErrorObject, Page } from "../components";
-import * as yup from 'yup';
+import * as yup from "yup";
 import {
   CardContainer,
   TextInput,
@@ -13,10 +13,22 @@ import {
   InfoSubText,
   SmallHeader,
 } from "../styles";
-import { emitAnalytic, HOME_ROUTE, MASCOTS, REGISTRATION_ROUTE, useIsMobile, WELCOME_ROUTE } from "../utils";
+import {
+  emitAnalytic,
+  HOME_ROUTE,
+  MASCOTS,
+  REGISTRATION_ROUTE,
+  useIsMobile,
+  WELCOME_ROUTE,
+} from "../utils";
 import { LoginProps, loginUser } from "../gateways";
 import { useSetRecoilState } from "recoil";
-import { authTokenState, emailState, isVerifiedState, nicknameState } from "../state";
+import {
+  authTokenState,
+  emailState,
+  isVerifiedState,
+  nicknameState,
+} from "../state";
 
 export function LoginPage() {
   const isMobile = useIsMobile();
@@ -37,29 +49,27 @@ export function LoginPage() {
   const registrationOptionText = "Or visit here to register.";
 
   let schema = yup.object({
-    Email: yup.string()
+    Email: yup
+      .string()
       .required("Email is required.")
       .email("Please provide a valid email address."),
-    Password: yup.string()
-      .required("Password is required.")
-      .min(6)
-      .max(24)
+    Password: yup.string().required("Password is required.").min(6).max(24),
   });
 
   async function onSubmit(e: any) {
     e.preventDefault();
 
-    const email : string = e.target.email.value;
-    const password : string = e.target.password.value;
+    const email: string = e.target.email.value;
+    const password: string = e.target.password.value;
 
-    const formData : LoginProps = {
+    const formData: LoginProps = {
       Email: email,
       Password: password,
     };
 
-    schema.validate(formData)
+    schema
+      .validate(formData)
       .then(() => {
-
         setIsLoading(true);
         loginUser(formData)
           .then((response) => {
@@ -73,8 +83,8 @@ export function LoginPage() {
             emitAnalytic("Logged in");
             navigate(HOME_ROUTE, {
               state: {
-                justLoggedIn: true
-              }
+                justLoggedIn: true,
+              },
             });
           })
           .catch((error) => {
@@ -83,49 +93,74 @@ export function LoginPage() {
             if (error.response) {
               const status = error.response.status;
               if (status === 400) {
-                setError({message: `Email ${email} does not exist.`});
+                setError({ message: `Email ${email} does not exist.` });
                 emitAnalytic("Email does not exist");
               } else if (status === 403) {
-                setError({message: "Please verify your email address."});
+                setError({ message: "Please verify your email address." });
                 emitAnalytic("Email is not verified");
               } else if (status === 404) {
-                setError({message: `Email and password do not match.`});
+                setError({ message: `Email and password do not match.` });
                 emitAnalytic("Email and password do not match");
               } else {
-                setError({message: "There was an error logging you in."});
+                setError({ message: "There was an error logging you in." });
                 emitAnalytic("Error logging in");
               }
             } else {
-              setError({message: "There was an error logging you in."});
+              setError({ message: "There was an error logging you in." });
               emitAnalytic("Error logging in");
             }
-          })
+          });
       })
       .catch((schemaError) => {
         if (schemaError.errors[0]) {
-          setError({message: schemaError.errors[0]});
+          setError({ message: schemaError.errors[0] });
         }
-      })
-  };
+      });
+  }
 
   return (
-    <Page progress={-1} iconClassNames={"fa-solid fa-right-to-bracket"} headerText={header} mascot={MASCOTS.Writing} isLoading={isLoading} error={error} setError={setError}>
+    <Page
+      progress={-1}
+      iconClassNames={"fa-solid fa-right-to-bracket"}
+      headerText={header}
+      mascot={MASCOTS.Writing}
+      isLoading={isLoading}
+      error={error}
+      setError={setError}
+    >
       <CardContainer $isMobile={isMobile}>
         <Form onSubmit={onSubmit}>
           <FormLabel htmlFor="email">{email}</FormLabel>
           <TextInput type={"text"} name="email" id="email"></TextInput>
           <FormLabel htmlFor="password">{password}</FormLabel>
-          <TextInput type={"password"} name="password" id="password"></TextInput>
+          <TextInput
+            type={"password"}
+            name="password"
+            id="password"
+          ></TextInput>
           <Group>
-            <Button $primary type="submit">{logIn}</Button>
+            <Button $primary type="submit">
+              {logIn}
+            </Button>
           </Group>
         </Form>
-        <InfoText><a style={{color: "black"}}href={REGISTRATION_ROUTE}>{registrationOptionText}</a></InfoText>
+        <InfoText>
+          <a style={{ color: "black" }} href={REGISTRATION_ROUTE}>
+            {registrationOptionText}
+          </a>
+        </InfoText>
       </CardContainer>
       <CardContainer $isMobile={isMobile}>
         <SmallHeader>Thanks for keeping us healthy</SmallHeader>
-        <InfoSubText $isMobile={isMobile}>We only require keeping an account in order to keep our email channels healthy from spam folders and bounces, which would deny us email access.</InfoSubText>
-        <InfoSubText $isMobile={isMobile}>Your email will only be used to communicate call times to you. Will not share it, use it for promotional purposes or otherwise misuse it.</InfoSubText>
+        <InfoSubText $isMobile={isMobile}>
+          We only require keeping an account in order to keep our email channels
+          healthy from spam folders and bounces, which would deny us email
+          access.
+        </InfoSubText>
+        <InfoSubText $isMobile={isMobile}>
+          Your email will only be used to communicate call times to you. Will
+          not share it, use it for promotional purposes or otherwise misuse it.
+        </InfoSubText>
       </CardContainer>
     </Page>
   );

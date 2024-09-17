@@ -35,10 +35,13 @@ export function TimePage() {
 
   const [error, setError] = useState<ErrorObject>({});
   const [showNightTimes, setShowNightTimes] = useState<Boolean>(false);
-  const [selectedTimes, setSelectedTimes] = useState<Set<string>>(new Set<string>());
+  const [selectedTimes, setSelectedTimes] = useState<Set<string>>(
+    new Set<string>(),
+  );
 
   const header = "Select times";
-  const infoText = "These are the times you're available for a call. Select as many as possible and let's make this thing happen!";
+  const infoText =
+    "These are the times you're available for a call. Select as many as possible and let's make this thing happen!";
   const showNightText = "Show night times";
 
   // Load in the correct time ranges for the call
@@ -107,45 +110,58 @@ export function TimePage() {
       emitAnalytic("Times submitted");
       navigate(REVIEW_ROUTE);
     } else {
-      setError({message: "Please provide at least one time you're available."});
+      setError({
+        message: "Please provide at least one time you're available.",
+      });
     }
   };
 
   let currentDay = "";
   return (
-    <Page progress={4} iconClassNames={"fa-solid fa-clock"} headerText={header} mascot={MASCOTS.Writing} isLoading={false} error={error} setError={setError}>
+    <Page
+      progress={4}
+      iconClassNames={"fa-solid fa-clock"}
+      headerText={header}
+      mascot={MASCOTS.Writing}
+      isLoading={false}
+      error={error}
+      setError={setError}
+    >
       <CardContainer $isMobile={isMobile}>
         <InfoText>{infoText}</InfoText>
         <Group>
-          <CheckboxInput onClick={toggleShowNightTimes} id="showNightTimes" type="checkbox"></CheckboxInput>
-          <InfoText>
-            {showNightText}
-          </InfoText> 
+          <CheckboxInput
+            onClick={toggleShowNightTimes}
+            id="showNightTimes"
+            type="checkbox"
+          ></CheckboxInput>
+          <InfoText>{showNightText}</InfoText>
         </Group>
-        <InfoText><strong>Showing times local to you in {timezone.value}</strong></InfoText>
+        <InfoText>
+          <strong>Showing times local to you in {timezone.value}</strong>
+        </InfoText>
         <TimeContainer>
-        {
-          timeSelectors.map((button) => {
-          const localMoment = moment(button.key).tz(timezone.value);
-          const localTime = localMoment.format("ha");
-          const localDay = localMoment.format("ll");
-          if (isDaytimeHours(localTime) || showNightTimes) {
-            // A new day - label it with a header.
-            if (localDay !== currentDay) {
-              currentDay = localDay;
-              return (
-                <>
-                  <SmallHeader>{localDay}</SmallHeader>
-                  {button}
-                </>
-              );
+          {timeSelectors.map((button) => {
+            const localMoment = moment(button.key).tz(timezone.value);
+            const localTime = localMoment.format("ha");
+            const localDay = localMoment.format("ll");
+            if (isDaytimeHours(localTime) || showNightTimes) {
+              // A new day - label it with a header.
+              if (localDay !== currentDay) {
+                currentDay = localDay;
+                return (
+                  <>
+                    <SmallHeader>{localDay}</SmallHeader>
+                    {button}
+                  </>
+                );
+              } else {
+                return button;
+              }
             } else {
-              return button;
+              return <></>;
             }
-          } else {
-            return <></>;
-          }
-        })}
+          })}
         </TimeContainer>
         <Button onClick={onSubmit}>Submit</Button>
       </CardContainer>

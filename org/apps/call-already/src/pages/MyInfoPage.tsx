@@ -5,7 +5,14 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { ErrorObject, Page } from "../components";
 import { CodeClipboard } from "../components/CodeClipboard";
 import { MessageObject } from "../components/SuccessBanner";
-import { existingUsersState, expectedNumUsersState, groupCodeState, isCreatingGroupState, nicknameState, timezoneState } from "../state";
+import {
+  existingUsersState,
+  expectedNumUsersState,
+  groupCodeState,
+  isCreatingGroupState,
+  nicknameState,
+  timezoneState,
+} from "../state";
 import {
   Button,
   FormLabel,
@@ -36,7 +43,8 @@ export function MyInfoPage() {
   const header = "About you";
   const codeText = "Your group";
   const subHeader = "Your information";
-  const shareText = "Invite your friends to callalready.com and share this code with them."
+  const shareText =
+    "Invite your friends to callalready.com and share this code with them.";
   const waitingText = "Waiting on more friends:";
   const provideNicknameText = "Please provide a valid nickname.";
   const provideTimezoneText = "Please provide a timezone.";
@@ -47,22 +55,31 @@ export function MyInfoPage() {
   const numUsersRemaining = expectedNumUsers - existingUsers.length - 1;
 
   useEffect(() => {
-    setMessage({message: isCreatingGroup ? groupCreation:  friendsFound });
+    setMessage({ message: isCreatingGroup ? groupCreation : friendsFound });
   }, []);
 
   const onSubmitInfo = () => {
-
     if (!timezone) {
-      setError({message: provideTimezoneText});
+      setError({ message: provideTimezoneText });
       return;
     }
-    
+
     emitAnalytic("My info submitted");
     navigate(TIME_ROUTE);
   };
 
   return (
-    <Page progress={3} iconClassNames={"fa-solid fa-clipboard"} headerText={header} mascot={MASCOTS.Happy} isLoading={false} error={error} setError={setError} message={message} setMessage={setMessage}>
+    <Page
+      progress={3}
+      iconClassNames={"fa-solid fa-clipboard"}
+      headerText={header}
+      mascot={MASCOTS.Happy}
+      isLoading={false}
+      error={error}
+      setError={setError}
+      message={message}
+      setMessage={setMessage}
+    >
       <CardContainer $isMobile={isMobile}>
         <SubHeader>{codeText}</SubHeader>
         {
@@ -70,12 +87,17 @@ export function MyInfoPage() {
           isCreatingGroup ? (
             <>
               <InfoText>{shareText}</InfoText>
-              <CodeClipboard groupCode={groupCode}/>
+              <CodeClipboard groupCode={groupCode} />
             </>
           ) : (
             <table>
               {existingUsers.map((user: string) => {
-                return <InfoText><i className="fa-solid fa-face-smile"></i>{"\t" + user}</InfoText>
+                return (
+                  <InfoText>
+                    <i className="fa-solid fa-face-smile"></i>
+                    {"\t" + user}
+                  </InfoText>
+                );
               })}
               <tr>
                 <td className={"reviewTitle"}>{waitingText}</td>
@@ -89,7 +111,11 @@ export function MyInfoPage() {
         <SubHeader>{subHeader}</SubHeader>
         <InputContainer>
           <FormLabel htmlFor="timezone">Timezone</FormLabel>
-          <TimezoneSelect id="timezone" value={timezone} onChange={setTimezone} />
+          <TimezoneSelect
+            id="timezone"
+            value={timezone}
+            onChange={setTimezone}
+          />
         </InputContainer>
         <Button $primary onClick={onSubmitInfo}>
           {submit}

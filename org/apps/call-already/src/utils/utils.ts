@@ -63,8 +63,8 @@ export function getFormattedLocalTimes(times: string[], timezone: string) {
 
   for (var i = 0; i < localizedTimes.length; i++) {
     const time = localizedTimes[i];
-    formattedTimes.push(moment(time).tz(timezone).format('lll'))
-  };
+    formattedTimes.push(moment(time).tz(timezone).format("lll"));
+  }
 
   return formattedTimes;
 }
@@ -75,8 +75,8 @@ export function getFormattedDays(days: string[]) {
 
   for (var i = 0; i < days.length; i++) {
     const day = days[i];
-    formattedDays.push(moment(day).tz('UTC').format('ll'));
-  };
+    formattedDays.push(moment(day).tz("UTC").format("ll"));
+  }
 
   return formattedDays;
 }
@@ -139,7 +139,7 @@ export function isDaytimeHours(time: string): boolean {
 export function generateRandomNumberFromDate(): number {
   // Get today's date in YYYYMMDD format
   const today = new Date();
-  const dateString = today.toISOString().split('T')[0].replace(/-/g, '');
+  const dateString = today.toISOString().split("T")[0].replace(/-/g, "");
 
   // Convert the date string to a number
   const dateNumber = parseInt(dateString, 10);

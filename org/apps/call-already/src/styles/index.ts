@@ -48,7 +48,7 @@ export const theme = {
   footer: {
     background: palette.primary[1000],
     border: palette.primary[600],
-  }
+  },
 };
 
 export const PageComponent = styled.div`
@@ -134,7 +134,7 @@ export const SubHeader = styled.h2`
 export const SmallHeader = styled.h3`
   text-align: center;
   width: 100%;
-;`
+`;
 
 export const InfoText = styled.p`
   text-align: center;
@@ -202,8 +202,16 @@ export const TimeContainer = styled.div`
 export const StyledTimeButton = styled.button<{ $daytime?: boolean }>`
   background: ${theme.time.background};
   color: ${theme.time.text};
-  border: 1px solid ${(props) => props.$daytime ? theme.time.boxShadowDaytime : theme.time.boxShadowNighttime};
-  box-shadow: 3px 3px ${(props) => props.$daytime ? theme.time.boxShadowDaytime : theme.time.boxShadowNighttime};
+  border: 1px solid
+    ${(props) =>
+      props.$daytime
+        ? theme.time.boxShadowDaytime
+        : theme.time.boxShadowNighttime};
+  box-shadow: 3px 3px
+    ${(props) =>
+      props.$daytime
+        ? theme.time.boxShadowDaytime
+        : theme.time.boxShadowNighttime};
 
   width: 6em;
   height: 2em;
@@ -297,13 +305,10 @@ export const ProgressStep = styled.div<{ $complete?: boolean }>`
   border-radius: 2em;
   text-align: center;
   display: table-cell;
-  background: ${(props) => props.$complete ? 
-    theme.primary.background : theme.general.light
-  };
-  color: ${(props) => props.$complete ? 
-    theme.primary.text :
-    theme.general.dark
-  };
+  background: ${(props) =>
+    props.$complete ? theme.primary.background : theme.general.light};
+  color: ${(props) =>
+    props.$complete ? theme.primary.text : theme.general.dark};
 `;
 
 export const LoadingContainer = styled.div`
@@ -345,7 +350,7 @@ export const FooterContainer = styled.div`
   padding: 1em;
   gap: 0.5em;
   background-color: red;
-  background:  ${theme.footer.background};
+  background: ${theme.footer.background};
   border-top: 3px solid ${theme.footer.border};
   text-align: center;
   box-shadow: 3px 3px ${theme.general.dark};

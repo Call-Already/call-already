@@ -13,11 +13,7 @@ import {
   selectedTimesState,
   timezoneState,
 } from "../state";
-import {
-  Button,
-  CardContainer,
-  InfoText,
-} from "../styles";
+import { Button, CardContainer, InfoText } from "../styles";
 import {
   CONFIRMATION_ROUTE,
   emitAnalytic,
@@ -52,7 +48,10 @@ export function ReviewPage() {
   const submitText = "Finish";
 
   const formattedDays = getFormattedDays(selectedDays);
-  const formattedLocalTimes = getFormattedLocalTimes(selectedTimes, timezone.value);
+  const formattedLocalTimes = getFormattedLocalTimes(
+    selectedTimes,
+    timezone.value,
+  );
 
   async function onSubmit() {
     const props: PostResponsesProps = {
@@ -76,23 +75,35 @@ export function ReviewPage() {
         if (error.response) {
           const status = error.response.status;
           if (status === 400) {
-            setError({message: `Your responses could not be submitted.`});
+            setError({ message: `Your responses could not be submitted.` });
             emitAnalytic("Bad post responses request");
           } else if (status === 404) {
-            setError({message: `Group ${groupCode} does not exist.`});
+            setError({ message: `Group ${groupCode} does not exist.` });
             emitAnalytic("Group does not exist from review page");
           } else {
-            setError({message: "There was an error submitting your responses."});
+            setError({
+              message: "There was an error submitting your responses.",
+            });
             emitAnalytic("Post responses unavailable");
           }
         } else {
-          setError({message: "There was an error submitting your responses."});
+          setError({
+            message: "There was an error submitting your responses.",
+          });
         }
       });
   }
 
   return (
-    <Page progress={5} iconClassNames={"fa-solid fa-magnifying-glass"} headerText={header} mascot={MASCOTS.Confused} isLoading={isLoading} error={error} setError={setError}>
+    <Page
+      progress={5}
+      iconClassNames={"fa-solid fa-magnifying-glass"}
+      headerText={header}
+      mascot={MASCOTS.Confused}
+      isLoading={isLoading}
+      error={error}
+      setError={setError}
+    >
       <CardContainer $isMobile={isMobile}>
         <InfoText>{isCreatingGroup ? createGroupText : joinGroupText}</InfoText>
         <CodeClipboard groupCode={groupCode} />
@@ -109,21 +120,18 @@ export function ReviewPage() {
           <tr>
             <td className={"reviewTitle"}>{selectedDaysText}</td>
             <td className={"reviewData"}>
-                {
-                  formattedDays.map((day) => {
-                    return <p>{day}</p>
-                  })
-                }
+              {formattedDays.map((day) => {
+                return <p>{day}</p>;
+              })}
             </td>
           </tr>
           <tr>
             <td className={"reviewTitle"}>{selectedTimesText}</td>
             <td className={"reviewData"}>
-                {
-                  formattedLocalTimes.map((time) => {
-                    return <p>{time}</p>
-                  })
-                }</td>
+              {formattedLocalTimes.map((time) => {
+                return <p>{time}</p>;
+              })}
+            </td>
           </tr>
         </table>
         <br />

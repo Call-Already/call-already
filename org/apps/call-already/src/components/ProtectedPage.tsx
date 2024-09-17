@@ -1,4 +1,3 @@
-
 import React, { useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -9,7 +8,6 @@ import { LOGIN_ROUTE } from "../utils";
 interface Props extends React.HTMLAttributes<HTMLElement> {}
 
 export const ProtectedPage: React.FC<Props> = ({ children }) => {
-
   var token = useContext(AuthContext);
 
   if (!token) {
@@ -17,12 +15,8 @@ export const ProtectedPage: React.FC<Props> = ({ children }) => {
   }
 
   if (token) {
-    return (
-      <>
-        {children}
-      </>
-    );
+    return <>{children}</>;
   } else {
-    return <Navigate to={LOGIN_ROUTE} />
+    return <Navigate to={LOGIN_ROUTE} />;
   }
-}
+};

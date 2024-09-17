@@ -4,8 +4,20 @@ import React, { useState } from "react";
 import { DatePicker } from "@mantine/dates";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { createGroup, CreateGroupProps, validateGroup, ValidateGroupProps } from "../gateways";
-import { callTypeState, emailState, existingUsersState, expectedNumUsersState, groupCodeState, selectedDaysState } from "../state";
+import {
+  createGroup,
+  CreateGroupProps,
+  validateGroup,
+  ValidateGroupProps,
+} from "../gateways";
+import {
+  callTypeState,
+  emailState,
+  existingUsersState,
+  expectedNumUsersState,
+  groupCodeState,
+  selectedDaysState,
+} from "../state";
 import { isCreatingGroupState } from "../state";
 import {
   Button,
@@ -78,15 +90,15 @@ export function GroupPage() {
 
     // Validate the group code is a valid format.
     if (!isValidGroupCode(groupCodeValue)) {
-      setError({message: "Please enter a valid group code."});
+      setError({ message: "Please enter a valid group code." });
       return;
     }
 
     // Validate that the group exists
-    const validateGroupProps : ValidateGroupProps = {
+    const validateGroupProps: ValidateGroupProps = {
       ID: groupCodeValue,
       Email: email,
-    }
+    };
 
     setIsLoading(true);
     validateGroup(validateGroupProps)
@@ -108,28 +120,32 @@ export function GroupPage() {
         if (error.response) {
           const status = error.response.status;
           if (status === 400) {
-            setError({message: `Group ${groupCodeValue} is already full.`});
+            setError({ message: `Group ${groupCodeValue} is already full.` });
             emitAnalytic("Group is already full");
           } else if (status === 404) {
-            setError({message: `Group ${groupCodeValue} does not exist.`});
+            setError({ message: `Group ${groupCodeValue} does not exist.` });
             emitAnalytic("Group does not exist");
           } else {
-            setError({message: "There was an error joining the group."});
+            setError({ message: "There was an error joining the group." });
             emitAnalytic("Join group unavailable");
           }
         } else {
-          setError({message: "There was an error joining the group."});
+          setError({ message: "There was an error joining the group." });
         }
       });
-  };
+  }
 
   async function onCreateGroup() {
     setIsCreatingGroup(true);
 
     const selectedDays = getDatesInRange(pickedDays);
     // Using only an agreeable amount of days to pick from.
-    if (selectedDays[0] === 'Invalid date' || selectedDays.length === 0 || selectedDays.length > 3) {
-      setError({message: "Please select between one and three days."});
+    if (
+      selectedDays[0] === "Invalid date" ||
+      selectedDays.length === 0 ||
+      selectedDays.length > 3
+    ) {
+      setError({ message: "Please select between one and three days." });
       return;
     }
     setSelectedDays(selectedDays);
@@ -145,7 +161,9 @@ export function GroupPage() {
     setUserGroupCode(groupCode);
 
     const callTypeValue = (
-      document.querySelector(`input[name="callType"]:checked`) as HTMLInputElement
+      document.querySelector(
+        `input[name="callType"]:checked`,
+      ) as HTMLInputElement
     ).value;
     setCallType(callTypeValue);
 
@@ -168,30 +186,53 @@ export function GroupPage() {
       .catch((error) => {
         setIsLoading(false);
         emitAnalytic("Group creation failed");
-        setError({message: "There was an error creating the group."});
+        setError({ message: "There was an error creating the group." });
       });
   }
 
   return (
-    <Page progress={2} iconClassNames={"fas fa-user-friends"} headerText={header} mascot={MASCOTS.Writing} isLoading={isLoading} error={error} setError={setError}>
+    <Page
+      progress={2}
+      iconClassNames={"fas fa-user-friends"}
+      headerText={header}
+      mascot={MASCOTS.Writing}
+      isLoading={isLoading}
+      error={error}
+      setError={setError}
+    >
       <CardContainer $isMobile={isMobile}>
         <SubHeader>Join a group</SubHeader>
         <InfoText>{info}</InfoText>
-        <RoomCodeInput id="groupCode" type="text" size={6} maxLength={4}></RoomCodeInput>
+        <RoomCodeInput
+          id="groupCode"
+          type="text"
+          size={6}
+          maxLength={4}
+        ></RoomCodeInput>
         <Button onClick={onJoinGroup}>{submitText}</Button>
       </CardContainer>
-      <p style={{margin: "0", fontWeight: "1000"}}>or</p>
+      <p style={{ margin: "0", fontWeight: "1000" }}>or</p>
       <CardContainer $isMobile={isMobile}>
         <SubHeader>Create a new group</SubHeader>
         <InputContainer>
           <InfoText>Number of callers:</InfoText>
-          <NumberInput id="numUsers" type="number" min={2} max={8} defaultValue={4}></NumberInput>
+          <NumberInput
+            id="numUsers"
+            type="number"
+            min={2}
+            max={8}
+            defaultValue={4}
+          ></NumberInput>
         </InputContainer>
         {/* <CheckboxInput id="showUsers" type="checkbox"></CheckboxInput>
         <InfoText>
           Show other callers' responses while picking times
         </InfoText> */}
-        <InfoText>Select <strong>one to three days</strong> within the next two weeks for the call. Calls scheduled in the next three to five days tend to be more successful.</InfoText>
+        <InfoText>
+          Select <strong>one to three days</strong> within the next two weeks
+          for the call. Calls scheduled in the next three to five days tend to
+          be more successful.
+        </InfoText>
         <DatePicker
           type="range"
           allowSingleDateInRange

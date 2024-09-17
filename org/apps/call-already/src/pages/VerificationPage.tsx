@@ -3,9 +3,19 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { ErrorObject, Page } from "../components";
 import { verifyEmail, VerifyEmailProps } from "../gateways";
-import { authTokenState, emailState, isVerifiedState, nicknameState } from "../state";
+import {
+  authTokenState,
+  emailState,
+  isVerifiedState,
+  nicknameState,
+} from "../state";
 import { CardContainer, InfoText } from "../styles";
-import { emitAnalytic, HOME_ROUTE, MASCOTS, useIsMobile, WELCOME_ROUTE } from "../utils";
+import {
+  emitAnalytic,
+  HOME_ROUTE,
+  MASCOTS,
+  useIsMobile,
+} from "../utils";
 
 export function VerificationPage() {
   const isMobile = useIsMobile();
@@ -22,8 +32,10 @@ export function VerificationPage() {
   const setAuthToken = useSetRecoilState(authTokenState);
 
   const header = "Verify your email";
-  const infoText = "We have sent a verification link to the email you provided.";
-  const infoText2 = "Click the link to verify your email, or return to the login page."
+  const infoText =
+    "We have sent a verification link to the email you provided.";
+  const infoText2 =
+    "Click the link to verify your email, or return to the login page.";
 
   useEffect(() => {
     if (searchParams) {
@@ -31,10 +43,10 @@ export function VerificationPage() {
       const UserID = searchParams.get("UserID");
 
       if (Email && UserID) {
-        const verifyEmailProps : VerifyEmailProps = {
+        const verifyEmailProps: VerifyEmailProps = {
           Email,
-          UserID
-        }
+          UserID,
+        };
 
         setIsLoading(true);
         verifyEmail(verifyEmailProps)
@@ -48,20 +60,28 @@ export function VerificationPage() {
 
             navigate(HOME_ROUTE, {
               state: {
-                isVerified: "true"
-              }
+                isVerified: "true",
+              },
             });
           })
           .catch((error) => {
             emitAnalytic("Unable to verify email");
-            setError({message: "There was an error verifyng your email."});
-          })
+            setError({ message: "There was an error verifyng your email." });
+          });
       }
     }
   }, []);
 
   return (
-    <Page progress={-1} iconClassNames={"fa-solid fa-envelope"} headerText={header} mascot={MASCOTS.Happy} isLoading={isLoading} error={error} setError={setError}>
+    <Page
+      progress={-1}
+      iconClassNames={"fa-solid fa-envelope"}
+      headerText={header}
+      mascot={MASCOTS.Happy}
+      isLoading={isLoading}
+      error={error}
+      setError={setError}
+    >
       <CardContainer $isMobile={isMobile}>
         <InfoText>{infoText}</InfoText>
         <InfoText>{infoText2}</InfoText>

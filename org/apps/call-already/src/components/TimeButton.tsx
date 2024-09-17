@@ -12,7 +12,6 @@ export const TimeButton: React.FC<ButtonProps> = ({
   isDaytime,
   ...props
 }) => {
-
   const icon = isDaytime ? (
     <i className="fa-solid fa-sun"></i>
   ) : (
@@ -22,7 +21,7 @@ export const TimeButton: React.FC<ButtonProps> = ({
   return (
     <StyledTimeButton $daytime={isDaytime} {...props}>
       {icon}
-      <span>  </span>
+      <span> </span>
       {title}
     </StyledTimeButton>
   );

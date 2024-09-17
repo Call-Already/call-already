@@ -14,9 +14,7 @@ export {
 
 export * from "./callTypes";
 
-export {
-  isValidGroupCode
-} from "./validation";
+export { isValidGroupCode } from "./validation";
 
 export { emitAnalytic } from "./metrics";
 

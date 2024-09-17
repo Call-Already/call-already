@@ -14,12 +14,19 @@ const NavButton = styled.button`
   border-radius: 2em;
 `;
 
-export const NavArrow: React.FC<NavArrowProps> = ({prevRoute}) => {
+export const NavArrow: React.FC<NavArrowProps> = ({ prevRoute }) => {
   const navigate = useNavigate();
 
   return (
-    <NavButton onClick={() => {navigate(prevRoute)}}>
-      <i className="fa-solid fa-arrow-left fa-xl" style={{color: "#dddddd"}}></i>
+    <NavButton
+      onClick={() => {
+        navigate(prevRoute);
+      }}
+    >
+      <i
+        className="fa-solid fa-arrow-left fa-xl"
+        style={{ color: "#dddddd" }}
+      ></i>
     </NavButton>
-  )
-}
+  );
+};

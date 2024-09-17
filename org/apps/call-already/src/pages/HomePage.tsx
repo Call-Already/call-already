@@ -3,8 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { ErrorObject, Page } from "../components";
 import { getUser, GetUserProps } from "../gateways";
-import { emailState, nicknameState, numGroupsCreatedState, numGroupsJoinedState } from "../state";
-import { Button, CardContainer, InfoSubText, InfoText, QuoteText, SecondaryContainer, SmallHeader } from "../styles";
+import {
+  emailState,
+  nicknameState,
+  numGroupsCreatedState,
+  numGroupsJoinedState,
+} from "../state";
+import {
+  Button,
+  CardContainer,
+  InfoSubText,
+  InfoText,
+  QuoteText,
+  SecondaryContainer,
+  SmallHeader,
+} from "../styles";
 import { emitAnalytic, GROUP_ROUTE, MASCOTS, useIsMobile } from "../utils";
 import { data } from "../assets/quotes";
 import { generateRandomNumberFromDate } from "../utils/utils";
@@ -37,7 +50,7 @@ export function HomePage() {
   const yourCallGroups = "Your call groups";
   const groupsCreated = "group(s) created";
   const groupsJoined = "group(s) joined";
-  const noActivityYet = "You haven't created or joined any call groups yet."
+  const noActivityYet = "You haven't created or joined any call groups yet.";
   const startACall = "Start a call";
   const quoteText = `Quote of the day (${date})`;
 
@@ -46,17 +59,17 @@ export function HomePage() {
     const quoteOfTheDay = data.Quotes[randomNumber];
     setQuote({
       quote: quoteOfTheDay.Quote,
-      author: quoteOfTheDay.Author
+      author: quoteOfTheDay.Author,
     });
-  }
+  };
 
   useEffect(() => {
     generateDayHashQuote();
 
     setIsLoading(true);
 
-    const getUserProps : GetUserProps = {
-      Email: email
+    const getUserProps: GetUserProps = {
+      Email: email,
     };
     console.log(getUserProps);
 
@@ -69,8 +82,8 @@ export function HomePage() {
       })
       .catch((error) => {
         console.log(error);
-        setError({message: errorMessage})
-      })
+        setError({ message: errorMessage });
+      });
   }, []);
 
   const onGetStarted = () => {
@@ -81,24 +94,39 @@ export function HomePage() {
   const showStatistics = numGroupsCreated || numGroupsJoined;
 
   return (
-    <Page progress={-1} iconClassNames={"fa-solid fa-house-user"} headerText={header} mascot={MASCOTS.Happy} isLoading={isLoading} error={error} setError={setError}>
+    <Page
+      progress={-1}
+      iconClassNames={"fa-solid fa-house-user"}
+      headerText={header}
+      mascot={MASCOTS.Happy}
+      isLoading={isLoading}
+      error={error}
+      setError={setError}
+    >
       <CardContainer $isMobile={isMobile}>
-        {quote && quote.quote && 
+        {quote && quote.quote && (
           <SecondaryContainer $isMobile={isMobile}>
-              <InfoSubText>{quoteText}</InfoSubText>
-              <QuoteText>{quote.quote}</QuoteText>
-              <InfoText>{`—${quote.author}`}</InfoText>
+            <InfoSubText>{quoteText}</InfoSubText>
+            <QuoteText>{quote.quote}</QuoteText>
+            <InfoText>{`—${quote.author}`}</InfoText>
           </SecondaryContainer>
-        }
+        )}
         <SmallHeader>{yourCallGroups}</SmallHeader>
         <SecondaryContainer $isMobile={isMobile}>
-          {showStatistics ?
+          {showStatistics ? (
             <>
-              <InfoText><strong style={{fontSize: 20}}>{numGroupsCreated}</strong> {groupsCreated}</InfoText>
-              <InfoText><strong style={{fontSize: 20}}>{numGroupsJoined}</strong> {groupsJoined}</InfoText>
-            </> :
+              <InfoText>
+                <strong style={{ fontSize: 20 }}>{numGroupsCreated}</strong>{" "}
+                {groupsCreated}
+              </InfoText>
+              <InfoText>
+                <strong style={{ fontSize: 20 }}>{numGroupsJoined}</strong>{" "}
+                {groupsJoined}
+              </InfoText>
+            </>
+          ) : (
             <InfoText>{noActivityYet}</InfoText>
-          }
+          )}
         </SecondaryContainer>
         <Button $primary onClick={onGetStarted}>
           {startACall}

@@ -8,11 +8,11 @@ const instance = axios.create({
 export type ValidateGroupProps = {
   ID: string;
   Email: string;
-}
+};
 
 export type ValidateGroupResponse = {
   UserNicknames: string[];
-  Dates: string[],
+  Dates: string[];
   NumUsers: number;
   CallType: string;
 };
@@ -46,7 +46,7 @@ export type VerifyEmailResponse = {
     Email: string;
     Nickname: string;
     IsVerified: boolean;
-  },
+  };
   Token: string;
 };
 
@@ -60,7 +60,7 @@ export type LoginResponse = {
     Email: string;
     Nickname: string;
     IsVerified: boolean;
-  },
+  };
   Token: string;
 };
 
@@ -71,18 +71,20 @@ export type LoginProps = {
 
 export type GetUserProps = {
   Email: string;
-}
+};
 
 export type GetUserResponse = {
-    Email: string;
-    Nickname: string;
-    IsVerified: boolean;
-    GroupsCreated?: number;
-    GroupsJoined?: number;
+  Email: string;
+  Nickname: string;
+  IsVerified: boolean;
+  GroupsCreated?: number;
+  GroupsJoined?: number;
 };
 
 export async function validateGroup(props: ValidateGroupProps) {
-  const serverResponse = await instance.get<ValidateGroupResponse>(`/validate-group?ID=${props.ID}`);
+  const serverResponse = await instance.get<ValidateGroupResponse>(
+    `/validate-group?ID=${props.ID}`,
+  );
   console.log("ValidateGroup", "[RESPONSE]", serverResponse);
   return serverResponse;
 }
@@ -110,19 +112,26 @@ export async function register(props: RegisterProps) {
 
 export async function verifyEmail(props: VerifyEmailProps) {
   console.log("VerifyEmail", "[REQUEST]", props);
-  const serverResponse = await instance.get(`/verify-email?Email=${props.Email}&UserID=${props.UserID}`);
+  const serverResponse = await instance.get(
+    `/verify-email?Email=${props.Email}&UserID=${props.UserID}`,
+  );
   console.log("VerifyEmail", "[RESPONSE]", serverResponse);
   return serverResponse;
 }
 
 export async function loginUser(props: LoginProps) {
   console.log("LoginUser", "[REQUEST]", props);
-  const serverResponse = await instance.post<LoginResponse>("/login-user", props);
+  const serverResponse = await instance.post<LoginResponse>(
+    "/login-user",
+    props,
+  );
   console.log("LoginUser", "[RESPONSE]", serverResponse);
   return serverResponse;
 }
 
 export async function getUser(props: GetUserProps) {
-  const serverResponse = await instance.get<GetUserResponse>(`/get-user?Email=${props.Email}`);
+  const serverResponse = await instance.get<GetUserResponse>(
+    `/get-user?Email=${props.Email}`,
+  );
   return serverResponse;
 }
