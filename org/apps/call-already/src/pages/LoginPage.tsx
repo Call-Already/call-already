@@ -11,6 +11,7 @@ import {
   Form,
   InfoText,
   InfoSubText,
+  SmallHeader,
 } from "../styles";
 import { emitAnalytic, MASCOTS, REGISTRATION_ROUTE, useIsMobile, WELCOME_ROUTE } from "../utils";
 import { LoginProps, loginUser } from "../gateways";
@@ -122,7 +123,7 @@ export function LoginPage() {
         <InfoText><a style={{color: "black"}}href={REGISTRATION_ROUTE}>{registrationOptionText}</a></InfoText>
       </CardContainer>
       <CardContainer $isMobile={isMobile}>
-        <h3>Thanks for keeping us healthy</h3>
+        <SmallHeader>Thanks for keeping us healthy</SmallHeader>
         <InfoSubText $isMobile={isMobile}>We only require keeping an account in order to keep our email channels healthy from spam folders and bounces, which would deny us email access.</InfoSubText>
         <InfoSubText $isMobile={isMobile}>Your email will only be used to communicate call times to you. Will not share it, use it for promotional purposes or otherwise misuse it.</InfoSubText>
       </CardContainer>

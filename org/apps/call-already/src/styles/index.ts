@@ -11,6 +11,7 @@ export const palette = {
     800: "#1f8a00", // Darker green
     900: "##808080", // Medium
     1000: "#caedff", // Lt Blue
+    1100: "#ffa800", // Dk orange
   },
 };
 
@@ -32,7 +33,8 @@ export const theme = {
   time: {
     text: palette.primary[300],
     background: palette.primary[200],
-    boxShadow: palette.primary[300],
+    boxShadowDaytime: palette.primary[1100],
+    boxShadowNighttime: palette.primary[600],
     hover: palette.primary[800],
     active: palette.primary[700],
   },
@@ -76,7 +78,7 @@ export const CardContainer = styled.div<{ $isMobile?: boolean }>`
   align-items: center;
   background: ${palette.primary[400]};
   border-radius: 3px;
-  width: ${(props) => (props.$isMobile ? "310px" : "500px")};
+  width: ${(props) => (props.$isMobile ? "320px" : "500px")};
   border: 1px solid ${palette.primary[300]};
   box-shadow: 3px 3px ${palette.primary[300]};
   padding: 1em;
@@ -129,6 +131,11 @@ export const SubHeader = styled.h2`
   margin-bottom: 0;
 `;
 
+export const SmallHeader = styled.h3`
+  text-align: center;
+  width: 100%;
+;`
+
 export const InfoText = styled.p`
   text-align: center;
   margin-top: 0;
@@ -149,7 +156,7 @@ export const Group = styled.div<{ $isMobile?: boolean }>`
   width: ${(props) => (props.$isMobile ? "280px" : "400px")};
   justify-content: center;
   flex-direction: row;
-  gap: 1em;
+  gap: 0.75em;
 `;
 
 export const Button = styled.button<{ $primary?: boolean }>`
@@ -169,14 +176,42 @@ export const Button = styled.button<{ $primary?: boolean }>`
   border-radius: 3px;
   border: none;
 
-  &:hover,
-  &:focus {
+  &:hover {
     background: ${(props) =>
       props.$primary ? theme.primary.hover : theme.secondary.hover};
   }
   &:active {
     background: ${(props) =>
       props.$primary ? theme.primary.active : theme.secondary.active};
+  }
+`;
+
+export const TimeContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+export const StyledTimeButton = styled.button<{ $daytime?: boolean }>`
+  background: ${theme.time.background};
+  color: ${theme.time.text};
+  border: 1px solid ${(props) => props.$daytime ? theme.time.boxShadowDaytime : theme.time.boxShadowNighttime};
+  box-shadow: 3px 3px ${(props) => props.$daytime ? theme.time.boxShadowDaytime : theme.time.boxShadowNighttime};
+
+  width: 6em;
+  height: 2em;
+
+  font-size: 0.75em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+
+  margin: 2px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    text-decoration: underline;
   }
 `;
 

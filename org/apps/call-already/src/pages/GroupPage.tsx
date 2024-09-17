@@ -18,6 +18,7 @@ import {
   InputContainer,
   NumberInput,
   RoomCodeInput,
+  SmallHeader,
   SubHeader,
 } from "../styles";
 import {
@@ -200,7 +201,7 @@ export function GroupPage() {
           value={pickedDays}
           onChange={selectPickedDays}
         />
-        <h3>{callTypeText}</h3>
+        <SmallHeader>{callTypeText}</SmallHeader>
         <Group>
           <input
             type="radio"

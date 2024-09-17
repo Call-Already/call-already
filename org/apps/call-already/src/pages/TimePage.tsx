@@ -11,6 +11,9 @@ import {
   Group,
   InfoText,
   palette,
+  theme,
+  TimeContainer,
+  SmallHeader,
 } from "../styles";
 import {
   getLocalizedTimeInputs,
@@ -31,6 +34,7 @@ export function TimePage() {
   const setSelectedTimesState = useSetRecoilState(selectedTimesState);
 
   const [error, setError] = useState<ErrorObject>({});
+  const [showNightTimes, setShowNightTimes] = useState<Boolean>(false);
 
   const header = "Select times";
   const infoText = "These are the times you're available for a call. Select as many as possible and let's make this thing happen!";
@@ -45,24 +49,33 @@ export function TimePage() {
   const timeSelectors = [];
   const selectedTimes = new Set<string>();
 
-  const onTimeSelected = (utcTime: string) => {
+  // Function for toggling the background of a TimeButton.
+  const toggleTime = (utcTime: string) => {
     if (selectedTimes.has(utcTime)) {
       selectedTimes.delete(utcTime);
     } else {
       selectedTimes.add(utcTime);
     }
-  };
 
-  // Function for toggling the background of a TimeButton.
-  const toggleColor = (utcTime: string) => {
+    const timeIsSelected = selectedTimes.has(utcTime);
+
     const button: HTMLElement | null = document.getElementById(`${utcTime}`);
     if (button !== null) {
-      if (button.style.background !== palette.primary[200]) {
-        button.style.background = palette.primary[300];
+      if (timeIsSelected) {
+        button.style.background = theme.time.active;
       } else {
-        button.style.background = palette.primary[200];
+        button.style.background = theme.time.background;
       }
     }
+  };
+
+  // Function for toggling night times display.
+  const toggleShowNightTimes = () => {
+    var checked = (
+      document.getElementById("showNightTimes") as HTMLInputElement
+    ).checked;
+
+    setShowNightTimes(checked);
   };
 
   // Create a list of time selector buttons.
@@ -77,10 +90,7 @@ export function TimePage() {
       <TimeButton
         key={utcTime}
         id={utcTime}
-        onClick={() => {
-          onTimeSelected(utcTime);
-          toggleColor(utcTime);
-        }}
+        onClick={() => toggleTime(utcTime)}
         isDaytime={isDaytime}
         title={localTime}
       />
@@ -104,23 +114,26 @@ export function TimePage() {
     <Page progress={4} iconClassNames={"fa-solid fa-clock"} headerText={header} mascot={MASCOTS.Writing} isLoading={false} error={error} setError={setError}>
       <CardContainer $isMobile={isMobile}>
         <InfoText>{infoText}</InfoText>
-        <InfoText>Showing times local to you in {timezone.value}</InfoText>
         <Group>
-          <CheckboxInput id="showNightTimes" type="checkbox"></CheckboxInput>
+          <CheckboxInput onClick={toggleShowNightTimes} id="showNightTimes" type="checkbox"></CheckboxInput>
           <InfoText>
             {showNightText}
           </InfoText> 
         </Group>
-        {timeSelectors.map((button) => {
+        <InfoText><strong>Showing times local to you in {timezone.value}</strong></InfoText>
+        <TimeContainer>
+        {
+          timeSelectors.map((button) => {
           const localMoment = moment(button.key).tz(timezone.value);
           const localTime = localMoment.format("ha");
           const localDay = localMoment.format("ll");
-          if (isDaytimeHours(localTime)) {
+          if (isDaytimeHours(localTime) || showNightTimes) {
+            // A new day - label it with a header.
             if (localDay !== currentDay) {
               currentDay = localDay;
               return (
                 <>
-                  <p>{localDay}</p>
+                  <SmallHeader>{localDay}</SmallHeader>
                   {button}
                 </>
               );
@@ -131,6 +144,7 @@ export function TimePage() {
             return <></>;
           }
         })}
+        </TimeContainer>
         <Button onClick={onSubmit}>Submit</Button>
       </CardContainer>
     </Page>
