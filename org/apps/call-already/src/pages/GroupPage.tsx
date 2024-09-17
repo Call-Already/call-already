@@ -3,9 +3,9 @@ import React, { useState } from "react";
 // import 'dayjs/locale/en';
 import { DatePicker } from "@mantine/dates";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { createGroup, CreateGroupProps, validateGroup } from "../gateways";
-import { callTypeState, existingUsersState, expectedNumUsersState, groupCodeState, selectedDaysState } from "../state";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { createGroup, CreateGroupProps, validateGroup, ValidateGroupProps } from "../gateways";
+import { callTypeState, emailState, existingUsersState, expectedNumUsersState, groupCodeState, selectedDaysState } from "../state";
 import { isCreatingGroupState } from "../state";
 import {
   Button,
@@ -40,6 +40,8 @@ import { ErrorObject, Page } from "../components";
 export function GroupPage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
+
+  const email = useRecoilValue(emailState);
 
   const setUserGroupCode = useSetRecoilState(groupCodeState);
   const setIsCreatingGroup = useSetRecoilState(isCreatingGroupState);
@@ -81,8 +83,9 @@ export function GroupPage() {
     }
 
     // Validate that the group exists
-    const validateGroupProps = {
+    const validateGroupProps : ValidateGroupProps = {
       ID: groupCodeValue,
+      Email: email,
     }
 
     setIsLoading(true);
@@ -148,6 +151,7 @@ export function GroupPage() {
 
     const createGroupProps: CreateGroupProps = {
       ID: groupCode,
+      Email: email,
       NumUsers: Number(numUsersValue),
       ShowUsers: Boolean(showUsersValue),
       Dates: selectedDays,

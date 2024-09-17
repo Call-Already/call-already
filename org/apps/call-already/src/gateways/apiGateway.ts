@@ -7,6 +7,7 @@ const instance = axios.create({
 
 export type ValidateGroupProps = {
   ID: string;
+  Email: string;
 }
 
 export type ValidateGroupResponse = {
@@ -27,6 +28,7 @@ export type PostResponsesProps = {
 
 export type CreateGroupProps = {
   ID: string;
+  Email: string;
   NumUsers: number;
   ShowUsers: boolean;
   Dates: Array<string>;
