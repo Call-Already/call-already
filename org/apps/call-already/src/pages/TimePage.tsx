@@ -35,6 +35,7 @@ export function TimePage() {
 
   const [error, setError] = useState<ErrorObject>({});
   const [showNightTimes, setShowNightTimes] = useState<Boolean>(false);
+  const [selectedTimes, setSelectedTimes] = useState<Set<string>>(new Set<string>());
 
   const header = "Select times";
   const infoText = "These are the times you're available for a call. Select as many as possible and let's make this thing happen!";
@@ -47,14 +48,15 @@ export function TimePage() {
   const localTimes = getLocalizedTimeInputs(utcTimes, timezone.value);
 
   const timeSelectors = [];
-  const selectedTimes = new Set<string>();
 
   // Function for toggling the background of a TimeButton.
   const toggleTime = (utcTime: string) => {
     if (selectedTimes.has(utcTime)) {
       selectedTimes.delete(utcTime);
+      setSelectedTimes(selectedTimes);
     } else {
       selectedTimes.add(utcTime);
+      setSelectedTimes(selectedTimes);
     }
 
     const timeIsSelected = selectedTimes.has(utcTime);
