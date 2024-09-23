@@ -28,6 +28,7 @@ export type PostResponsesProps = {
 
 export type CreateGroupProps = {
   ID: string;
+  GroupName?: string;
   Email: string;
   NumUsers: number;
   ShowUsers: boolean;

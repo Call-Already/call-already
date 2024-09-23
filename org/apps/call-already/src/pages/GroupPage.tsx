@@ -32,6 +32,7 @@ import {
   RoomCodeInput,
   SmallHeader,
   SubHeader,
+  TextInput,
 } from "../styles";
 import {
   CallTypes,
@@ -77,6 +78,7 @@ export function GroupPage() {
   const submitText = "Join group";
   const info2 = "Create new group";
   const callTypeText = "How should we schedule your call?";
+  const groupNameText = "(optional) Give your group a name"
   // Parameters for date picker component.
   const defaultDate = moment(new Date()).add(2, "day").toDate();
   const minDate = moment(new Date()).toDate();
@@ -167,8 +169,17 @@ export function GroupPage() {
     ).value;
     setCallType(callTypeValue);
 
+    const groupNameValue = (
+      document.getElementById("groupName") as HTMLInputElement
+    ).value;
+    if (groupNameValue && groupNameValue.length > 16) {
+      setError({ message: "Please enter a shorter group name." });
+      return;
+    }
+
     const createGroupProps: CreateGroupProps = {
       ID: groupCode,
+      GroupName: groupNameValue,
       Email: email,
       NumUsers: Number(numUsersValue),
       ShowUsers: Boolean(showUsersValue),
@@ -270,6 +281,9 @@ export function GroupPage() {
             Call time must work for everyone
           </FormLabel>
         </Group>
+        <br />
+        <FormLabel htmlFor="groupName">{groupNameText}</FormLabel>
+        <TextInput type="text" name="groupName" id="groupName"></TextInput>
         <Button $primary onClick={onCreateGroup}>
           {info2}
         </Button>
