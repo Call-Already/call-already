@@ -40,6 +40,7 @@ export type RegisterProps = {
   Nickname: string;
   Email: string;
   Password: string;
+  PhoneNumber: string;
 };
 
 export type VerifyEmailResponse = {

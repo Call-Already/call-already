@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ErrorObject, Page } from "../components";
+import { PhoneInput } from 'react-international-phone';
+import { PhoneNumberUtil } from 'google-libphonenumber';
 import * as yup from "yup";
+import "yup-phone";
 import {
   CardContainer,
   TextInput,
@@ -10,6 +13,9 @@ import {
   Button,
   Form,
   InfoText,
+  SmallHeader,
+  SecondaryContainer,
+  CheckboxInput,
 } from "../styles";
 import {
   emitAnalytic,
@@ -20,12 +26,16 @@ import {
 } from "../utils";
 import { register, RegisterProps } from "../gateways";
 
+import 'react-international-phone/style.css';
+
 export function RegistrationPage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
   const [error, setError] = useState<ErrorObject>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [consentWhatsApp, setConsentWhatsApp] = useState<Boolean>(false);
+  const [phone, setPhone] = useState("");
 
   const header = "Register";
   const nickname = "Nickname";
@@ -34,8 +44,15 @@ export function RegistrationPage() {
   const createAccount = "Register";
   const passwordStrongerText = "Please create a stronger password";
   const loginOptionText = "Or visit here to log in.";
+  const whatsAppHeader = "WhatsApp";
+  const whatsAppText = "(Optional) Enter your WhatsApp number to receive call information directly in your chat.";
+  const whatsAppConsentText = "I consent to receiving updates via WhatsApp.";
+  const whatsAppNumValidText = "Please enter a valid phone number or leave it blank.";
+  const mustConsentWhatsAppText = "Please consent to receiving WhatsApp messages.";
 
+  const nicknameRegExp = /^[a-zA-Z0-9]{2,16}$/;
   const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
   let schema = yup.object({
     Nickname: yup
@@ -43,7 +60,7 @@ export function RegistrationPage() {
       .required("Nickname is required.")
       .min(2)
       .max(16)
-      .matches(/^[a-zA-Z0-9]{2,16}$/, {
+      .matches(nicknameRegExp, {
         message: "Please enter a valid nickname.",
       }),
     Email: yup
@@ -60,6 +77,25 @@ export function RegistrationPage() {
       }),
   });
 
+  const phoneUtil = PhoneNumberUtil.getInstance();
+
+  const isPhoneValid = (phone: string) => {
+    try {
+      return phoneUtil.isValidNumber(phoneUtil.parseAndKeepRawInput(phone));
+    } catch (error) {
+      return false;
+    }
+  };
+
+  // Function for toggling night times display.
+  const toggleWhatsAppConsent = () => {
+    var checked = (
+      document.getElementById("consentWhatsApp") as HTMLInputElement
+    ).checked;
+
+    setConsentWhatsApp(checked);
+  }
+
   async function onSubmit(e: any) {
     e.preventDefault();
 
@@ -67,10 +103,23 @@ export function RegistrationPage() {
     const email: string = e.target.email.value;
     const password: string = e.target.password.value;
 
+    const validPhoneNumber = isPhoneValid(phone);
+
+    if (phone.length > 4 && !validPhoneNumber) {
+      setError({ message: whatsAppNumValidText });
+      return;
+    }
+
+    if (validPhoneNumber && !consentWhatsApp) {
+      setError({ message: mustConsentWhatsAppText });
+      return;
+    }
+
     const formData: RegisterProps = {
       Nickname: nickname,
       Email: email,
       Password: password,
+      PhoneNumber: validPhoneNumber ? phone : "",
     };
 
     schema
@@ -133,6 +182,31 @@ export function RegistrationPage() {
             name="password"
             id="password"
           ></TextInput>
+          <hr />
+          <SecondaryContainer>
+            <SmallHeader>
+              <i className="fa-brands fa-whatsapp"></i>{`\t`}
+              {whatsAppHeader}
+            </SmallHeader>
+            <InfoText>
+              {whatsAppText}
+            </InfoText>
+            <PhoneInput
+              name="phoneNumber"
+              defaultCountry="usa"
+              value={phone}
+              onChange={(phone: string) => setPhone(phone)}
+            />
+            <br />
+            <Group>
+              <CheckboxInput
+                onClick={toggleWhatsAppConsent}
+                name="consentWhatsApp"
+                id="consentWhatsApp"
+                type="checkbox"></CheckboxInput>
+              <InfoText>{whatsAppConsentText}</InfoText>
+          </Group>
+          </SecondaryContainer>
           <Group>
             <Button $primary type="submit">
               {createAccount}
@@ -143,9 +217,6 @@ export function RegistrationPage() {
             <a style={{ color: "black" }} href={LOGIN_ROUTE}>
               {loginOptionText}
             </a>
-          </InfoText>
-          <InfoText>
-            <i className="fa-brands fa-whatsapp"></i> WhatsApp coming soon!
           </InfoText>
         </Form>
       </CardContainer>
