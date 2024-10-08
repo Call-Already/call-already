@@ -12,6 +12,7 @@ import {
   InfoText,
   InfoSubText,
   SmallHeader,
+  SecondaryContainer,
 } from "../styles";
 import {
   emitAnalytic,
@@ -47,6 +48,9 @@ export function LoginPage() {
   const password = "Password";
   const logIn = "Log in";
   const registrationOptionText = "Or visit here to register.";
+  const disclaimerHeader = "Thanks for keeping us healthy!";
+  const disclaimer1 = "We only require keeping an account in order to keep our email channels healthy from spam folders and bounces, which would deny us email access.";
+  const disclaimer2 = "Your email will only be used to communicate call times to you. Will not share it, use it for promotional purposes or otherwise misuse it.";
 
   let schema = yup.object({
     Email: yup
@@ -145,22 +149,22 @@ export function LoginPage() {
           </Group>
         </Form>
         <InfoText>
-          <a style={{ color: "black" }} href={REGISTRATION_ROUTE}>
+          <a style={{ color: "blue" }} href={REGISTRATION_ROUTE}>
             {registrationOptionText}
           </a>
         </InfoText>
-      </CardContainer>
-      <CardContainer $isMobile={isMobile}>
-        <SmallHeader>Thanks for keeping us healthy</SmallHeader>
-        <InfoSubText $isMobile={isMobile}>
-          We only require keeping an account in order to keep our email channels
-          healthy from spam folders and bounces, which would deny us email
-          access.
-        </InfoSubText>
-        <InfoSubText $isMobile={isMobile}>
-          Your email will only be used to communicate call times to you. Will
-          not share it, use it for promotional purposes or otherwise misuse it.
-        </InfoSubText>
+        <SecondaryContainer $isMobile={isMobile}>
+          <SmallHeader>
+            <i className="fa-solid fa-users"></i>{`\t`}
+            {disclaimerHeader}
+          </SmallHeader>
+          <InfoSubText $isMobile={isMobile}>
+            {disclaimer1}
+          </InfoSubText>
+          <InfoSubText $isMobile={isMobile}>
+            {disclaimer2}
+          </InfoSubText>
+      </SecondaryContainer>
       </CardContainer>
     </Page>
   );

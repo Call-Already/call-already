@@ -30,6 +30,7 @@ import {
   InputContainer,
   NumberInput,
   RoomCodeInput,
+  SecondaryContainer,
   SmallHeader,
   SubHeader,
   TextInput,
@@ -244,19 +245,21 @@ export function GroupPage() {
           for the call. Calls scheduled in the next three to five days tend to
           be more successful.
         </InfoText>
-        <DatePicker
-          type="range"
-          allowSingleDateInRange
-          defaultDate={defaultDate}
-          firstDayOfWeek={0}
-          minDate={minDate}
-          maxDate={maxDate}
-          maxLevel="month"
-          size={isMobile ? "sm" : "md"}
-          locale="en"
-          value={pickedDays}
-          onChange={selectPickedDays}
-        />
+        <SecondaryContainer $isMobile={isMobile}>
+          <DatePicker
+            type="range"
+            allowSingleDateInRange
+            defaultDate={defaultDate}
+            firstDayOfWeek={0}
+            minDate={minDate}
+            maxDate={maxDate}
+            maxLevel="month"
+            size={isMobile ? "sm" : "md"}
+            locale="en"
+            value={pickedDays}
+            onChange={selectPickedDays}
+          />
+        </SecondaryContainer>
         <SmallHeader>{callTypeText}</SmallHeader>
         <Group>
           <input

@@ -4,6 +4,7 @@ export const REGISTRATION_ROUTE = "/register";
 export const LOGIN_ROUTE = "/login";
 export const VERIFICATION_ROUTE = "/verify-email";
 export const HOME_ROUTE = "/home";
+export const SETTINGS_ROUTE = "/settings";
 export const GROUP_ROUTE = "/group";
 export const MY_INFO_ROUTE = "/my-info";
 export const TIME_ROUTE = "/time";
@@ -16,6 +17,7 @@ export const ROUTES = [
   REGISTRATION_ROUTE,
   LOGIN_ROUTE,
   VERIFICATION_ROUTE,
+  SETTINGS_ROUTE,
   HOME_ROUTE,
   GROUP_ROUTE,
   MY_INFO_ROUTE,

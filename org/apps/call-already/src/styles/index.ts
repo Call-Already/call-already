@@ -13,6 +13,12 @@ export const palette = {
     1000: "#caedff", // Lt Blue
     1100: "#ffa800", // Dk orange
     1200: "#fefefe", // Lt Grey
+    1300: "#25d366", // WhatsApp green
+    1400: "#d6ffe5", // Light green
+    1500: "#fafafa", // Page color
+    1600: "#FAAD19", // Confused Yellow
+    1700: "#D65B4C", // Light red
+    1800: "#A94D40", // Dark red
   },
 };
 
@@ -23,6 +29,8 @@ export const theme = {
     boxShadow: palette.primary[800],
     hover: palette.primary[800],
     active: palette.primary[700],
+    page: palette.primary[1500],
+    nav: palette.primary[1600],
   },
   secondary: {
     text: palette.primary[400],
@@ -49,6 +57,14 @@ export const theme = {
     background: palette.primary[1000],
     border: palette.primary[600],
   },
+  whatsApp: {
+    background: palette.primary[1400],
+    border: palette.primary[1300],
+  },
+  error: {
+    light: palette.primary[1700],
+    dark: palette.primary[1800],
+  }
 };
 
 export const PageComponent = styled.div`
@@ -65,7 +81,7 @@ export const PageContainer = styled.div<{ $isMobile?: boolean }>`
   margin-top: auto;
   margin-bottom: auto;
   width: ${(props) => (props.$isMobile ? "350px" : "880px")};
-  background: ${palette.primary[400]};
+  background: ${theme.primary.page};
   border-radius: 1em;
   padding: 3em 3em 0em 3em;
   gap: 1.5em;
@@ -91,9 +107,14 @@ export const SecondaryContainer = styled.div<{ $isMobile?: boolean }>`
   align-items: center;
   background: ${palette.primary[1200]};
   border-radius: 3px;
-  width: ${(props) => (props.$isMobile ? "250px" : "380px")};
+  width: ${(props) => (props.$isMobile ? "300px" : "380px")};
   border: 1px dotted ${palette.primary[200]};
   padding: 1em;
+`;
+
+export const WhatsAppContainer = styled(SecondaryContainer)<{ $isMobile?: boolean }>`
+  background: ${theme.whatsApp.background};
+  border: 1px dotted ${theme.whatsApp.border};
 `;
 
 export const InputContainer = styled.div`
@@ -140,11 +161,12 @@ export const InfoText = styled.p`
   text-align: center;
   margin-top: 0;
   margin-bottom: 1em;
+  text-wrap: wrap;
 `;
 
 export const InfoSubText = styled.p<{ $isMobile?: boolean }>`
   color: ${theme.general.md};
-  width: ${(props) => (props.$isMobile ? "280px" : "450px")};
+  width: ${(props) => (props.$isMobile ? "230px" : "360px")};
   text-align: center;
   margin-top: 0;
   margin-bottom: 1em;
@@ -190,6 +212,27 @@ export const Button = styled.button<{ $primary?: boolean }>`
   &:active {
     background: ${(props) =>
       props.$primary ? theme.primary.active : theme.secondary.active};
+  }
+`;
+
+export const DeleteButton = styled.button`
+  background: ${theme.error.light};
+  color: ${theme.primary.text};
+  box-shadow: 3px 3px ${theme.error.dark};
+
+  width: 6em;
+  height: 2.3em;
+
+  font-size: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  border: none;
+
+  &:hover {
+    background: ${theme.error.dark};
+  }
+  &:active {
+    background: ${theme.error.light};
   }
 `;
 

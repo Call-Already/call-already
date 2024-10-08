@@ -13,6 +13,7 @@ import {
   WelcomePage,
   HomePage,
 } from "../pages";
+import { SettingsPage } from "../pages/SettingsPage";
 import {
   CONFIRMATION_ROUTE,
   GROUP_ROUTE,
@@ -25,6 +26,7 @@ import {
   VERIFICATION_ROUTE,
   LOGIN_ROUTE,
   HOME_ROUTE,
+  SETTINGS_ROUTE,
 } from "../utils";
 
 const browserRouter = createBrowserRouter([
@@ -53,6 +55,14 @@ const browserRouter = createBrowserRouter([
     element: (
       <ProtectedPage>
         <HomePage />,
+      </ProtectedPage>
+    ),
+  },
+  {
+    path: SETTINGS_ROUTE,
+    element: (
+      <ProtectedPage>
+        <SettingsPage />,
       </ProtectedPage>
     ),
   },
