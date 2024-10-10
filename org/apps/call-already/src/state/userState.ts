@@ -32,6 +32,10 @@ export const NUM_GROUPS_CREATED_STATE = "numGroupsCreated";
 
 export const NUM_GROUPS_JOINED_STATE = "numGroupsJoined";
 
+export const IS_OPTED_IN_TO_WHATSAPP_STATE = "isOptedInToWhatsApp";
+
+export const PHONE_NUMBER_STATE = "phoneNumberState";
+
 export const emailState = atom({
   key: EMAIL_STATE_KEY,
   default: "",
@@ -115,3 +119,15 @@ export const numGroupsJoinedState = atom({
   default: 0,
   effects: [persistAtom],
 });
+
+export const isOptedInToWhatsAppState = atom({
+  key: IS_OPTED_IN_TO_WHATSAPP_STATE,
+  default: false,
+  effects: [persistAtom],
+});
+
+export const phoneNumberState = atom({
+  key: PHONE_NUMBER_STATE,
+  default: "",
+  effects: [persistAtom],
+})

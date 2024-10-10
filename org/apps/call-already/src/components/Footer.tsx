@@ -33,10 +33,10 @@ export const Footer: React.FC<FooterProps> = ({ onClose }) => {
         </InfoText>
         <Group style={{ display: "flex", justifyContent: "center" }}>
           <InfoText>
-            <a href="https://mattyphillips.com">mattyphillips.com</a>
+            <a style={{color: "blue"}} href="https://mattyphillips.com">mattyphillips.com</a>
           </InfoText>
           <InfoText>
-            <a href="https://www.paypal.com/donate/?business=H6PPX9THPVU6Y&no_recurring=0&currency_code=USD">
+            <a style={{color: "blue"}} href="https://www.paypal.com/donate/?business=H6PPX9THPVU6Y&no_recurring=0&currency_code=USD">
               PayPal
             </a>
           </InfoText>

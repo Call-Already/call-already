@@ -28,6 +28,7 @@ export const Banner: React.FC<BannerProps> = ({ message, onClose }) => {
       style={{
         border: "1px solid red",
         padding: "1em",
+        background: "white",
         borderRadius: "3px",
         margin: "0 auto 0 auto",
         boxShadow: "3px 3px red",

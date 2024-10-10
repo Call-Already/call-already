@@ -115,11 +115,14 @@ export function RegistrationPage() {
       return;
     }
 
+    const isOptedInToWhatsApp = validPhoneNumber && consentWhatsApp;
+
     const formData: RegisterProps = {
       Nickname: nickname,
       Email: email,
       Password: password,
       PhoneNumber: validPhoneNumber ? phone : "",
+      IsOptedInToWhatsApp: isOptedInToWhatsApp
     };
 
     schema
@@ -199,7 +202,7 @@ export function RegistrationPage() {
               onChange={(phone: string) => setPhone(phone)}
             />
             <br />
-            <Group $isMobile={isMobile}>
+            <Group $isMobile={isMobile} style={{gap: "0.2em"}}>
               <CheckboxInput
                 onClick={toggleWhatsAppConsent}
                 name="consentWhatsApp"

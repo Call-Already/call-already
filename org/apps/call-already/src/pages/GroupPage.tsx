@@ -261,13 +261,12 @@ export function GroupPage() {
           />
         </SecondaryContainer>
         <SmallHeader>{callTypeText}</SmallHeader>
-        <Group>
+        <Group $isMobile={isMobile}>
           <input
             type="radio"
             name="callType"
             id={CallTypes.IMPERFECT}
             value={CallTypes.IMPERFECT}
-            checked
           />
           <FormLabel htmlFor={CallTypes.IMPERFECT}>
             Include the most friends possible

@@ -9,7 +9,7 @@ export const palette = {
     600: "#001aad", // Darker blue
     700: "#28ad02", // Green
     800: "#1f8a00", // Darker green
-    900: "##808080", // Medium
+    900: "#808080", // Medium
     1000: "#caedff", // Lt Blue
     1100: "#ffa800", // Dk orange
     1200: "#fefefe", // Lt Grey
@@ -215,10 +215,14 @@ export const Button = styled.button<{ $primary?: boolean }>`
   }
 `;
 
-export const DeleteButton = styled.button`
-  background: ${theme.error.light};
+export const DeleteButton = styled.button<{ $isEnabled?: boolean }>`
+  background: ${(props) => 
+    props.$isEnabled ? theme.error.light : theme.general.light
+  };
   color: ${theme.primary.text};
-  box-shadow: 3px 3px ${theme.error.dark};
+  box-shadow: 3px 3px ${(props) =>
+    props.$isEnabled ? theme.error.dark : theme.general.md
+  };
 
   width: 6em;
   height: 2.3em;
@@ -229,10 +233,14 @@ export const DeleteButton = styled.button`
   border: none;
 
   &:hover {
-    background: ${theme.error.dark};
+    background: ${(props) => 
+      props.$isEnabled ? theme.error.dark : theme.general.light
+    };
   }
   &:active {
-    background: ${theme.error.light};
+    background: ${(props) =>
+      props.$isEnabled ? theme.error.light : theme.general.light
+    };
   }
 `;
 
@@ -308,7 +316,7 @@ export const FormLabel = styled.label`
 
 export const TextInput = styled.input`
   padding: 0.25em;
-  align-text: left;
+  text-align: center;
   border-radius: 0.5em;
   font-size: 1em;
   size: 12;
