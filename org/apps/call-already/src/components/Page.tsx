@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { Banner, ErrorObject, NavHome } from ".";
+import { Banner, ErrorObject, NavHome, NavSettings } from ".";
 import { groupCodeState } from "../state";
 import { InfoText, Mascot, PageContainer, PageHeader } from "../styles";
 import { ROUTES, useIsMobile } from "../utils";
@@ -61,7 +61,8 @@ export const Page: React.FC<PageContainerProps> = ({
     <PageContainer $isMobile={isMobile}>
       <LoadingOverlay isMobile={isMobile} isLoading={isLoading} />
       {progress > 0 && prevRoute && <NavArrow prevRoute={prevRoute}></NavArrow>}
-      {progress < 0 && <NavHome></NavHome>}
+      {progress <= 0 && <NavHome></NavHome>}
+      {progress === -2 && <NavSettings></NavSettings>}
       <PageHeader>
         {groupCode && hasFinishedGroupPage && (
           <InfoText

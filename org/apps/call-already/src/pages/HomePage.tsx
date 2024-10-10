@@ -114,7 +114,7 @@ export function HomePage() {
 
   return (
     <Page
-      progress={-1}
+      progress={-2}
       iconClassNames={"fa-solid fa-house-user"}
       headerText={header}
       mascot={MASCOTS.Happy}
@@ -137,11 +137,13 @@ export function HomePage() {
           {showStatistics ? (
             <>
               <InfoText>
-                <strong style={{ fontSize: 20 }}>{numGroupsCreated}</strong>{" "}
+                <i className="fa-solid fa-square-plus"></i>{`\t`}
+                <strong style={{ fontSize: 30 }}>{numGroupsCreated}</strong>{`\t`}
                 {groupsCreated}
               </InfoText>
               <InfoText>
-                <strong style={{ fontSize: 20 }}>{numGroupsJoined}</strong>{" "}
+                <i className="fa-solid fa-users"></i>{`\t`}
+                <strong style={{ fontSize: 30 }}>{numGroupsJoined}</strong>{`\t`}
                 {groupsJoined}
               </InfoText>
             </>

@@ -16,6 +16,7 @@ import {
   SmallHeader,
   SecondaryContainer,
   CheckboxInput,
+  WhatsAppContainer,
 } from "../styles";
 import {
   emitAnalytic,
@@ -46,13 +47,12 @@ export function RegistrationPage() {
   const loginOptionText = "Or visit here to log in.";
   const whatsAppHeader = "WhatsApp";
   const whatsAppText = "(Optional) Enter your WhatsApp number to receive call information directly in your chat.";
-  const whatsAppConsentText = "I consent to receiving updates via WhatsApp.";
+  const whatsAppConsentText = `I consent to receiving updates\nvia WhatsApp.`;
   const whatsAppNumValidText = "Please enter a valid phone number or leave it blank.";
   const mustConsentWhatsAppText = "Please consent to receiving WhatsApp messages.";
 
   const nicknameRegExp = /^[a-zA-Z0-9]{2,16}$/;
   const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
-  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
   let schema = yup.object({
     Nickname: yup
@@ -115,11 +115,14 @@ export function RegistrationPage() {
       return;
     }
 
+    const isOptedInToWhatsApp = validPhoneNumber && consentWhatsApp;
+
     const formData: RegisterProps = {
       Nickname: nickname,
       Email: email,
       Password: password,
       PhoneNumber: validPhoneNumber ? phone : "",
+      IsOptedInToWhatsApp: isOptedInToWhatsApp
     };
 
     schema
@@ -183,7 +186,7 @@ export function RegistrationPage() {
             id="password"
           ></TextInput>
           <hr />
-          <SecondaryContainer>
+          <WhatsAppContainer $isMobile={isMobile}>
             <SmallHeader>
               <i className="fa-brands fa-whatsapp"></i>{`\t`}
               {whatsAppHeader}
@@ -192,13 +195,14 @@ export function RegistrationPage() {
               {whatsAppText}
             </InfoText>
             <PhoneInput
+              inputStyle={{width: "180px"}}
               name="phoneNumber"
               defaultCountry="usa"
               value={phone}
               onChange={(phone: string) => setPhone(phone)}
             />
             <br />
-            <Group>
+            <Group $isMobile={isMobile} style={{gap: "0.2em"}}>
               <CheckboxInput
                 onClick={toggleWhatsAppConsent}
                 name="consentWhatsApp"
@@ -206,7 +210,7 @@ export function RegistrationPage() {
                 type="checkbox"></CheckboxInput>
               <InfoText>{whatsAppConsentText}</InfoText>
           </Group>
-          </SecondaryContainer>
+          </WhatsAppContainer>
           <Group>
             <Button $primary type="submit">
               {createAccount}
@@ -214,7 +218,7 @@ export function RegistrationPage() {
           </Group>
           <br />
           <InfoText>
-            <a style={{ color: "black" }} href={LOGIN_ROUTE}>
+            <a style={{ color: "blue" }} href={LOGIN_ROUTE}>
               {loginOptionText}
             </a>
           </InfoText>

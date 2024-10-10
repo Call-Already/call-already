@@ -41,6 +41,7 @@ export type RegisterProps = {
   Email: string;
   Password: string;
   PhoneNumber: string;
+  IsOptedInToWhatsApp: Boolean;
 };
 
 export type VerifyEmailResponse = {
@@ -80,8 +81,21 @@ export type GetUserResponse = {
   Nickname: string;
   IsVerified: boolean;
   GroupsCreated?: number;
+  PhoneNumber: string;
+  IsOptedInToWhatsApp: boolean;
   GroupsJoined?: number;
 };
+
+export type DeleteUserProps = {
+  Email: string;
+};
+
+export type UpdateUserProps = {
+  Email: string;
+  Nickname: string;
+  PhoneNumber: string;
+  IsOptedInToWhatsApp: boolean;
+}
 
 export async function validateGroup(props: ValidateGroupProps) {
   const serverResponse = await instance.get<ValidateGroupResponse>(
@@ -123,6 +137,20 @@ export async function loginUser(props: LoginProps) {
 export async function getUser(props: GetUserProps) {
   const serverResponse = await instance.get<GetUserResponse>(
     `/get-user?Email=${props.Email}`,
+  );
+  return serverResponse;
+}
+
+export async function deleteUser(props: DeleteUserProps) {
+  const serverResponse = await instance.delete(
+    `/user?Email=${props.Email}`
+  )
+  return serverResponse;
+}
+
+export async function updateUser(props: UpdateUserProps) {
+  const serverResponse = await instance.patch("/user",
+    props,
   );
   return serverResponse;
 }

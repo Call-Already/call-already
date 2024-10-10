@@ -33,6 +33,7 @@ export const SuccessBanner: React.FC<SuccessBannerProps> = ({
     <div
       style={{
         border: `1px solid ${color}`,
+        background: "white",
         padding: "1em",
         borderRadius: "3px",
         margin: "0 auto 0 auto",
