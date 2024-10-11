@@ -19,6 +19,8 @@ export const palette = {
     1600: "#FAAD19", // Confused Yellow
     1700: "#D65B4C", // Light red
     1800: "#A94D40", // Dark red
+    1900: "#E3FAFF", // Lt blue
+    2000: "#C4F3FE", // Moody blue
   },
 };
 
@@ -64,6 +66,10 @@ export const theme = {
   error: {
     light: palette.primary[1700],
     dark: palette.primary[1800],
+  },
+  userBox: {
+    light: palette.primary[1900],
+    dark: palette.primary[2000],
   }
 };
 
@@ -82,7 +88,9 @@ export const PageContainer = styled.div<{ $isMobile?: boolean }>`
   margin-bottom: auto;
   width: ${(props) => (props.$isMobile ? "350px" : "880px")};
   background: ${theme.primary.page};
+  border: 1px solid ${theme.general.md};
   border-radius: 1em;
+  box-shadow: 3px 3px ${theme.general.md};
   padding: 3em 3em 0em 3em;
   gap: 1.5em;
 `;
@@ -115,6 +123,27 @@ export const SecondaryContainer = styled.div<{ $isMobile?: boolean }>`
 export const WhatsAppContainer = styled(SecondaryContainer)<{ $isMobile?: boolean }>`
   background: ${theme.whatsApp.background};
   border: 1px dotted ${theme.whatsApp.border};
+`;
+
+export const UsersContainer = styled(SecondaryContainer)<{ $isMobile?: boolean }>`
+  width: 12em;
+  background: ${theme.userBox.light};
+  border: 1px dotted ${theme.userBox.dark};
+  margin-bottom: 1.5em;
+`;
+
+export const HomeOptionsContainer = styled.button<{ $color: string }>`
+  width: 6.5em;
+  height: 2em;
+  border: none;
+  border-radius: 3px;
+  background: ${(props) => props.$color};
+  color: white;
+  text-align: center;
+
+  &:hover {
+    background: ${theme.secondary.background}
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -165,7 +194,7 @@ export const InfoText = styled.p`
 `;
 
 export const InfoSubText = styled.p<{ $isMobile?: boolean }>`
-  color: ${theme.general.md};
+  color: ${theme.general.dark};
   width: ${(props) => (props.$isMobile ? "230px" : "360px")};
   text-align: center;
   margin-top: 0;
@@ -174,8 +203,8 @@ export const InfoSubText = styled.p<{ $isMobile?: boolean }>`
 `;
 
 export const QuoteText = styled.p`
-  font-size: 0.9em;
-  font-weight: 800;
+  font-size: 1em;
+  font-style: italic;
   text-align: center;
   text-decoration: italics;
 `;

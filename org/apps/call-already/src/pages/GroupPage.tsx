@@ -224,7 +224,7 @@ export function GroupPage() {
         <Button onClick={onJoinGroup}>{submitText}</Button>
       </CardContainer>
       <p style={{ margin: "0", fontWeight: "1000" }}>or</p>
-      <CardContainer $isMobile={isMobile}>
+      <CardContainer $isMobile={isMobile} id="startCall">
         <SubHeader>Create a new group</SubHeader>
         <InputContainer>
           <InfoText>Number of callers:</InfoText>
@@ -267,6 +267,7 @@ export function GroupPage() {
             name="callType"
             id={CallTypes.IMPERFECT}
             value={CallTypes.IMPERFECT}
+            defaultChecked={true}
           />
           <FormLabel htmlFor={CallTypes.IMPERFECT}>
             Include the most friends possible

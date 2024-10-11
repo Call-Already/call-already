@@ -21,9 +21,9 @@ import {
   CardContainer,
   InputContainer,
   SubHeader,
+  UsersContainer,
 } from "../styles";
 import { emitAnalytic, MASCOTS, TIME_ROUTE, useIsMobile } from "../utils";
-import { isValidNickname } from "../utils/validation";
 
 export function MyInfoPage() {
   const isMobile = useIsMobile();
@@ -42,11 +42,9 @@ export function MyInfoPage() {
 
   const header = "About you";
   const codeText = "Your group";
-  const subHeader = "Your information";
+  const subHeader = "What timezone are you in?";
   const shareText =
     "Invite your friends to callalready.com and share this code with them.";
-  const waitingText = "Waiting on more friends:";
-  const provideNicknameText = "Please provide a valid nickname.";
   const provideTimezoneText = "Please provide a timezone.";
   const submit = "Submit";
   const friendsFound = "We found your friends!";
@@ -68,6 +66,17 @@ export function MyInfoPage() {
     navigate(TIME_ROUTE);
   };
 
+  const getNumUsersRemainingText = () => {
+    if (numUsersRemaining === 0) {
+      return "All your friends are here!";
+    } else if (numUsersRemaining === 1) {
+      return "Waiting on 1 more friend.";
+    } else if (numUsersRemaining > 1) {
+      return `Waiting on ${numUsersRemaining} more friends.`;
+    }
+    return "";
+  }
+
   return (
     <Page
       progress={1}
@@ -81,7 +90,7 @@ export function MyInfoPage() {
       setMessage={setMessage}
     >
       <CardContainer $isMobile={isMobile}>
-        <SubHeader>{codeText}</SubHeader>
+        <SubHeader style={{marginBottom: "0.5em"}}>{codeText}</SubHeader>
         {
           // Show the group code share clipboard if the user is the creator
           isCreatingGroup ? (
@@ -90,8 +99,9 @@ export function MyInfoPage() {
               <CodeClipboard groupCode={groupCode} />
             </>
           ) : (
-            <table>
-              {existingUsers.map((user: string) => {
+            <>
+              <UsersContainer $isMobile={isMobile}>
+                {existingUsers.map((user: string) => {
                 return (
                   <InfoText>
                     <i className="fa-solid fa-face-smile"></i>
@@ -99,11 +109,10 @@ export function MyInfoPage() {
                   </InfoText>
                 );
               })}
-              <tr>
-                <td className={"reviewTitle"}>{waitingText}</td>
-                <td className={"reviewData"}>{numUsersRemaining}</td>
-              </tr>
-            </table>
+              {numUsersRemaining ? <InfoText>. . .</InfoText> : null}
+              </UsersContainer>
+              <InfoText>{getNumUsersRemainingText()}</InfoText>
+            </>
           )
         }
       </CardContainer>
