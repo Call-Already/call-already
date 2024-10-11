@@ -32,7 +32,7 @@ export const CodeClipboard: React.FC<CodeClipboardProps> = ({ groupCode }) => {
   return (
     <>
       <Clipboard id="clipboard" style={{marginBottom: "0.5em"}}>{groupCode}</Clipboard>
-      <InviteContainer>
+      <InviteContainer $isMobile={isMobile}>
         {inviteText}
       </InviteContainer>
       <Group $isMobile={isMobile}>

@@ -159,7 +159,7 @@ export const InviteContainer = styled.div<{ $isMobile?: boolean }>`
   font-size: 0.75em;
   height: 2.5em;
   color: ${theme.general.md};
-  width: ${(props) => (props.$isMobile ? "250px" : "300px")};
+  width: ${(props) => (props.$isMobile ? "295px" : "400px")};
 `;
 
 export const InputContainer = styled.div`
