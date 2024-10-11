@@ -14,6 +14,7 @@ import {
   theme,
   TimeContainer,
   SmallHeader,
+  InfoSubText,
 } from "../styles";
 import {
   getLocalizedTimeInputs,
@@ -163,7 +164,9 @@ export function TimePage() {
             }
           })}
         </TimeContainer>
-        <Button onClick={onSubmit}>Submit</Button>
+        <br />
+        <InfoSubText $isMobile={isMobile} style={{marginBottom: "-1em"}}>Next: review (3 / 4)</InfoSubText>
+        <Button $primary onClick={onSubmit}>Continue</Button>
       </CardContainer>
     </Page>
   );

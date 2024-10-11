@@ -140,10 +140,26 @@ export const HomeOptionsContainer = styled.button<{ $color: string }>`
   background: ${(props) => props.$color};
   color: white;
   text-align: center;
+  font-size: 0.75em;
 
   &:hover {
     background: ${theme.secondary.background}
   }
+`;
+
+export const InviteContainer = styled.div<{ $isMobile?: boolean }>`
+  border: 1px dotted ${theme.general.light};
+  border-radius: 3px;
+  background: ${palette.primary[1200]};
+  padding: 0.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+  font-size: 0.75em;
+  height: 2.5em;
+  color: ${theme.general.md};
+  width: ${(props) => (props.$isMobile ? "250px" : "350px")};
 `;
 
 export const InputContainer = styled.div`

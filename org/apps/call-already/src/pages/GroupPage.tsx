@@ -24,6 +24,7 @@ import {
   CardContainer,
   FormLabel,
   Group,
+  InfoSubText,
   // CheckboxInput,
   // FormLabel,
   InfoText,
@@ -83,7 +84,7 @@ export function GroupPage() {
   // Parameters for date picker component.
   const defaultDate = moment(new Date()).add(2, "day").toDate();
   const minDate = moment(new Date()).toDate();
-  const maxDate = moment(new Date()).add(14, "day").toDate();
+  const maxDate = moment(new Date()).add(21, "day").toDate();
 
   async function onJoinGroup() {
     setIsCreatingGroup(false);
@@ -221,6 +222,8 @@ export function GroupPage() {
           size={6}
           maxLength={4}
         ></RoomCodeInput>
+        <br />
+        <InfoSubText $isMobile={isMobile} style={{marginBottom: "-1em"}}>Next: enter timezone (1 / 4)</InfoSubText>
         <Button onClick={onJoinGroup}>{submitText}</Button>
       </CardContainer>
       <p style={{ margin: "0", fontWeight: "1000" }}>or</p>
@@ -241,9 +244,9 @@ export function GroupPage() {
           Show other callers' responses while picking times
         </InfoText> */}
         <InfoText>
-          Select <strong>one to three days</strong> within the next two weeks
-          for the call. Calls scheduled in the next three to five days tend to
-          be more successful.
+          Select <strong>one to three days</strong> within the next three weeks
+          for the call. Calls scheduled in the next five to seven days tend to
+          be most successful.
         </InfoText>
         <SecondaryContainer $isMobile={isMobile}>
           <DatePicker
@@ -287,6 +290,8 @@ export function GroupPage() {
         <br />
         <FormLabel htmlFor="groupName">{groupNameText}</FormLabel>
         <TextInput type="text" name="groupName" id="groupName"></TextInput>
+        <br />
+        <InfoSubText $isMobile={isMobile} style={{marginBottom: "-1em"}}>Next: enter timezone (1 / 4)</InfoSubText>
         <Button $primary onClick={onCreateGroup}>
           {info2}
         </Button>

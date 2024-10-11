@@ -22,6 +22,7 @@ import {
   InputContainer,
   SubHeader,
   UsersContainer,
+  InfoSubText,
 } from "../styles";
 import { emitAnalytic, MASCOTS, TIME_ROUTE, useIsMobile } from "../utils";
 
@@ -46,7 +47,7 @@ export function MyInfoPage() {
   const shareText =
     "Invite your friends to callalready.com and share this code with them.";
   const provideTimezoneText = "Please provide a timezone.";
-  const submit = "Submit";
+  const submit = "Continue";
   const friendsFound = "We found your friends!";
   const groupCreation = "You've created a new group!";
 
@@ -126,6 +127,8 @@ export function MyInfoPage() {
             onChange={setTimezone}
           />
         </InputContainer>
+        <br />
+        <InfoSubText $isMobile={isMobile} style={{marginBottom: "-1em"}}>Next: select times (2 / 4)</InfoSubText>
         <Button $primary onClick={onSubmitInfo}>
           {submit}
         </Button>
