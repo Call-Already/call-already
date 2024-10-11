@@ -8,6 +8,7 @@ import { authTokenState, emailState, isOptedInToWhatsAppState, nicknameState, ph
 import { Button, CardContainer, DeleteButton, Form, FormLabel, Group, InfoSubText, InfoText, SecondaryContainer, SmallHeader, TextInput, theme, WhatsAppContainer } from "../styles";
 import {
   emitAnalytic,
+  HOME_ROUTE,
   useIsMobile,
   WELCOME_ROUTE,
 } from "../utils";
@@ -45,6 +46,7 @@ export function SettingsPage() {
   const optInMessage = "Opt in to WhatsApp messaging";
   const logoutOptionText = "Log out";
   const whatsAppNumValidText = "Please enter a valid phone number or leave it blank.";
+  const homeText = "Home";
 
   const nicknameRegExp = /^[a-zA-Z0-9]{2,16}$/;
 
@@ -90,6 +92,12 @@ export function SettingsPage() {
         });
       });
   }, []);
+
+  const logOut = () => {
+    emitAnalytic("Log out");
+    setAuthTokenState("");
+    navigate(WELCOME_ROUTE);
+  };
   
   const onSubmit = (e: any) => {
     e.preventDefault();
@@ -162,12 +170,6 @@ export function SettingsPage() {
     }
   };
 
-  const logOut = () => {
-    emitAnalytic("Log out");
-    setAuthTokenState("");
-    navigate(WELCOME_ROUTE);
-  };
-
   const goodbyeTextUpdate = (e: ChangeEvent<HTMLInputElement>) => {
     setGoodbyeText(e.target.value);
   };
@@ -223,11 +225,16 @@ export function SettingsPage() {
             </DeleteButton>
           </Group>
           <InfoSubText style={{marginTop: "0.4em"}} $isMobile={isMobile}>{deleteAcctInfo}</InfoSubText>
-          <Button $primary type="submit">
-            {submitText}
-          </Button>
+          <Group $isMobile={isMobile}>
+            <Button type="button" onClick={() => navigate(HOME_ROUTE)}>
+              {homeText}
+            </Button>
+            <Button $primary type="submit">
+              {submitText}
+            </Button>
+          </Group>
           <br />
-          <InfoText>
+          <InfoText style={{marginBottom: "-0.5em"}}>
             <a style={{ color: "blue" }} href={""} onClick={logOut}>
               {logoutOptionText}
             </a>

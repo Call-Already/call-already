@@ -26,7 +26,7 @@ export function OverviewPage() {
   const step3 = "We pick a time for you!";
   const details3 =
     "Once the group completes the survey, everyone will receive an email with their optimal local time for the call.";
-  const submitText = "Start a Call";
+  const submitText = "Get started";
   const onSubmit = () => {
     navigate(HOME_ROUTE);
   };
