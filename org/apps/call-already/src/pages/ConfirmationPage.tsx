@@ -22,7 +22,7 @@ export function ConfirmationPage() {
     "Thank you! We have confirmed your responses. We’ll match your availability with your friends' schedules and provide you with the optimal time to call each other. A summary will be sent to your email shortly.";
   const groupCodeReminder =
     "Remember to share the group code with your friends!";
-  const submitText = "Make another call";
+  const submitText = "Home";
 
   const onReturn = () => {
     emitAnalytic("Confirmed times");
@@ -43,6 +43,7 @@ export function ConfirmationPage() {
           <InfoText>{groupCodeReminder}</InfoText>
           <CodeClipboard groupCode={groupCode} />
           <Button $primary onClick={onReturn}>
+            <i className="fa-solid fa-home"></i>{`\t`}
             {submitText}
           </Button>
         </CardContainer>

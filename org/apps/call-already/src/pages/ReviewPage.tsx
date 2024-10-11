@@ -13,7 +13,7 @@ import {
   selectedTimesState,
   timezoneState,
 } from "../state";
-import { Button, CardContainer, InfoText } from "../styles";
+import { Button, CardContainer, InfoSubText, InfoText } from "../styles";
 import {
   CONFIRMATION_ROUTE,
   emitAnalytic,
@@ -135,6 +135,7 @@ export function ReviewPage() {
           </tr>
         </table>
         <br />
+        <InfoSubText $isMobile={isMobile} style={{marginBottom: "-1em"}}>Next: all done! (4 / 4)</InfoSubText>
         <Button $primary onClick={onSubmit}>
           {submitText}
         </Button>
